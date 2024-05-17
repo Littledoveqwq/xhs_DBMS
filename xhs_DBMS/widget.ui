@@ -248,6 +248,9 @@ QTabBar::tab:selected {
            <height>191</height>
           </rect>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <widget class="QStackedWidget" name="stkWidget_search">
           <property name="geometry">
            <rect>
@@ -256,6 +259,12 @@ QTabBar::tab:selected {
             <width>801</width>
             <height>111</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QComboBox
+{
+	font: 10pt &quot;幼圆&quot;;
+}</string>
           </property>
           <property name="currentIndex">
            <number>1</number>
@@ -291,7 +300,9 @@ QTabBar::tab:selected {
             <property name="font">
              <font>
               <family>幼圆</family>
-              <pointsize>11</pointsize>
+              <pointsize>10</pointsize>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="layoutDirection">
@@ -348,7 +359,9 @@ QComboBox::drop-down {
             <property name="font">
              <font>
               <family>幼圆</family>
-              <pointsize>12</pointsize>
+              <pointsize>10</pointsize>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="cursor">
@@ -361,7 +374,7 @@ QComboBox::drop-down {
              <string>粉丝量</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="cbx_kind">
+           <widget class="QComboBox" name="cbx_type">
             <property name="geometry">
              <rect>
               <x>80</x>
@@ -373,7 +386,9 @@ QComboBox::drop-down {
             <property name="font">
              <font>
               <family>幼圆</family>
-              <pointsize>12</pointsize>
+              <pointsize>10</pointsize>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="cursor">
@@ -381,9 +396,6 @@ QComboBox::drop-down {
             </property>
             <property name="editable">
              <bool>true</bool>
-            </property>
-            <property name="currentText">
-             <string>类型</string>
             </property>
            </widget>
            <widget class="QComboBox" name="cbx_noteprice">
@@ -398,7 +410,9 @@ QComboBox::drop-down {
             <property name="font">
              <font>
               <family>幼圆</family>
-              <pointsize>12</pointsize>
+              <pointsize>10</pointsize>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="cursor">
@@ -423,7 +437,9 @@ QComboBox::drop-down {
             <property name="font">
              <font>
               <family>幼圆</family>
-              <pointsize>12</pointsize>
+              <pointsize>10</pointsize>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="cursor">

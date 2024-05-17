@@ -6,6 +6,7 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    ui->cbx_type->lineEdit()->setPlaceholderText("类型");
 }
 
 Widget::~Widget()
