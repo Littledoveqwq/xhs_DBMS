@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainwidget</class>
+ <widget class="QWidget" name="mainwidget">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1080</width>
+    <height>607</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1080</width>
+    <height>607</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1080</width>
+    <height>607</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="btn_projectManage">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>350</y>
+     <width>111</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(127, 170, 233); /* 设置背景颜色 */
+    border: none; /* 去除边框 */
+    border-radius: 10px; /* 设置圆角半径 */
+    color: white; /* 可选，设置文字颜色 */
+    padding: 5px 10px; /* 可选，添加一些内边距使按钮更美观 */
+}
+
+QPushButton:hover {
+    background-color: rgb(137, 180, 243); /* 可选，设置鼠标悬停时的背景颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(117, 160, 223); /* 可选，设置按下时的背景颜色 */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>项目管理</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_dbManage">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>350</y>
+     <width>111</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(127, 170, 233); /* 设置背景颜色 */
+    border: none; /* 去除边框 */
+    border-radius: 10px; /* 设置圆角半径 */
+    color: white; /* 可选，设置文字颜色 */
+    padding: 5px 10px; /* 可选，添加一些内边距使按钮更美观 */
+}
+
+QPushButton:hover {
+    background-color: rgb(137, 180, 243); /* 可选，设置鼠标悬停时的背景颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(117, 160, 223); /* 可选，设置按下时的背景颜色 */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>数据库管理</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_dataFetcher">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>350</y>
+     <width>111</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(127, 170, 233); /* 设置背景颜色 */
+    border: none; /* 去除边框 */
+    border-radius: 10px; /* 设置圆角半径 */
+    color: white; /* 可选，设置文字颜色 */
+    padding: 5px 10px; /* 可选，添加一些内边距使按钮更美观 */
+}
+
+QPushButton:hover {
+    background-color: rgb(137, 180, 243); /* 可选，设置鼠标悬停时的背景颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(117, 160, 223); /* 可选，设置按下时的背景颜色 */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>数据爬取</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_hireNotice">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>350</y>
+     <width>111</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(127, 170, 233); /* 设置背景颜色 */
+    border: none; /* 去除边框 */
+    border-radius: 10px; /* 设置圆角半径 */
+    color: white; /* 可选，设置文字颜色 */
+    padding: 5px 10px; /* 可选，添加一些内边距使按钮更美观 */
+}
+
+QPushButton:hover {
+    background-color: rgb(137, 180, 243); /* 可选，设置鼠标悬停时的背景颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(117, 160, 223); /* 可选，设置按下时的背景颜色 */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>招募公告</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_tools">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>350</y>
+     <width>111</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    background-color: rgb(127, 170, 233); /* 设置背景颜色 */
+    border: none; /* 去除边框 */
+    border-radius: 10px; /* 设置圆角半径 */
+    color: white; /* 可选，设置文字颜色 */
+    padding: 5px 10px; /* 可选，添加一些内边距使按钮更美观 */
+}
+
+QPushButton:hover {
+    background-color: rgb(137, 180, 243); /* 可选，设置鼠标悬停时的背景颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(117, 160, 223); /* 可选，设置按下时的背景颜色 */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>实用工具</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
