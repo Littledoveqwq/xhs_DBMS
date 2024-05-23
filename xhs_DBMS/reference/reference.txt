@@ -1,0 +1,5 @@
+翻页功能：
+QTableView和QTableWidget翻页功能实现
+https://developer.aliyun.com/article/399886
+Qt TableView实现翻页，翻页选中，删除，跳转
+https://blog.csdn.net/qq_42919993/article/details/123552424

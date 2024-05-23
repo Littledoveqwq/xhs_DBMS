@@ -6,7 +6,6 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    ui->cbx_type->lineEdit()->setPlaceholderText("类型");
 }
 
 Widget::~Widget()
@@ -40,5 +39,11 @@ void Widget::on_listWidget_currentTextChanged(const QString &currentText)
     {
         ui->stackedWidget->setCurrentWidget(ui->page_infoCollector);
     }
+}
+
+
+void Widget::on_rbtn_exactSearch_clicked()
+{
+
 }
 

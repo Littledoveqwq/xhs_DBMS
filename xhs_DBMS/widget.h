@@ -20,6 +20,8 @@ public:
 private slots:
     void on_listWidget_currentTextChanged(const QString &currentText);
 
+    void on_rbtn_exactSearch_clicked();
+
 private:
     Ui::Widget *ui;
 };
