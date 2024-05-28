@@ -9,15 +9,20 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    dialog/InputBaseDialog.cpp \
+    dialog/setProjectinfo.cpp \
     main.cpp \
     widget.cpp \
     widget_projectManage.cpp
 
 HEADERS += \
+    dialog/InputBaseDialog.h \
+    dialog/setProjectinfo.h \
     widget.h \
     widget_projectManage.h
 
 FORMS += \
+    dialog/setProjectinfo.ui \
     widget.ui \
     widget_projectManage.ui
 

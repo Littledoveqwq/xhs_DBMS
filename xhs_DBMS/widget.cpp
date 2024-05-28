@@ -1,5 +1,7 @@
 #include "widget.h"
 #include "ui_widget.h"
+#include "dialog/setProjectinfo.h"
+#include <QDebug>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -19,10 +21,6 @@ void Widget::on_listWidget_currentTextChanged(const QString &currentText)
     {
         ui->stackedWidget->setCurrentWidget(ui->page_projectManage);
     }
-    else if(currentText=="消息群发")
-    {
-        ui->stackedWidget->setCurrentWidget(ui->page_massageSend);
-    }
     else if(currentText=="资源库管理")
     {
         ui->stackedWidget->setCurrentWidget(ui->page_dbManage);
@@ -35,15 +33,43 @@ void Widget::on_listWidget_currentTextChanged(const QString &currentText)
     {
         ui->stackedWidget->setCurrentWidget(ui->page_dataFetcher);
     }
-    else if(currentText=="信息采集")
-    {
-        ui->stackedWidget->setCurrentWidget(ui->page_infoCollector);
-    }
+
 }
 
 
 void Widget::on_rbtn_exactSearch_clicked()
 {
+    ui->stkWidget_search->setCurrentWidget(ui->page_exactSearch);
+}
 
+
+void Widget::on_rbtn_fuzzySearch_clicked()
+{
+    ui->stkWidget_search->setCurrentWidget(ui->page_fuzzySearch);
+}
+
+
+void Widget::on_btn_projectNew_clicked()
+{
+    setProjectinfo setProjectinfoDialog(this);
+    setProjectinfoDialog.exec();
+}
+
+void Widget::open_dialog_setProjectinfo()
+{
+    projectinfo = new setProjectinfo;
+    projectinfo->show();
+}
+
+
+void Widget::on_rbt_recent_clicked()
+{
+    ui->stackedWidget_projectList->setCurrentWidget(ui->page_recent);
+}
+
+
+void Widget::on_rbt_favour_clicked()
+{
+    ui->stackedWidget_projectList->setCurrentWidget(ui->page_favour);
 }
 

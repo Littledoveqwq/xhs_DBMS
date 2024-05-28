@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include "dialog/setProjectinfo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,7 +23,19 @@ private slots:
 
     void on_rbtn_exactSearch_clicked();
 
+    void on_rbtn_fuzzySearch_clicked();
+
+    void on_btn_projectNew_clicked();
+
+    void open_dialog_setProjectinfo();
+
+    void on_rbt_recent_clicked();
+
+    void on_rbt_favour_clicked();
+
 private:
     Ui::Widget *ui;
+
+    setProjectinfo* projectinfo;
 };
 #endif // WIDGET_H
