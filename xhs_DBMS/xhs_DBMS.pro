@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,6 +13,7 @@ SOURCES += \
     dialog/InputBaseDialog.cpp \
     dialog/setProjectinfo.cpp \
     main.cpp \
+    sqlmgr.cpp \
     widget.cpp \
     widget_projectManage.cpp
 
@@ -19,6 +21,8 @@ HEADERS += \
     dialog/InputBaseDialog.h \
     dialog/setProjectinfo.h \
     global.h \
+    singleton.h \
+    sqlmgr.h \
     widget.h \
     widget_projectManage.h
 

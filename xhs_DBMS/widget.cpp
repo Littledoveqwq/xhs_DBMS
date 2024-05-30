@@ -2,12 +2,14 @@
 #include "ui_widget.h"
 #include "dialog/setProjectinfo.h"
 #include <QDebug>
+#include "sqlmgr.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    SQLMgr::getInstance();
 }
 
 Widget::~Widget()
