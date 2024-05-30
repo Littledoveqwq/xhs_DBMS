@@ -28,6 +28,15 @@ private:
      * SQL_CONN_FAILURE
      */
     sql_conn_state connectToDB();
+
+    /**
+     * @brief disconnectFromDB
+     * 断开数据库连接
+     * @return sql_conn_state
+     * 枚举值
+     * SQL_CONN_SUCCESS
+     * SQL_CONN_FAILURE
+     */
     sql_conn_state disconnectFromDB();
 
 private:

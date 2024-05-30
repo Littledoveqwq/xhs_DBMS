@@ -1,7 +1,6 @@
 #include "sqlmgr.h"
 
 SQLMgr::~SQLMgr() {
-    qDebug() << "SQLMgr destruct";
     disconnectFromDB();
 }
 

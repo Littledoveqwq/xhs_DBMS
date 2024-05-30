@@ -9,12 +9,26 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+
+    ///@test
     SQLMgr::getInstance();
+
+    //初始化 ComboBox 使其样式生效
+    initComboBox();
 }
 
 Widget::~Widget()
 {
     delete ui;
+}
+
+void Widget::initComboBox()
+{
+    ui->cbx_exactSearch->setView(new QListView());
+    ui->cbx_fans->setView(new QListView());
+    ui->cbx_kind->setView(new QListView());
+    ui->cbx_noteprice->setView(new QListView());
+    ui->cbx_vedioprice->setView(new QListView());
 }
 
 void Widget::on_listWidget_currentTextChanged(const QString &currentText)

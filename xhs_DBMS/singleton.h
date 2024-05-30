@@ -8,7 +8,7 @@
  * 利用的是 C++ 的 CRTP 奇异递归模板
  */
 template <typename T>
-class Singleton{
+class Singleton {
 
 protected:
     /**
