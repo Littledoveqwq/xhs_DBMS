@@ -18,6 +18,7 @@ SOURCES += \
 HEADERS += \
     dialog/InputBaseDialog.h \
     dialog/setProjectinfo.h \
+    global.h \
     widget.h \
     widget_projectManage.h
 
