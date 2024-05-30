@@ -38,7 +38,7 @@
     <string notr="true"/>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page_projectManage">
     <property name="styleSheet">
@@ -189,19 +189,6 @@ QTabBar::tab:selected {
          </widget>
         </widget>
        </widget>
-      </widget>
-      <widget class="QPushButton" name="btn_projectDelete">
-       <property name="geometry">
-        <rect>
-         <x>450</x>
-         <y>20</y>
-         <width>91</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>删除项目</string>
-       </property>
       </widget>
       <widget class="QPushButton" name="btn_projectNew">
        <property name="geometry">
