@@ -8,8 +8,8 @@ SQLMgr::SQLMgr() {
     connectToDB();
 }
 
-sql_conn_state SQLMgr::connectToDB() {
-    sql_conn_state res = SQL_CONN_SUCCESS;
+SQLConnState SQLMgr::connectToDB() {
+    SQLConnState res = SQL_CONN_SUCCESS;
     _db = QSqlDatabase::addDatabase("QMYSQL");
     _db.setHostName("106.14.63.204");
     _db.setPort(3306);
@@ -28,8 +28,8 @@ sql_conn_state SQLMgr::connectToDB() {
     return res;
 }
 
-sql_conn_state SQLMgr::disconnectFromDB() {
-    sql_conn_state res = SQL_DISCONN_SUCCESS;
+SQLDisconnState SQLMgr::disconnectFromDB() {
+    SQLDisconnState res = SQL_DISCONN_SUCCESS;
 
     if (_db.isOpen()) {
         _db.close();
@@ -48,4 +48,18 @@ sql_conn_state SQLMgr::disconnectFromDB() {
     }
 
     return res;
+}
+
+QSqlQueryModel* SQLMgr::queryBloggersInfo() {
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery("SELECT * FROM bloggers_info");
+
+    // 检查是否查询成功
+    if (model->lastError().isValid()) {
+        qDebug() << "Failed to execute query:" << model->lastError().text();
+        delete model;
+        return nullptr;
+    }
+
+    return model;
 }

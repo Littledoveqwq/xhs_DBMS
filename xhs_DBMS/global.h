@@ -8,15 +8,33 @@
 #include <mutex>
 
 /**
- * @brief sql_conn_state
+ * @brief SQLConnState
  * 表示数据库是否连接成功
  */
 typedef enum {
-    SQL_CONN_SUCCESS = 0,       // 连接成功
-    SQL_CONN_FAILURE = 1,       // 连接失败
-    SQL_DISCONN_SUCCESS = 2,    // 断开连接成功
-    SQL_DISCONN_FAILURE = 3     // 断开连接失败
-}sql_conn_state;
+    SQL_CONN_SUCCESS = 0,
+    SQL_CONN_FAILURE = 1
+} SQLConnState;
+
+/**
+ * @brief SQLDisconnState
+ * 表示数据库是否断开成功
+ */
+typedef enum {
+    SQL_DISCONN_SUCCESS = 0,
+    SQL_DISCONN_FAILURE = 1
+} SQLDisconnState;
+
+/**
+ * @brief SQLQueryResult
+ * 表示数据库是否查询成功
+ */
+typedef enum {
+    SQL_QUERY_SUCCESS = 0,
+    SQL_QUERY_FAILURE = 1
+}SQLQueryResult;
+
+
 
 
 

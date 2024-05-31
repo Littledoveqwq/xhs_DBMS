@@ -6,12 +6,22 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlQueryModel>
 
 class SQLMgr : public QObject, public Singleton<SQLMgr>
 {
     Q_OBJECT
 public:
     ~SQLMgr();
+
+    /**
+     * @brief queryBloggersInfo
+     * 查询博主信息,并以 QSqlQueryModel 方式返回
+     * @return QSqlQueryModel
+     */
+    QSqlQueryModel* queryBloggersInfo();
+
+
 private:
     /**
      * 为了能让基类 Singleton<SQLMgr> 访问构造函数
@@ -22,22 +32,22 @@ private:
     /**
      * @brief connectToDB
      * 连接数据库函数
-     * @return sql_conn_state
+     * @return SQLConnState
      * 枚举值
      * SQL_CONN_SUCCESS
      * SQL_CONN_FAILURE
      */
-    sql_conn_state connectToDB();
+    SQLConnState connectToDB();
 
     /**
      * @brief disconnectFromDB
      * 断开数据库连接
-     * @return sql_conn_state
+     * @return SQLConnState
      * 枚举值
      * SQL_CONN_SUCCESS
      * SQL_CONN_FAILURE
      */
-    sql_conn_state disconnectFromDB();
+    SQLDisconnState disconnectFromDB();
 
 private:
     /**
