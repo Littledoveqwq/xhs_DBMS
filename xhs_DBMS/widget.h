@@ -18,6 +18,13 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
+private:
+    /**
+     * @brief initComboBox
+     * 初始化 ComboBox 使其样式生效
+     */
+    void initComboBox();
+
 private slots:
     void on_listWidget_currentTextChanged(const QString &currentText);
 
