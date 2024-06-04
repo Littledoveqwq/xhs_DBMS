@@ -12,10 +12,10 @@ SQLConnState SQLMgr::connectToDB() {
     SQLConnState res = SQL_CONN_SUCCESS;
     _db = QSqlDatabase::addDatabase("QMYSQL");
     _db.setHostName("106.14.63.204");
-    _db.setPort(3306);
-    _db.setDatabaseName("bloggersprojectmanagement");
-    _db.setUserName("root");
-    _db.setPassword("123456");
+    _db.setPort(33001);
+    _db.setDatabaseName("blog_project");
+    _db.setUserName("xhsmgr");
+    _db.setPassword("z3q%nJ8^RkFR");
 
     bool ok = _db.open();
     if(ok) {
@@ -63,3 +63,5 @@ QSqlQueryModel* SQLMgr::queryBloggersInfo() {
 
     return model;
 }
+
+

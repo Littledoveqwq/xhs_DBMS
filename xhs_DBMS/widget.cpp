@@ -10,16 +10,16 @@
 ///@test
 /// 创建一个映射表，将英文字段名映射到中文表头
 QMap<QString, QString> columnMapping = {
-    {"id", "编号"},
-    {"name", "姓名"},
-    {"type", "类型"},
-    {"link", "链接"},
-    {"fans", "粉丝数"},
-    {"likes", "点赞数"},
-    {"noteprice", "笔记价格"},
-    {"vedioprice", "视频价格"},
-    {"wechat", "微信"},
-    {"Remark", "备注"}
+    {"blogger_id", "编号"},
+    {"blogger_name", "姓名"},
+    {"blogger_type", "类型"},
+    {"blogger_link", "链接"},
+    {"blogger_fans", "粉丝数"},
+    {"blogger_likes", "点赞数"},
+    {"blogger_noteprice", "笔记价格"},
+    {"blogger_vedioprice", "视频价格"},
+    {"blogger_wechat", "微信"},
+    {"blogger_Remark", "备注"}
 };
 
 class CustomSqlQueryModel : public QSqlQueryModel

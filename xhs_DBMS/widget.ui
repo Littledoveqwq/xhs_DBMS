@@ -38,7 +38,7 @@
     <string notr="true"/>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page_projectManage">
     <property name="styleSheet">
@@ -253,7 +253,7 @@ QTabBar::tab:selected {
       <widget class="QPushButton" name="btn_dataWritein">
        <property name="geometry">
         <rect>
-         <x>260</x>
+         <x>380</x>
          <y>10</y>
          <width>101</width>
          <height>41</height>
@@ -291,7 +291,7 @@ QTabBar::tab:selected {
       <widget class="QPushButton" name="btn_importProject">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>140</x>
          <y>10</y>
          <width>101</width>
          <height>41</height>
@@ -364,6 +364,9 @@ QTabBar::tab:selected {
             <width>741</width>
             <height>71</height>
            </rect>
+          </property>
+          <property name="currentIndex">
+           <number>1</number>
           </property>
           <widget class="QWidget" name="page_exactSearch">
            <widget class="QLineEdit" name="edt_exactSearch">
@@ -503,7 +506,13 @@ QComboBox::drop-down {
              <bool>true</bool>
             </property>
             <property name="currentText">
-             <string>类型</string>
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string/>
+            </property>
+            <property name="duplicatesEnabled">
+             <bool>false</bool>
             </property>
            </widget>
            <widget class="QComboBox" name="cbx_noteprice">
@@ -729,13 +738,16 @@ QComboBox::drop-down {
          <property name="geometry">
           <rect>
            <x>30</x>
-           <y>150</y>
-           <width>61</width>
+           <y>140</y>
+           <width>831</width>
            <height>31</height>
           </rect>
          </property>
          <property name="text">
-          <string>信息显示</string>
+          <string>信息显示：............</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
         </widget>
        </widget>
@@ -743,7 +755,7 @@ QComboBox::drop-down {
       <widget class="QPushButton" name="btn_dataCorrect">
        <property name="geometry">
         <rect>
-         <x>380</x>
+         <x>500</x>
          <y>10</y>
          <width>101</width>
          <height>41</height>
@@ -781,7 +793,7 @@ QComboBox::drop-down {
       <widget class="QPushButton" name="btn_dataExport">
        <property name="geometry">
         <rect>
-         <x>140</x>
+         <x>260</x>
          <y>10</y>
          <width>101</width>
          <height>41</height>
@@ -816,11 +828,41 @@ QComboBox::drop-down {
         <string>数据导出</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="pushButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>111</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+ 
+    border: 2px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px 10px; /* 设置内边距 */
+    text-align: center; /* 设置文本居中 */
+}
+</string>
+       </property>
+       <property name="text">
+        <string>选择预览</string>
+       </property>
+      </widget>
       <zorder>scrollArea</zorder>
       <zorder>btn_dataWritein</zorder>
       <zorder>btn_importProject</zorder>
       <zorder>btn_dataCorrect</zorder>
       <zorder>btn_dataExport</zorder>
+      <zorder>pushButton</zorder>
      </widget>
      <widget class="QWidget" name="tab_infoInput">
       <attribute name="title">
@@ -1510,7 +1552,7 @@ QTabBar::tab:selected {
 </string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_5_1">
       <attribute name="title">

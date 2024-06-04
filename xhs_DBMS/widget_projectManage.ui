@@ -6,13 +6,159 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1063</width>
-    <height>568</height>
+    <width>1080</width>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>121</y>
+     <width>1051</width>
+     <height>481</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_projectName">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>项目名</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_outputExcel">
+   <property name="geometry">
+    <rect>
+     <x>960</x>
+     <y>10</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>导出EXCEL</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_dataCollect">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>70</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>赞藏评采集</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_messageSend">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>70</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>消息群发</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_bfUpload">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>70</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>bf上传</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_bfView">
+   <property name="geometry">
+    <rect>
+     <x>960</x>
+     <y>70</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>bf预览</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_hide">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>67</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>隐藏列</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_color">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>70</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>区域高光</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_lock">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>70</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>锁定行列</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_deleteRow">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>70</y>
+     <width>100</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>删除行</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
