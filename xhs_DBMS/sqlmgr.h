@@ -20,7 +20,7 @@ public:
      * @return QSqlQueryModel
      */
     QSqlQueryModel* queryBloggersInfo();
-
+    RegisterResult addUser(User user);
 
 private:
     /**
