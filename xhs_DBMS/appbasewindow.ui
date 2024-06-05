@@ -1,0 +1,2166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AppBaseWindow</class>
+ <widget class="QWidget" name="AppBaseWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1080</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:white;</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0" colspan="2">
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#widget {
+	border-bottom:1px solid gray;
+}</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="widget_4" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_4 {
+	border-right:1px solid gray;
+	border-bottom:1px solid gray;
+}</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>1</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>1</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="font">
+            <font>
+             <family>黑体</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>小红书博主管理系统</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>用户:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>username</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>55</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>55</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Microsoft YaHei</family>
+          <pointsize>10</pointsize>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border:none;</string>
+        </property>
+        <property name="text">
+         <string>退出登录</string>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QListWidget" name="listWidget">
+     <property name="maximumSize">
+      <size>
+       <width>150</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>幼圆</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QListWidget {
+	border: none;
+	border-right:1px solid gray;
+	padding-top: 30px;
+	background-color:white;
+}
+
+QListWidget::item {
+    text-align: center; /* 居中对齐文本 */
+    padding: 8px; /* 设置项目的内边距 */
+    margin: 5px 0px; /* 设置项目的上下间距 */
+}
+
+
+</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>项目管理</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>资源库管理</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>平台网站</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>数据爬取</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="page_projectManage">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <widget class="QTabWidget" name="tabWidget_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>901</width>
+         <height>611</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QTabBar::tab {
+    background-color: rgb(127, 170, 233); /* 设置标签的背景颜色 */
+    border-top-left-radius: 10px; /* 设置左上角圆角 */
+    border-top-right-radius: 10px; /* 设置右上角圆角 */
+    padding: 5px; /* 可选，添加内边距使文本不贴紧边框 */
+}
+
+QTabBar::tab:last {
+    border-top-right-radius: 10px; /* 设置右上角圆角 */
+}
+
+QTabBar::tab:selected {
+    background-color: rgb(255, 255, 255); /* 设置选中标签的背景颜色 */
+    border: 1px solid rgb(127, 170, 233); /* 设置选中标签的边框 */
+}
+</string>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tab_projectChoose">
+        <attribute name="title">
+         <string>项目管理</string>
+        </attribute>
+        <widget class="QWidget" name="widget_2" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>301</width>
+           <height>571</height>
+          </rect>
+         </property>
+         <widget class="QLineEdit" name="edt_Projectsearch">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>20</y>
+            <width>271</width>
+            <height>41</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QTableView" name="table_resultList">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>109</y>
+            <width>270</width>
+            <height>450</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="widget_3" native="true">
+         <property name="geometry">
+          <rect>
+           <x>309</x>
+           <y>69</y>
+           <width>591</width>
+           <height>501</height>
+          </rect>
+         </property>
+         <widget class="QRadioButton" name="rbt_recent">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>10</y>
+            <width>118</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>最近</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QRadioButton" name="rbt_favour">
+          <property name="geometry">
+           <rect>
+            <x>140</x>
+            <y>10</y>
+            <width>118</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>收藏</string>
+          </property>
+         </widget>
+         <widget class="QStackedWidget" name="stackedWidget_projectList">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>39</y>
+            <width>580</width>
+            <height>450</height>
+           </rect>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="page_recent">
+           <widget class="QTableView" name="table_recent">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>560</width>
+              <height>450</height>
+             </rect>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_favour">
+           <widget class="QTableView" name="table_favour">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>561</width>
+              <height>450</height>
+             </rect>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+        </widget>
+        <widget class="QPushButton" name="btn_projectNew">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>20</y>
+           <width>81</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>创建新项目</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="page_dbManage">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QTabWidget" name="tabWidget">
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#tabWidget {
+	border:none;
+}
+
+QTabBar::tab {
+    background-color: rgb(127, 170, 233); /* 设置标签的背景颜色 */
+	border: 1px solid rgb(127, 170, 233); /* 设置选中标签的边框 */
+    border-top-left-radius: 10px; /* 设置左上角圆角 */
+    border-top-right-radius: 10px; /* 设置右上角圆角 */
+    padding: 3px; /* 可选，添加内边距使文本不贴紧边框 */
+	height:25px;
+}
+
+QTabBar::tab:last {
+    border-top-right-radius: 10px; /* 设置右上角圆角 */
+}
+
+QTabBar::tab:selected {
+    background-color: rgb(255, 255, 255); /* 设置选中标签的背景颜色 */
+    border: 1px solid rgb(127, 170, 233); /* 设置选中标签的边框 */
+}
+</string>
+         </property>
+         <property name="tabPosition">
+          <enum>QTabWidget::North</enum>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <property name="tabBarAutoHide">
+          <bool>false</bool>
+         </property>
+         <widget class="QWidget" name="tab_infoQuery">
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+ 
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px 10px; /* 设置内边距 */
+    text-align: center; /* 设置文本居中 */
+}</string>
+          </property>
+          <attribute name="title">
+           <string>信息查询</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QWidget" name="widget_5" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QPushButton" name="btn_preview">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>幼圆</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>选择预览</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_importProject">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>幼圆</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>导入项目</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_dataExport">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>幼圆</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>数据导出</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_dataWritein">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>幼圆</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>数据录入</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btn_dataCorrect">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>幼圆</family>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string>数据修改</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QWidget" name="widget_6" native="true">
+                <property name="styleSheet">
+                 <string notr="true">#widget_6{
+border:1px solid black;
+}</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <item>
+                  <widget class="QWidget" name="widget_infoQuerySearch" native="true">
+                   <property name="minimumSize">
+                    <size>
+                     <width>811</width>
+                     <height>91</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>811</width>
+                     <height>91</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QComboBox {
+    background-color: #ffffff; /* 设置背景颜色 */
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px; /* 设置内边距 */
+}</string>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_5">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QWidget" name="widget_7" native="true">
+                      <property name="font">
+                       <font>
+                        <family>Microsoft YaHei</family>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_5">
+                       <property name="spacing">
+                        <number>12</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QRadioButton" name="rbtn_exactSearch">
+                         <property name="font">
+                          <font>
+                           <family>Microsoft YaHei</family>
+                           <pointsize>9</pointsize>
+                          </font>
+                         </property>
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
+                         <property name="text">
+                          <string>精确搜索</string>
+                         </property>
+                         <property name="checked">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="rbtn_fuzzySearch">
+                         <property name="font">
+                          <font>
+                           <family>Microsoft YaHei</family>
+                           <pointsize>9</pointsize>
+                          </font>
+                         </property>
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
+                         <property name="text">
+                          <string>模糊搜索</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_4">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_9">
+                      <property name="spacing">
+                       <number>12</number>
+                      </property>
+                      <item>
+                       <widget class="QStackedWidget" name="stkWidget_search">
+                        <property name="currentIndex">
+                         <number>1</number>
+                        </property>
+                        <widget class="QWidget" name="page_exactSearch">
+                         <property name="styleSheet">
+                          <string notr="true">QLineEdit {
+    border: 1px solid #ccc; /* 设置边框样式 */
+	border-left:none;
+    border-radius: 5px; /* 设置圆角半径 */
+	border-top-left-radius:  none; /* 左上角不使用圆角 */
+    border-bottom-left-radius:  none; /* 左下角不使用圆角 */
+    padding: 5px; /* 可选，添加一些内边距 */
+}
+
+QLabel {
+    background-color: #ffffff; /* 设置背景颜色 */
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+	border-top-right-radius:  none; /* 左上角不使用圆角 */
+    border-bottom-right-radius:  none; /* 左下角不使用圆角 */
+    padding: 5px; /* 设置内边距 */
+}
+</string>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_7">
+                          <property name="spacing">
+                           <number>0</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>0</number>
+                          </property>
+                          <item>
+                           <widget class="QComboBox" name="cbx_exactSearch">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>幼圆</family>
+                              <pointsize>11</pointsize>
+                             </font>
+                            </property>
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="layoutDirection">
+                             <enum>Qt::LeftToRight</enum>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">QComboBox {
+    background-color: white; /* 设置背景颜色为白色 */
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 6px; /* 设置圆角半径 */
+	border-top-right-radius:  none; /* 左上角不使用圆角 */
+    border-bottom-right-radius:  none; /* 左下角不使用圆角 */
+    padding: 5px; /* 可选，添加一些内边距使文本不直接贴着边框 */
+	alignment: AlignCenter; /* 设置文本居中 */
+}
+
+QComboBox::drop-down {
+    border: none; /* 去除下拉按钮的边框 */
+    image: url('D:/Buma/Projet/Docking/Resource/down_arrow.jpg'); /* 设置下拉按钮的图片 */
+    width: 16px; /* 设置图片宽度 */
+    height: 50px; /* 设置图片高度 */
+	qproperty-alignment: AlignVCenter; /* 设置竖直方向居中对齐 */
+}
+</string>
+                            </property>
+                            <property name="currentText">
+                             <string>博主昵称</string>
+                            </property>
+                            <item>
+                             <property name="text">
+                              <string>博主昵称</string>
+                             </property>
+                            </item>
+                            <item>
+                             <property name="text">
+                              <string>ID</string>
+                             </property>
+                            </item>
+                            <item>
+                             <property name="text">
+                              <string>微信</string>
+                             </property>
+                            </item>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="edt_exactSearch">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true"/>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                        <widget class="QWidget" name="page_fuzzySearch">
+                         <layout class="QHBoxLayout" name="horizontalLayout_6">
+                          <property name="spacing">
+                           <number>30</number>
+                          </property>
+                          <property name="leftMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>0</number>
+                          </property>
+                          <item>
+                           <widget class="QComboBox" name="cbx_kind">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>幼圆</family>
+                              <pointsize>12</pointsize>
+                             </font>
+                            </property>
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="editable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="currentText">
+                             <string/>
+                            </property>
+                            <property name="placeholderText">
+                             <string/>
+                            </property>
+                            <property name="duplicatesEnabled">
+                             <bool>false</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QComboBox" name="cbx_fans">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>幼圆</family>
+                              <pointsize>12</pointsize>
+                             </font>
+                            </property>
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="editable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="currentText">
+                             <string>粉丝量</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QComboBox" name="cbx_noteprice">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>幼圆</family>
+                              <pointsize>12</pointsize>
+                             </font>
+                            </property>
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="editable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="currentText">
+                             <string>图文价格</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QComboBox" name="cbx_vedioprice">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>35</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>幼圆</family>
+                              <pointsize>12</pointsize>
+                             </font>
+                            </property>
+                            <property name="cursor">
+                             <cursorShape>PointingHandCursor</cursorShape>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">    background-color: #ffffff; /* 设置背景颜色 */
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px; /* 设置内边距 */</string>
+                            </property>
+                            <property name="editable">
+                             <bool>true</bool>
+                            </property>
+                            <property name="currentText">
+                             <string>视频价格</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="btn_search">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>35</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>16777215</width>
+                          <height>35</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>幼圆</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
+                        <property name="cursor">
+                         <cursorShape>PointingHandCursor</cursorShape>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QPushButton {
+ 
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px 10px; /* 设置内边距 */
+    text-align: center; /* 设置文本居中 */
+}
+</string>
+                        </property>
+                        <property name="text">
+                         <string>搜索</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_3">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                         <enum>QSizePolicy::Fixed</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>30</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lbl_infoShow">
+                   <property name="text">
+                    <string>信息显示：............</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTableView" name="table_infoQuery"/>
+                 </item>
+                 <item>
+                  <widget class="QWidget" name="widget_8" native="true">
+                   <layout class="QHBoxLayout" name="horizontalLayout_8">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <spacer name="horizontalSpacer_5">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btn_pageFront">
+                      <property name="text">
+                       <string>首页</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btn_prePage">
+                      <property name="text">
+                       <string>上一页</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_2">
+                      <property name="minimumSize">
+                       <size>
+                        <width>50</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>50</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>16</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btn_nextPage">
+                      <property name="text">
+                       <string>下一页</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btn_pageEnd">
+                      <property name="text">
+                       <string>尾页</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_infoInput">
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {
+    border: 1px solid #ccc; /* 设置边框样式 */
+	border-left:none;
+    border-radius: 5px; /* 设置圆角半径 */
+	border-top-left-radius:  none; /* 左上角不使用圆角 */
+    border-bottom-left-radius:  none; /* 左下角不使用圆角 */
+    padding: 5px; /* 可选，添加一些内边距 */
+}
+
+QLabel {
+    background-color: #ffffff; /* 设置背景颜色 */
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+	border-top-right-radius:  none; /* 左上角不使用圆角 */
+    border-bottom-right-radius:  none; /* 左下角不使用圆角 */
+    padding: 5px; /* 设置内边距 */
+}
+</string>
+          </property>
+          <attribute name="title">
+           <string>信息录入</string>
+          </attribute>
+          <widget class="QLineEdit" name="edt_name">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>30</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="edt_id">
+           <property name="geometry">
+            <rect>
+             <x>490</x>
+             <y>30</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="edt_fans">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>150</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="edt_likes">
+           <property name="geometry">
+            <rect>
+             <x>490</x>
+             <y>150</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="edt_noteprice">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>210</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="edt_vedioprice">
+           <property name="geometry">
+            <rect>
+             <x>490</x>
+             <y>210</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="edt_link">
+           <property name="geometry">
+            <rect>
+             <x>490</x>
+             <y>90</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="edt_contact">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>270</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="nameLabel_2">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>30</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>昵称</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_15">
+           <property name="geometry">
+            <rect>
+             <x>390</x>
+             <y>30</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>ID</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_16">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>150</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>粉丝量</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_17">
+           <property name="geometry">
+            <rect>
+             <x>390</x>
+             <y>150</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>赞藏数</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_18">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>210</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>图文价格</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_19">
+           <property name="geometry">
+            <rect>
+             <x>390</x>
+             <y>210</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>视频价格</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_20">
+           <property name="geometry">
+            <rect>
+             <x>390</x>
+             <y>90</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>主页链接</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_21">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>270</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>联系方式</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_upload">
+           <property name="geometry">
+            <rect>
+             <x>740</x>
+             <y>110</y>
+             <width>101</width>
+             <height>61</height>
+            </rect>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+ 
+    border: 2px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px 10px; /* 设置内边距 */
+    text-align: center; /* 设置文本居中 */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>上传</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="edt_type">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>90</y>
+             <width>200</width>
+             <height>35</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="nameLabel_3">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>90</y>
+             <width>100</width>
+             <height>35</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>类型</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="tab_infoMod_2">
+          <attribute name="title">
+           <string>信息修改</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QWidget" name="widget_Search" native="true">
+             <property name="styleSheet">
+              <string notr="true">QLineEdit {
+    border: 1px solid #ccc; /* 设置边框样式 */
+	border-left:none;
+    padding: 5px; /* 可选，添加一些内边距 */
+}
+
+QLabel {
+    background-color: #ffffff; /* 设置背景颜色 */
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+	border-top-right-radius:  none; /* 左上角不使用圆角 */
+    border-bottom-right-radius:  none; /* 左下角不使用圆角 */
+    padding: 5px; /* 设置内边距 */
+}
+
+QPushButton {
+    border: 1px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+	border-top-left-radius:  none; /* 左上角不使用圆角 */
+    border-bottom-left-radius:  none; /* 左下角不使用圆角 */
+    padding: 5px 10px; /* 设置内边距 */
+    text-align: center; /* 设置文本居中 */
+}
+</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,6,1">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>60</number>
+              </property>
+              <property name="rightMargin">
+               <number>60</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="lbl_correctSearchid">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>幼圆</family>
+                  <pointsize>10</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>ID</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="edt_corrrectSearch">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">#edt_corrrectSearch {
+    border: 1px solid #ccc; /* 设置边框样式 */
+	border-left:none;
+    padding: 5px; /* 可选，添加一些内边距 */
+}</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_correctSearch">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>幼圆</family>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>搜索</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QScrollArea" name="scrollArea_2">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents_2">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>910</width>
+                <height>493</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_4">
+               <item row="0" column="0">
+                <widget class="QTableView" name="table_infoCorrect"/>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_webList">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="text">
+          <string>常用网站</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTableView" name="tableView"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_dataFetcher">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QTabWidget" name="tabWidget_2">
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#tabWidget {
+	border:none;
+}
+
+QTabBar::tab {
+    background-color: rgb(127, 170, 233); /* 设置标签的背景颜色 */
+	border: 1px solid rgb(127, 170, 233); /* 设置选中标签的边框 */
+    border-top-left-radius: 10px; /* 设置左上角圆角 */
+    border-top-right-radius: 10px; /* 设置右上角圆角 */
+    padding: 3px; /* 可选，添加内边距使文本不贴紧边框 */
+	height:25px;
+}
+
+QTabBar::tab:last {
+    border-top-right-radius: 10px; /* 设置右上角圆角 */
+}
+
+QTabBar::tab:selected {
+    background-color: rgb(255, 255, 255); /* 设置选中标签的背景颜色 */
+    border: 1px solid rgb(127, 170, 233); /* 设置选中标签的边框 */
+}
+</string>
+         </property>
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="tab_5_1">
+          <attribute name="title">
+           <string>红薯赞藏评</string>
+          </attribute>
+          <widget class="QTextEdit" name="id_get_text">
+           <property name="geometry">
+            <rect>
+             <x>50</x>
+             <y>50</y>
+             <width>821</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QWidget {
+    background-color: #ffffff; /* 设置背景颜色 */
+    border: 2px solid #ccc; /* 设置边框样式 */
+    border-radius: 20px; /* 设置圆形边框 */
+    padding: 5px; /* 设置内边距 */
+}
+</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="id_get_label">
+           <property name="geometry">
+            <rect>
+             <x>180</x>
+             <y>10</y>
+             <width>481</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+    background-color: transparent; /* 设置背景透明 */
+    border: none; /* 移除边框 */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>请输入发布链接，以空格或换行断开</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="geometry">
+            <rect>
+             <x>350</x>
+             <y>100</y>
+             <width>131</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">    background-color: #ffffff; /* 设置背景颜色 */
+    border: 2px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px; /* 设置内边距 */</string>
+           </property>
+           <property name="text">
+            <string>开始采集</string>
+           </property>
+          </widget>
+          <widget class="QTextEdit" name="textEdit">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>240</y>
+             <width>301</width>
+             <height>291</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">    background-color: #ffffff; /* 设置背景颜色 */
+    border: 2px solid #ccc; /* 设置边框样式 */
+    border-radius: 10px; /* 设置圆角半径 */
+    padding: 5px; /* 设置内边距 */</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_13">
+           <property name="geometry">
+            <rect>
+             <x>120</x>
+             <y>200</y>
+             <width>121</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+    background-color: transparent; /* 设置背景透明 */
+    border: none; /* 移除边框 */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>下载信息</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="geometry">
+            <rect>
+             <x>480</x>
+             <y>290</y>
+             <width>141</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">    background-color: #ffffff; /* 设置背景颜色 */
+    border: 2px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px; /* 设置内边距 */</string>
+           </property>
+           <property name="text">
+            <string>输出为EXCEL</string>
+           </property>
+          </widget>
+          <widget class="QTextEdit" name="id_get_text_2">
+           <property name="geometry">
+            <rect>
+             <x>350</x>
+             <y>240</y>
+             <width>381</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QWidget {
+    background-color: #ffffff; /* 设置背景颜色 */
+    border: 2px solid #ccc; /* 设置边框样式 */
+    border-radius: 20px; /* 设置圆形边框 */
+    padding: 5px; /* 设置内边距 */
+}
+</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_14">
+           <property name="geometry">
+            <rect>
+             <x>480</x>
+             <y>200</y>
+             <width>141</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+    background-color: transparent; /* 设置背景透明 */
+    border: none; /* 移除边框 */
+}
+</string>
+           </property>
+           <property name="text">
+            <string>EXCEL保存路径</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="geometry">
+            <rect>
+             <x>740</x>
+             <y>240</y>
+             <width>121</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>幼圆</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">    background-color: #ffffff; /* 设置背景颜色 */
+    border: 2px solid #ccc; /* 设置边框样式 */
+    border-radius: 5px; /* 设置圆角半径 */
+    padding: 5px; /* 设置内边距 */
+ 	text-align: center;</string>
+           </property>
+           <property name="text">
+            <string>选择文件夹</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="tab_5_2">
+          <attribute name="title">
+           <string>蒲公英邀约</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_5">
+          <attribute name="title">
+           <string>作品下载</string>
+          </attribute>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>listWidget</tabstop>
+  <tabstop>id_get_text</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>textEdit</tabstop>
+  <tabstop>pushButton_3</tabstop>
+  <tabstop>id_get_text_2</tabstop>
+  <tabstop>pushButton_4</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
