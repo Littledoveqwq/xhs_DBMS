@@ -17,11 +17,12 @@ class AppBaseWindow : public QWidget
 public:
     AppBaseWindow(QWidget *parent = nullptr);
     ~AppBaseWindow();
+    void setUserName(const QString& username);
 
 private:
     /**
      * @brief initComboBox
-     * 初始�? ComboBox 使其样式生效
+     * 初始化 ComboBox 使其样式生效
      */
     void initComboBox();
 

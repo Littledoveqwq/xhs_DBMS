@@ -85,6 +85,12 @@ AppBaseWindow::~AppBaseWindow()
     delete ui;
 }
 
+void AppBaseWindow::setUserName(const QString &username)
+{
+    ui->username_label->setText(username);
+    ui->username_label->adjustSize();
+}
+
 void AppBaseWindow::initComboBox()
 {
     ui->cbx_exactSearch->setView(new QListView());

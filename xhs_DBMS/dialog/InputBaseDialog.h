@@ -9,7 +9,6 @@
 class InputBaseDialog : public QDialog
 {
     Q_OBJECT
-
 public:
     explicit InputBaseDialog(QWidget *parent = nullptr, QWidget *topWidget = nullptr);
     virtual ~InputBaseDialog();

@@ -8,39 +8,67 @@
 #include <iostream>
 #include <mutex>
 #include <QRegularExpression>
+#include <QCryptographicHash>  //md5加密的库
+#include <QByteArray>
 
+namespace MySQLState
+{
 /**
- * @brief SQLConnState
- * 表示数据库是否连接成功
- */
+* @brief SQLConnState
+* 表示数据库是否连接成功
+*/
 typedef enum {
     SQL_CONN_SUCCESS = 0,
     SQL_CONN_FAILURE = 1
 } SQLConnState;
 
 /**
- * @brief SQLDisconnState
- * 表示数据库是否断开成功
- */
+* @brief SQLDisconnState
+* 表示数据库是否断开成功
+*/
 typedef enum {
     SQL_DISCONN_SUCCESS = 0,
     SQL_DISCONN_FAILURE = 1
 } SQLDisconnState;
 
 /**
- * @brief SQLQueryResult
- * 表示数据库是否查询成功
- */
+* @brief SQLQueryResult
+* 表示数据库是否查询成功
+*/
 typedef enum {
     SQL_QUERY_SUCCESS = 0,
     SQL_QUERY_FAILURE = 1
 }SQLQueryResult;
+}
 
+namespace Register
+{
+/**
+* @brief RegisterResult
+* 注册结果
+*/
 typedef enum {
-    REGISTER_SUCCESS = 0,
+    SUCCESS = 0,
     ACCOUNT_EXIST = 1,
-    REGISTER_FAILURE = 2,
+    QUERY_ERR = 2,
+    DB_NOT_OPEN = 3,
 }RegisterResult;
+}
+
+namespace Login
+{
+/**
+* @brief LoginResult
+* 登录结果
+*/
+typedef enum {
+    SUCCESS = 0,
+    ACCOUNT_NOTEXIST = 1,
+    INVALID_PASSWORD = 2,   //密码不匹配
+    QUERY_ERR = 3,
+    DB_NOT_OPEN = 4,
+}LoginResult;
+}
 
 /**
  * @brief repolish

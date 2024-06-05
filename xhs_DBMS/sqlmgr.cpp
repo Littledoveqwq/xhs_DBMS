@@ -9,8 +9,8 @@ SQLMgr::SQLMgr() {
     connectToDB();
 }
 
-SQLConnState SQLMgr::connectToDB() {
-    SQLConnState res = SQL_CONN_SUCCESS;
+MySQLState::SQLConnState SQLMgr::connectToDB() {
+    MySQLState::SQLConnState res = MySQLState::SQL_CONN_SUCCESS;
 
     MySQLInfo sqlInfo = ConfigMgr::getInstance()->getMysqlInfo();
 
@@ -26,29 +26,29 @@ SQLConnState SQLMgr::connectToDB() {
         qDebug() << "SQL_CONN_SUCCESS";
     } else {
         qDebug() << "SQL_CONN_FAILURE: " << _db.lastError();
-        res = SQL_CONN_FAILURE;
+        res = MySQLState::SQL_CONN_FAILURE;
     }
 
     return res;
 }
 
-SQLDisconnState SQLMgr::disconnectFromDB() {
-    SQLDisconnState res = SQL_DISCONN_SUCCESS;
+MySQLState::SQLDisconnState SQLMgr::disconnectFromDB() {
+    MySQLState::SQLDisconnState res = MySQLState::SQL_DISCONN_SUCCESS;
 
     if (_db.isOpen()) {
         _db.close();
         if (_db.isOpen()) {
             // 如果数据库仍然打开，表示断开连接失败
             qDebug() << "SQL_DISCONN_FAILURE";
-            res = SQL_DISCONN_FAILURE;
+            res = MySQLState::SQL_DISCONN_FAILURE;
         } else {
             qDebug() << "SQL_DISCONN_SUCCESS";
-            res = SQL_DISCONN_SUCCESS;
+            res = MySQLState::SQL_DISCONN_SUCCESS;
         }
     } else {
         // 数据库本来就没有打开，也算成功
         qDebug() << "SQL_DISCONN_SUCCESS";
-        res = SQL_DISCONN_SUCCESS;
+        res = MySQLState::SQL_DISCONN_SUCCESS;
     }
 
     return res;
@@ -68,27 +68,27 @@ QSqlQueryModel* SQLMgr::queryBloggersInfo() {
     return model;
 }
 
-RegisterResult SQLMgr::addUser(User user)
+Register::RegisterResult SQLMgr::addUser(User user)
 {
     if(!_db.isOpen()) {
         qDebug() << "database is not open";
-        return REGISTER_FAILURE;
+        return Register::DB_NOT_OPEN;
     }
 
     // 检查用户名是否已经存在
     QSqlQuery checkQuery(_db);
-    checkQuery.prepare("SELECT COUNT(*) FROM user_info WHERE user_nickname = :user_nickname");
-    checkQuery.bindValue(":user_nickname", user.name);
+    checkQuery.prepare("SELECT COUNT(*) FROM user_info WHERE user_account = :user_account");
+    checkQuery.bindValue(":user_account", user.account);
     if (!checkQuery.exec()) {
-        qDebug() << "Failed to check if username already exists:" << checkQuery.lastError().text();
-        return REGISTER_FAILURE;
+        qDebug() << "Failed to check if useraccount already exists:" << checkQuery.lastError().text();
+        return Register::QUERY_ERR;
     }
 
     checkQuery.next();
     int count = checkQuery.value(0).toInt();
     if (count > 0) {
-        qDebug() << "Username already exists";
-        return ACCOUNT_EXIST;
+        qDebug() << "Useraccount already exists";
+        return Register::ACCOUNT_EXIST;
     }
 
     // 插入用户信息
@@ -102,10 +102,52 @@ RegisterResult SQLMgr::addUser(User user)
 
     if (!insertQuery.exec()) {
         qDebug() << "Failed to insert user info:" << insertQuery.lastError().text();
-        return REGISTER_FAILURE;
+        return Register::QUERY_ERR;
     }
 
-    return REGISTER_SUCCESS;
+    return Register::SUCCESS;
+}
+
+Login::LoginResult SQLMgr::varifyLoginInfo(User *user)
+{
+    if(!_db.isOpen()) {
+        qDebug() << "database is not open";
+        return Login::DB_NOT_OPEN;
+    }
+
+    QString account = user->account;
+    QString passwd = user->passwd;
+
+    // 检查用户名是否存在
+    QSqlQuery query(_db);
+    query.prepare("SELECT user_nickname, user_password, user_level FROM user_info WHERE user_account = :user_account");
+    query.bindValue(":user_account", account);
+    if (!query.exec()) {
+        qDebug() << "Failed to check if user account exists:" << query.lastError().text();
+        return Login::QUERY_ERR;
+    }
+
+    if (!query.next()) {
+        qDebug() << "User account does not exist";
+        return Login::ACCOUNT_NOTEXIST;
+    }
+
+    // 获取用户信息
+    QString storedPassword = query.value("user_password").toString();
+    QString storedNickname = query.value("user_nickname").toString();
+    QString storedLevel = query.value("user_level").toString();
+
+    // 检查密码是否匹配
+    if (storedPassword != passwd) {
+        qDebug() << "Invalid password";
+        return Login::INVALID_PASSWORD;
+    }
+
+    // 填充用户信息
+    user->name = storedNickname;
+    user->level = storedLevel;
+
+    return Login::SUCCESS;
 }
 
 
