@@ -312,7 +312,7 @@ QListWidget::item {
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_projectManage">
       <property name="styleSheet">
@@ -475,6 +475,32 @@ QTabBar::tab:selected {
          </property>
          <property name="text">
           <string>创建新项目</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btn_projectNew_2">
+         <property name="geometry">
+          <rect>
+           <x>440</x>
+           <y>20</y>
+           <width>81</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>删除项目</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btn_projectNew_3">
+         <property name="geometry">
+          <rect>
+           <x>550</x>
+           <y>20</y>
+           <width>81</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>收藏项目</string>
          </property>
         </widget>
        </widget>
@@ -1816,8 +1842,8 @@ QPushButton {
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>910</width>
-                <height>493</height>
+                <width>904</width>
+                <height>482</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_4">

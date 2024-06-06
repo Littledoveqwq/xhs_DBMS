@@ -11,7 +11,7 @@
 /// 创建一个映射表，将英文字段名映射到中文表头
 QMap<QString, QString> columnMapping = {
     {"blogger_id", "编号"},
-    {"blogger_name", "姓名"},
+    {"blogger_nickname", "姓名"},
     {"blogger_type", "类型"},
     {"blogger_link", "链接"},
     {"blogger_fans", "粉丝数"},
@@ -19,8 +19,13 @@ QMap<QString, QString> columnMapping = {
     {"blogger_noteprice", "笔记价格"},
     {"blogger_vedioprice", "视频价格"},
     {"blogger_wechat", "微信"},
-    {"blogger_Remark", "备注"}
+    {"blogger_Remark", "备注"},
+    {"project_name","项目名称"},
+    {"project_manager","项目管理人"},
+    {"project_remark", "项目备注"},
+    {"project_update_time","最近更新时间"}
 };
+
 
 class CustomSqlQueryModel : public QSqlQueryModel
 {
@@ -45,37 +50,56 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-
     auto sqlmgr = SQLMgr::getInstance();
 
     // 初始化 ComboBox 使其样式生效
     initComboBox();
 
     // 创建自定义的模型对象
-    CustomSqlQueryModel *model = new CustomSqlQueryModel(this);
+    //博主模型
+    CustomSqlQueryModel *bloggers_model = new CustomSqlQueryModel(this);
+    //项目模型
+    CustomSqlQueryModel *projects_model = new CustomSqlQueryModel(this);
 
     // 执行查询并将结果加载到 TableView 中
-    model->setQuery("SELECT * FROM bloggers_info");
-    if (model->lastError().isValid()) {
-        qDebug() << "Failed to execute query:" << model->lastError().text();
-        delete model;
+    bloggers_model->setQuery("SELECT * FROM bloggers_info");
+    if (bloggers_model->lastError().isValid()) {
+        qDebug() << "Failed to execute query:" << bloggers_model->lastError().text();
+        delete bloggers_model;
+        return;
+    }
+
+    projects_model->setQuery("SELECT project_name,project_manager,project_remark,project_update_time FROM project_info ORDER BY project_update_time DESC");
+    if (projects_model->lastError().isValid()){
+        qDebug() << "Failed to execute query:" << projects_model->lastError().text();
+        delete projects_model;
         return;
     }
 
     // 更新表头显示为中文
-    for (int col = 0; col < model->columnCount(); ++col) {
-        QString englishHeader = model->headerData(col, Qt::Horizontal).toString();
+    for (int col = 0; col < bloggers_model->columnCount(); ++col) {
+        QString englishHeader = bloggers_model->headerData(col, Qt::Horizontal).toString();
         QString chineseHeader = columnMapping.value(englishHeader, englishHeader);
-        model->setHeaderData(col, Qt::Horizontal, chineseHeader);
+        bloggers_model->setHeaderData(col, Qt::Horizontal, chineseHeader);
+    }
+
+    for (int col = 0; col < projects_model->columnCount(); ++col) {
+        QString englishHeader = projects_model->headerData(col, Qt::Horizontal).toString();
+        QString chineseHeader = columnMapping.value(englishHeader, englishHeader);
+        projects_model->setHeaderData(col, Qt::Horizontal, chineseHeader);
     }
 
     // 设置自定义模型到表格视图中
-    ui->table_infoQuery->setModel(model);
+    ui->table_infoQuery->setModel(bloggers_model);
+    ui->table_recent->setModel(projects_model);
 
     // 取消自动换行
     ui->table_infoQuery->setWordWrap(false);
+    ui->table_recent->setWordWrap(false);
     // 超出文本不显示省略号
     ui->table_infoQuery->setTextElideMode(Qt::ElideNone);
+    ui->table_recent->setTextElideMode(Qt::ElideNone);
+
 
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
 }

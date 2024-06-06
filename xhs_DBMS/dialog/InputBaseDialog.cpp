@@ -1,5 +1,4 @@
-#include "dialog/InputBaseDialog.h"
-
+#include "InputBaseDialog.h"
 
 InputBaseDialog::InputBaseDialog(QWidget *parent, QWidget *topWidget) : QDialog(parent), canmove(0), widgetTop(topWidget)
 {
@@ -47,3 +46,4 @@ void InputBaseDialog::mouseReleaseEvent(QMouseEvent *e)
         canmove = 0;
     }
 }
+

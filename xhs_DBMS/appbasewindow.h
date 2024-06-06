@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "dialog/prjinfodialog.h"
+#include <QSqlQueryModel>
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,6 +21,7 @@ public:
     AppBaseWindow(QWidget *parent = nullptr);
     ~AppBaseWindow();
     void setUserName(const QString& username);
+
 
 private:
     /**

@@ -32,7 +32,12 @@
 }
 #err_tip[state='err'] {
     color: red;
-}</string>
+}
+
+QWidget {
+    background-color: white;
+}
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
@@ -92,8 +97,16 @@
      </item>
      <item>
       <widget class="QLabel" name="err_tip">
+       <property name="font">
+        <font>
+         <family>幼圆</family>
+         <pointsize>10</pointsize>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">font: 10pt &quot;黑体&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>错误提示</string>
@@ -136,8 +149,8 @@
          </property>
          <property name="font">
           <font>
-           <family>Microsoft YaHei</family>
-           <pointsize>10</pointsize>
+           <family>幼圆</family>
+           <pointsize>12</pointsize>
            <bold>false</bold>
           </font>
          </property>
@@ -165,6 +178,13 @@
            <family>Microsoft YaHei</family>
            <pointsize>11</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    border: none; /* 移除默认边框 */
+    border-bottom: 1px solid black; /* 底部边框为黑色直线 */
+}
+</string>
          </property>
         </widget>
        </item>
@@ -203,8 +223,9 @@
          </property>
          <property name="font">
           <font>
-           <family>Microsoft YaHei</family>
-           <pointsize>10</pointsize>
+           <family>幼圆</family>
+           <pointsize>12</pointsize>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -228,8 +249,15 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>7</pointsize>
+           <pointsize>11</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+    border: none; /* 移除默认边框 */
+    border-bottom: 1px solid black; /* 底部边框为黑色直线 */
+}
+</string>
          </property>
         </widget>
        </item>
@@ -266,8 +294,8 @@
         <widget class="QPushButton" name="btn_forget">
          <property name="font">
           <font>
-           <family>Microsoft YaHei</family>
-           <pointsize>9</pointsize>
+           <family>幼圆</family>
+           <pointsize>10</pointsize>
            <underline>true</underline>
           </font>
          </property>
@@ -319,6 +347,25 @@
            <width>100</width>
            <height>35</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    border-radius: 10px; /* 圆角半径 */
+    padding: 5px 10px; /* 按钮内边距 */
+    background-color: #ffffff; /* 背景颜色 */
+    border: 1px solid ; /* 边框样式 */
+   
+}
+
+QPushButton:hover {
+    background-color: #f1f1f1; /* 鼠标悬停时的背景颜色 */
+}</string>
          </property>
          <property name="text">
           <string>登录</string>
@@ -378,6 +425,24 @@
            <width>100</width>
            <height>35</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    border-radius: 10px; /* 圆角半径 */
+    padding: 5px 10px; /* 按钮内边距 */
+    background-color: #ffffff; /* 背景颜色 */
+    border: 1px solid ; /* 边框样式 */
+}
+
+QPushButton:hover {
+    background-color: #f1f1f1; /* 鼠标悬停时的背景颜色 */
+}</string>
          </property>
          <property name="text">
           <string>注册</string>

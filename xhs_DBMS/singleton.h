@@ -1,6 +1,6 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
-#include <global.h>
+#include "global.h"
 
 /**
  * @brief The Singleton class

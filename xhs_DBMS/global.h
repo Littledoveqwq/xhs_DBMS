@@ -95,4 +95,11 @@ typedef struct _User {
     QString level;
 }User;
 
+typedef struct _ProjectInfo{
+    QString project_name;
+    QString manager;
+    QString remark;
+    QString update_time;
+}ProjectInfo;
+
 #endif // GLOBAL_H

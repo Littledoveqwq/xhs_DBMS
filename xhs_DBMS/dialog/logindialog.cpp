@@ -26,6 +26,9 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_login_btn_clicked()
 {
+    ui->account_edit->setText("Littledoveqwq");
+    ui->pass_edit->setText("djw3224171");
+
     if(ui->account_edit->text().trimmed().isEmpty()) {
         showTip("用户名不能为空", false);
         return;
