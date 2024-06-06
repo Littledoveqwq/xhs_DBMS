@@ -5,6 +5,7 @@
 #include "dialog/logindialog.h"
 #include "dialog/registerdialog.h"
 #include "appbasewindow.h"
+#include <QScreen>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,14 +21,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    LoginDialog* _login_dlg;
-    RegisterDialog* _reg_dlg;
-    AppBaseWindow* _app_basewindow;
 public slots:
     void slot_switch_reg();
 
     void slot_switch_login();
+
+    void slot_switch_basewindow(User user);
 private:
     Ui::MainWindow *ui;
+    LoginDialog* _login_dlg;
+    RegisterDialog* _reg_dlg;
+    AppBaseWindow* _app_basewindow;
+    User* _user;
 };
 #endif // MAINWINDOW_H

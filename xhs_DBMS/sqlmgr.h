@@ -20,7 +20,8 @@ public:
      * @return QSqlQueryModel
      */
     QSqlQueryModel* queryBloggersInfo();
-    RegisterResult addUser(User user);
+    Register::RegisterResult addUser(User user);
+    Login::LoginResult varifyLoginInfo(User* user);
 
 private:
     /**
@@ -37,7 +38,7 @@ private:
      * SQL_CONN_SUCCESS
      * SQL_CONN_FAILURE
      */
-    SQLConnState connectToDB();
+    MySQLState::SQLConnState connectToDB();
 
     /**
      * @brief disconnectFromDB
@@ -47,7 +48,7 @@ private:
      * SQL_CONN_SUCCESS
      * SQL_CONN_FAILURE
      */
-    SQLDisconnState disconnectFromDB();
+    MySQLState::SQLDisconnState disconnectFromDB();
 
 private:
     /**

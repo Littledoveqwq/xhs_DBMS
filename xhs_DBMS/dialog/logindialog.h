@@ -2,6 +2,7 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
+#include "global.h"
 /******************************************************************************
  *
  * @file       logindialog.h
@@ -25,13 +26,20 @@ public:
 
 signals:
     void sig_switch_reg();
-    void sig_login_success();
+    void sig_login_success(User user);
 
 private slots:
     void on_login_btn_clicked();
 
+    /**
+     * @brief on_btn_forget_clicked
+     * 忘记密码
+     */
+    void on_btn_forget_clicked();
+
 private:
     Ui::LoginDialog *ui;
+    void showTip(QString text, bool b_ok);
 };
 
 #endif // LOGINDIALOG_H

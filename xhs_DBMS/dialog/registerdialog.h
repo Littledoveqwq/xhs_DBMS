@@ -2,8 +2,6 @@
 #define REGISTERDIALOG_H
 
 #include <QDialog>
-#include <QCryptographicHash>  //md5加密的库
-#include <QByteArray>
 #include "global.h"
 
 /******************************************************************************

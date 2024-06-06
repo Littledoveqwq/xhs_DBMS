@@ -25,6 +25,15 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">/*根据不同的状态切换文本颜色*/
+#err_tip[state='normal'] {
+    color: green;
+}
+#err_tip[state='err'] {
+    color: red;
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -82,6 +91,19 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="err_tip">
+       <property name="styleSheet">
+        <string notr="true">font: 10pt &quot;黑体&quot;;</string>
+       </property>
+       <property name="text">
+        <string>错误提示</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <property name="spacing">
         <number>10</number>
@@ -99,7 +121,7 @@
         <number>5</number>
        </property>
        <item>
-        <widget class="QLabel" name="user_label">
+        <widget class="QLabel" name="account_label">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -111,6 +133,13 @@
            <width>16777215</width>
            <height>30</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+           <pointsize>10</pointsize>
+           <bold>false</bold>
+          </font>
          </property>
          <property name="text">
           <string>用户:</string>
@@ -118,7 +147,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="user_edit">
+        <widget class="QLineEdit" name="account_edit">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -130,6 +159,12 @@
            <width>16777215</width>
            <height>30</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
         </widget>
        </item>
@@ -166,6 +201,12 @@
            <height>30</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>密码:</string>
          </property>
@@ -184,6 +225,11 @@
            <width>16777215</width>
            <height>30</height>
           </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>7</pointsize>
+          </font>
          </property>
         </widget>
        </item>
@@ -217,18 +263,19 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_2">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>20</height>
-          </size>
+        <widget class="QPushButton" name="btn_forget">
+         <property name="font">
+          <font>
+           <family>Microsoft YaHei</family>
+           <pointsize>9</pointsize>
+           <underline>true</underline>
+          </font>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>20</height>
-          </size>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border:none;</string>
          </property>
          <property name="text">
           <string>忘记密码</string>
