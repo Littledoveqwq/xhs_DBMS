@@ -4,6 +4,7 @@ QT       += sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+RC_ICONS = icon.ico
 DESTDIR = ./bin
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -13,6 +14,7 @@ DESTDIR = ./bin
 SOURCES += \
     appbasewindow.cpp \
     configmgr.cpp \
+    dialog/datareviewdialog.cpp \
     dialog/inputbasedialog.cpp \
     dialog/logindialog.cpp \
     dialog/prjinfodialog.cpp \
@@ -26,6 +28,7 @@ SOURCES += \
 HEADERS += \
     appbasewindow.h \
     configmgr.h \
+    dialog/datareviewdialog.h \
     dialog/inputbasedialog.h \
     dialog/logindialog.h \
     dialog/prjinfodialog.h \
@@ -38,6 +41,7 @@ HEADERS += \
 
 FORMS += \
     appbasewindow.ui \
+    dialog/datareviewdialog.ui \
     dialog/logindialog.ui \
     dialog/prjinfodialog.ui \
     dialog/registerdialog.ui \

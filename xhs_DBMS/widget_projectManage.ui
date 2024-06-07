@@ -51,6 +51,11 @@
      <height>40</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
+   </property>
    <property name="text">
     <string>导出EXCEL</string>
    </property>
@@ -59,10 +64,15 @@
    <property name="geometry">
     <rect>
      <x>700</x>
-     <y>120</y>
+     <y>60</y>
      <width>100</width>
      <height>40</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
    </property>
    <property name="text">
     <string>赞藏评采集</string>
@@ -71,11 +81,16 @@
   <widget class="QPushButton" name="btn_messageSend">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>120</y>
+     <x>830</x>
+     <y>60</y>
      <width>100</width>
      <height>40</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
    </property>
    <property name="text">
     <string>消息群发</string>
@@ -90,8 +105,13 @@
      <height>40</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
+   </property>
    <property name="text">
-    <string>bf上传</string>
+    <string>BF上传</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_bfView">
@@ -103,18 +123,28 @@
      <height>40</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
+   </property>
    <property name="text">
-    <string>bf预览</string>
+    <string>BF预览</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_hide">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>290</x>
      <y>117</y>
      <width>100</width>
      <height>40</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
    </property>
    <property name="text">
     <string>隐藏列</string>
@@ -123,11 +153,16 @@
   <widget class="QPushButton" name="btn_color">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>560</x>
      <y>120</y>
      <width>100</width>
      <height>40</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
    </property>
    <property name="text">
     <string>区域高光</string>
@@ -136,11 +171,16 @@
   <widget class="QPushButton" name="btn_lock">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>420</x>
      <y>120</y>
      <width>100</width>
      <height>40</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
    </property>
    <property name="text">
     <string>锁定行列</string>
@@ -149,11 +189,16 @@
   <widget class="QPushButton" name="btn_deleteRow">
    <property name="geometry">
     <rect>
-     <x>430</x>
+     <x>700</x>
      <y>120</y>
      <width>100</width>
      <height>40</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
    </property>
    <property name="text">
     <string>删除行</string>
@@ -162,27 +207,50 @@
   <widget class="QPushButton" name="btn_color_2">
    <property name="geometry">
     <rect>
-     <x>830</x>
+     <x>290</x>
      <y>60</y>
      <width>100</width>
      <height>40</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
+   </property>
    <property name="text">
     <string>新增博主</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_color_3">
+  <widget class="QPushButton" name="btn_color_4">
    <property name="geometry">
     <rect>
-     <x>830</x>
+     <x>1029</x>
      <y>10</y>
-     <width>100</width>
+     <width>40</width>
      <height>40</height>
     </rect>
    </property>
    <property name="text">
-    <string>新增协作者</string>
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cbx_teamWorkers">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>10</y>
+     <width>200</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+    </font>
+   </property>
+   <property name="placeholderText">
+    <string>协作者</string>
    </property>
   </widget>
  </widget>

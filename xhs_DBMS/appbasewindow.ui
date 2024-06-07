@@ -312,7 +312,7 @@ QListWidget::item {
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_projectManage">
       <property name="styleSheet">
@@ -565,7 +565,7 @@ QTabBar::tab:selected {
           <enum>QTabWidget::North</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <property name="tabBarAutoHide">
           <bool>false</bool>
