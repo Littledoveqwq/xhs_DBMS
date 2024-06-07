@@ -18,10 +18,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
-
     void on_buttonBox_accepted();
 
-    bool projectinfo_to_sql(const QString &craftproject_name, const QString &manager, const QString &remarks);
+signals:
+    void sig_create_prj();
 
 private:
     Ui::PrjInfoDialog *ui;

@@ -20,8 +20,24 @@ public:
      * @return QSqlQueryModel
      */
     QSqlQueryModel* queryBloggersInfo();
+
+    /**
+     * @brief addUser
+     * 添加用户
+     * @param user
+     * @return
+     */
     Register::RegisterResult addUser(User user);
+
+    /**
+     * @brief varifyLoginInfo
+     * 验证登录信息:账号, 密码
+     * @param user
+     * @return
+     */
     Login::LoginResult varifyLoginInfo(User* user);
+
+    InsertData::InsertResult createProject(ProjectInfo prjInfo);
 
 private:
     /**

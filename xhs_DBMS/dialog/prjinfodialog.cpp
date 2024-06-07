@@ -25,40 +25,26 @@ void PrjInfoDialog::on_pushButton_clicked()
     reject();
 }
 
-bool PrjInfoDialog::projectinfo_to_sql(const QString &craftproject_name, const QString &manager, const QString &remarks)
-{
-    QSqlQuery query;
-
-    QDateTime update_time = QDateTime::currentDateTime();
-    QString format_update_time = update_time.toString("yyyy-MM-dd hh:mm:ss");
-    query.prepare("INSERT INTO project_info(project_name, project_manager, project_remark,project_update_time) VALUES (:project_name, :project_manager, :project_remark, :project_update_time)");
-    query.bindValue(":project_name", craftproject_name);
-    query.bindValue(":project_manager", manager);
-    query.bindValue(":project_remark", remarks);
-    query.bindValue(":project_update_time",format_update_time);
-
-    if (!query.exec()) {
-        QMessageBox::critical(nullptr, "err", "添加失败，请重新输入");
-        return false;
-    }
-    else
-    {
-        QMessageBox::information(nullptr, "success", "添加成功");
-        return true;
-    }
-}
-
 void PrjInfoDialog::on_buttonBox_accepted()
 {
+    //优化设想: 自定义月份spinBox
     QString project_name = ui->edt_projectName->text();
     QString month = ui->edt_carryMonth->text();
     QString manager=ui->edt_projectManager->text();
-    QString remarks = ui->edt_remarkInfo->text();
-    QString craftproject_name = "【" + month + "】" + project_name;
+    QString remark = ui->edt_remarkInfo->text().trimmed().isEmpty() ? "无" : ui->edt_remarkInfo->text();
+    QString craftproject_name = "【" + month + "】" + project_name;   //合成后的项目名
 
-    if(projectinfo_to_sql(craftproject_name, manager, remarks)==true);
+    QDateTime update_time = QDateTime::currentDateTime();
+    QString str_update_time = update_time.toString("yyyy-MM-dd hh:mm:ss");
+    ProjectInfo prjInfo{craftproject_name, manager, remark, str_update_time};
+
+    InsertData::InsertResult res = SQLMgr::getInstance()->createProject(prjInfo);
+    if(res == InsertData::InsertResult::SUCCESS)
     {
-
+        emit sig_create_prj();
+    }
+    else if(res == InsertData::InsertResult::MANAGER_NOT_EXIST) {
+        QMessageBox::critical(this, "错误", "项目所有者不存在");
     }
 }
 
