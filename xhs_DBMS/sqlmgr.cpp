@@ -150,4 +150,60 @@ Login::LoginResult SQLMgr::varifyLoginInfo(User *user)
     return Login::SUCCESS;
 }
 
+InsertData::InsertResult SQLMgr::createProject(ProjectInfo prjInfo)
+{
+    if(!_db.isOpen()) {
+        qDebug() << "database is not open";
+        return InsertData::InsertResult::DB_NOT_OPEN;
+    }
+
+    // 检查项目名是否已经存在
+    QSqlQuery checkQuery(_db);
+    checkQuery.prepare("SELECT COUNT(*) FROM project_info WHERE project_name = :project_name");
+    checkQuery.bindValue(":project_name", prjInfo.project_name);
+    if (!checkQuery.exec()) {
+        qDebug() << "Failed to check if project_name already exists:" << checkQuery.lastError().text();
+        return InsertData::InsertResult::QUERY_ERR;
+    }
+
+    checkQuery.next();
+    int count = checkQuery.value(0).toInt();
+    if (count > 0) {
+        qDebug() << "project_name already exists";
+        return InsertData::InsertResult::DATA_EXIST;
+    }
+
+
+    // 检查用户名是否已经存在
+    checkQuery.prepare("SELECT COUNT(*) FROM user_info WHERE user_nickname = :user_nickname");
+    checkQuery.bindValue(":user_nickname", prjInfo.manager);
+    if (!checkQuery.exec()) {
+        qDebug() << "Failed to check if manager exists:" << checkQuery.lastError().text();
+        return InsertData::InsertResult::QUERY_ERR;
+    }
+
+    checkQuery.next();
+    count = checkQuery.value(0).toInt();
+    if (count == 0) {
+        qDebug() << "manager does not exists";
+        return InsertData::InsertResult::MANAGER_NOT_EXIST;
+    }
+
+    // 插入项目
+    QSqlQuery insertQuery(_db);
+    insertQuery.prepare("INSERT INTO project_info(project_name, project_manager, project_remark,project_update_time)"
+                  " VALUES (:project_name, :project_manager, :project_remark, :project_update_time)");
+    insertQuery.bindValue(":project_name", prjInfo.project_name);
+    insertQuery.bindValue(":project_manager", prjInfo.manager);
+    insertQuery.bindValue(":project_remark", prjInfo.remark);
+    insertQuery.bindValue(":project_update_time", prjInfo.update_time);
+
+    if (!insertQuery.exec()) {
+        qDebug() << "Failed to create project:" << insertQuery.lastError().text();
+        return InsertData::InsertResult::QUERY_ERR;
+    }
+
+    return InsertData::InsertResult::SUCCESS;
+}
+
 

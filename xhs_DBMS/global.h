@@ -10,6 +10,7 @@
 #include <QRegularExpression>
 #include <QCryptographicHash>  //md5加密的库
 #include <QByteArray>
+#include <QDateTime>
 
 namespace MySQLState
 {
@@ -70,11 +71,23 @@ typedef enum {
 }LoginResult;
 }
 
+namespace InsertData {
+typedef enum {
+    SUCCESS = 0,
+    DB_NOT_OPEN = 1,
+    QUERY_ERR = 2,
+    DATA_EXIST = 3,
+    MANAGER_NOT_EXIST = 4,
+}InsertResult;
+}
+
 /**
  * @brief repolish
  * 用于刷新控件
  */
 extern std::function<void(QWidget*)> repolish;
+
+extern QMap<QString, QString> columnMapping;
 
 /**
  * @brief MySQLInfo

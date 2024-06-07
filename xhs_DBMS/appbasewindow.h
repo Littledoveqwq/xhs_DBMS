@@ -4,8 +4,27 @@
 #include <QWidget>
 #include "dialog/prjinfodialog.h"
 #include <QSqlQueryModel>
+#include <QSqlQuery>
 
+class CustomSqlQueryModel : public QSqlQueryModel
+{
+public:
+    CustomSqlQueryModel(QObject *parent = nullptr)
+        : QSqlQueryModel(parent) {}
 
+    QVariant data(const QModelIndex &index, int role) const override
+    {
+        if (role == Qt::TextAlignmentRole) {
+            return Qt::AlignCenter;
+        } else {
+            return QSqlQueryModel::data(index, role);
+        }
+    }
+
+    void refresh() {
+        setQuery(query().executedQuery());
+    }
+};
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,6 +49,12 @@ private:
      */
     void initComboBox();
 
+    /**
+     * @brief initTableView
+     * 初始化 tableView
+     */
+    void initTableView();
+
 private slots:
     void on_listWidget_currentTextChanged(const QString &currentText);
 
@@ -39,15 +64,24 @@ private slots:
 
     void on_btn_projectNew_clicked();
 
-    void open_dialog_setProjectinfo();
-
     void on_rbt_recent_clicked();
 
     void on_rbt_favour_clicked();
 
+    void slot_handle_create_project();
+
 private:
     Ui::AppBaseWindow *ui;
 
-    PrjInfoDialog* projectinfo;
+    /**
+     * @brief _bloggers_model
+     * 博主数据模型
+     */
+    CustomSqlQueryModel* _bloggers_model;
+    /**
+     * @brief _projects_model
+     * 项目数据模型
+     */
+    CustomSqlQueryModel* _projects_model;
 };
 #endif // APPBASEWINDOW_H
