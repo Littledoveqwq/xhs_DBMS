@@ -115,4 +115,16 @@ typedef struct _ProjectInfo{
     QString update_time;
 }ProjectInfo;
 
+typedef struct _BloggerInfo{
+    QString blogger_nickname;
+    QString blogger_id;
+    QString blogger_type;
+    QString blogger_homelink;
+    int blogger_fans;
+    int blogger_likes;
+    int blogger_noteprice;
+    int blogger_videoprice;
+    QString blogger_wechat;
+}BloggerInfo;
 #endif // GLOBAL_H
+

@@ -207,3 +207,52 @@ InsertData::InsertResult SQLMgr::createProject(ProjectInfo prjInfo)
 }
 
 
+
+InsertData::InsertResult SQLMgr::insertBloggersinfo(BloggerInfo bloggerInfo)
+{
+    if(!_db.isOpen()) {
+        qDebug() << "database is not open";
+        return InsertData::InsertResult::DB_NOT_OPEN;
+    }
+
+    // 检查项目名是否已经存在
+    QSqlQuery checkQuery(_db);
+    checkQuery.prepare("SELECT COUNT(*) FROM bloggers_info WHERE blogger_id = :blogger_id");
+    checkQuery.bindValue(":blogger_id", bloggerInfo.blogger_id);
+    if (!checkQuery.exec()) {
+        qDebug() << "Failed to check if blogger_id already exists:" << checkQuery.lastError().text();
+        return InsertData::InsertResult::QUERY_ERR;
+    }
+
+    checkQuery.next();
+    int count = checkQuery.value(0).toInt();
+    if (count > 0) {
+        qDebug() << "blogger_id already exists";
+        return InsertData::InsertResult::DATA_EXIST;
+    }
+
+    // 插入项目
+    QSqlQuery insertQuery(_db);
+    insertQuery.prepare("INSERT INTO bloggers_info(blogger_nickname, blogger_id, blogger_type,"
+                        " blogger_homelink, blogger_fans, blogger_likes, blogger_noteprice,"
+                        " blogger_videoprice, blogger_wechat)"
+                        " VALUES (:blogger_nickname, :blogger_id, :blogger_type, :blogger_homelink,"
+                        " :blogger_fans, :blogger_likes, :blogger_noteprice, :blogger_videoprice,"
+                        " :blogger_wechat)");
+    insertQuery.bindValue(":blogger_nickname",bloggerInfo.blogger_nickname);
+    insertQuery.bindValue(":blogger_id", bloggerInfo.blogger_id);
+    insertQuery.bindValue(":blogger_type", bloggerInfo.blogger_type);
+    insertQuery.bindValue(":blogger_homelink", bloggerInfo.blogger_homelink);
+    insertQuery.bindValue(":blogger_fans",bloggerInfo.blogger_fans);
+    insertQuery.bindValue(":blogger_likes",bloggerInfo.blogger_likes);
+    insertQuery.bindValue(":blogger_noteprice",bloggerInfo.blogger_noteprice);
+    insertQuery.bindValue(":blogger_videoprice",bloggerInfo.blogger_videoprice);
+    insertQuery.bindValue(":blogger_wechat",bloggerInfo.blogger_wechat);
+
+    if (!insertQuery.exec()) {
+        qDebug() << "Failed to add blogger:" << insertQuery.lastError().text();
+        return InsertData::InsertResult::QUERY_ERR;
+    }
+
+    return InsertData::InsertResult::SUCCESS;
+}

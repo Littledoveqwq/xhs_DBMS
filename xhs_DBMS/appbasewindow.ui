@@ -565,7 +565,7 @@ QTabBar::tab:selected {
           <enum>QTabWidget::North</enum>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <property name="tabBarAutoHide">
           <bool>false</bool>
@@ -1424,7 +1424,7 @@ QLabel {
             </rect>
            </property>
           </widget>
-          <widget class="QLineEdit" name="edt_vedioprice">
+          <widget class="QLineEdit" name="edt_videoprice">
            <property name="geometry">
             <rect>
              <x>490</x>
@@ -1834,6 +1834,9 @@ QPushButton {
            </item>
            <item>
             <widget class="QScrollArea" name="scrollArea_2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
              <property name="widgetResizable">
               <bool>true</bool>
              </property>

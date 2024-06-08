@@ -2,7 +2,6 @@
 #define APPBASEWINDOW_H
 
 #include <QWidget>
-#include "dialog/prjinfodialog.h"
 #include <QSqlQueryModel>
 #include <QSqlQuery>
 
@@ -69,6 +68,14 @@ private slots:
     void on_rbt_favour_clicked();
 
     void slot_handle_create_project();
+
+    void slot_handle_insert_blogger();
+
+    void on_btn_upload_clicked();
+
+signals:
+    void sig_insert_blogger();
+
 
 private:
     Ui::AppBaseWindow *ui;

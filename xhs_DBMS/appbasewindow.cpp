@@ -61,6 +61,7 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
     ui->table_recent->setTextElideMode(Qt::ElideNone);
 
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+
 }
 
 AppBaseWindow::~AppBaseWindow()
@@ -147,4 +148,70 @@ void AppBaseWindow::slot_handle_create_project()
 {
     _projects_model->refresh();
 }
+
+void AppBaseWindow::slot_handle_insert_blogger()
+{
+    _bloggers_model->refresh();
+}
+void AppBaseWindow::on_btn_upload_clicked()
+{
+
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Upload Confirmation", "Do you want to upload the information?",
+                                  QMessageBox::Yes | QMessageBox::No);
+
+    if (reply == QMessageBox::Yes) {
+        // 获取用户输入
+        QString nickname= ui->edt_name->text();
+        QString id = ui->edt_id->text();
+        QString type= ui->edt_type->text();
+        QString homelink= ui->edt_link->text();
+        QString fans = ui->edt_fans->text();
+        QString likes = ui->edt_likes->text();
+        QString noteprice = ui->edt_noteprice->text();
+        QString videoprice = ui->edt_videoprice->text();
+        QString contact =ui->edt_contact->text();
+
+        int int_fans = fans.toInt();
+        int int_likes = likes.toInt();
+        int int_noteprice = noteprice.toInt();
+        int int_videoprice = videoprice.toInt();
+
+
+        // 判断edt_id的输入是否为空
+        if (id.isEmpty()) {
+            QMessageBox::warning(this, "Upload Failed", "添加失败，必须输入博主ID。");
+            return;
+        }
+
+        // 判断输入的edt_fans, edt_likes, edt_noteprice, edt_videoprice是否为int类型
+        bool isFansInt, isLikesInt, isNotepriceInt, isVideopriceInt;
+        fans.toInt(&isFansInt);
+        likes.toInt(&isLikesInt);
+        noteprice.toInt(&isNotepriceInt);
+        videoprice.toInt(&isVideopriceInt);
+
+        if (!isFansInt || !isLikesInt || !isNotepriceInt || !isVideopriceInt) {
+            QMessageBox::warning(this, "Upload Failed", "添加失败，粉丝，赞藏，价格必须为整数。");
+            return;
+        }
+
+        // 如果所有检查都通过，可以进行上传操作
+        // 在这里添加你的上传操作代码
+        QMessageBox::information(this, "Upload Successful", "信息上传成功。");
+
+        BloggerInfo bloggerInfo{nickname,id,type,homelink,int_fans,int_likes,int_noteprice,int_videoprice,contact};
+
+        InsertData::InsertResult res = SQLMgr::getInstance()->insertBloggersinfo(bloggerInfo);
+        if(res == InsertData::InsertResult::SUCCESS)
+        {
+            emit sig_insert_blogger();
+        }
+        else {
+            QMessageBox::critical(this, "错误", "添加失败");
+        }
+    }
+}
+
 

@@ -13,7 +13,7 @@ QMap<QString, QString> columnMapping = {
     {"blogger_fans", "粉丝数"},
     {"blogger_likes", "点赞数"},
     {"blogger_noteprice", "笔记价格"},
-    {"blogger_vedioprice", "视频价格"},
+    {"blogger_videoprice", "视频价格"},
     {"blogger_wechat", "微信"},
     {"blogger_Remark", "备注"},
     {"project_name","项目名称"},
