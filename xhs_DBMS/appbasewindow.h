@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "global.h"
+#include "projectmanagewidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,7 +34,12 @@ private:
      */
     void initTableView();
 
-    QTabWidget *Tab;
+    /**
+     * @brief initTabWidget
+     * 初始化成员变量tabwidget
+    */
+    void initTabWidget();
+
 private slots:
     void on_listWidget_currentTextChanged(const QString &currentText);
 
@@ -74,5 +80,9 @@ private:
      * 项目数据模型
      */
     MySqlQueryModel* _projects_model;
+
+    QTabWidget* _Tab;
+
+    QMap<QString, ProjectManageWidget*> _prjManageTabMap;
 };
 #endif // APPBASEWINDOW_H

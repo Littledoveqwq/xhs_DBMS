@@ -11,6 +11,8 @@
 #include <QCryptographicHash>  //md5加密的库
 #include <QByteArray>
 #include <QDateTime>
+#include <QApplication>
+#include <QScreen>
 
 #include "custom/mysqlquerymodel.h"
 #include "custom/linkdelegate.h"
