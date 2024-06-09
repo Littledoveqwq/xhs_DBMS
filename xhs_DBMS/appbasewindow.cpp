@@ -6,7 +6,7 @@
 #include "sqlmgr.h"
 #include <QDialogButtonBox>
 
-#include "widget_projectManage.h"
+#include "projectmanagewidget.h"
 
 
 // TODO 将CustomSqlQueryModel 这个委托类封装好
@@ -22,7 +22,33 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
     initComboBox();
     //初始化 tableView
     initTableView();
+    //初始化tabwidget
+    initTabWidget();
 
+    setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+}
+AppBaseWindow::~AppBaseWindow()
+{
+    delete ui;
+}
+
+void AppBaseWindow::setUserName(const QString &username)
+{
+    ui->username_label->setText(username);
+    ui->username_label->adjustSize();
+}
+
+void AppBaseWindow::initComboBox()
+{
+    ui->cbx_exactSearch->setView(new QListView());
+    ui->cbx_fans->setView(new QListView());
+    ui->cbx_kind->setView(new QListView());
+    ui->cbx_noteprice->setView(new QListView());
+    ui->cbx_vedioprice->setView(new QListView());
+}
+
+void AppBaseWindow::initTableView()
+{
     //博主模型
     _bloggers_model = new MySqlQueryModel;
     //项目模型
@@ -69,42 +95,24 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
     // 超出文本不显示省略号
     ui->table_infoQuery->setTextElideMode(Qt::ElideNone);
     ui->table_recent->setTextElideMode(Qt::ElideNone);
+}
 
-    setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+void AppBaseWindow::initTabWidget()
+{
+    _Tab = new QTabWidget(); // 将 Tab 定义为类的成员变量
+    _Tab->setWindowFlags(Qt::Window);
+    _Tab->resize(this->size());
+    _Tab->setTabsClosable(true); // 设置标签页上的标签为可关闭
+    _Tab->hide(); // 隐藏 QTabWidget
+    connect(_Tab, &QTabWidget::tabCloseRequested, this, [this](int index) {
+        QString PrjName = _Tab->tabText(index);
+        _prjManageTabMap.remove(PrjName);
+        _Tab->removeTab(index); // 移除指定索引的标签页
 
-
-    Tab = new QTabWidget(); // 将 Tab 定义为类的成员变量
-    Tab->setWindowFlags(Qt::Window);
-    Tab->resize(this->size());
-    Tab->setTabsClosable(true); // 设置标签页上的标签为可关闭
-    Tab->hide(); // 隐藏 QTabWidget
-    connect(Tab, &QTabWidget::tabCloseRequested, this, [this](int index) {
-        Tab->removeTab(index); // 移除指定索引的标签页
+        if(_prjManageTabMap.isEmpty()) {
+            _Tab->hide();
+        }
     });
-}
-AppBaseWindow::~AppBaseWindow()
-{
-    delete ui;
-}
-
-void AppBaseWindow::setUserName(const QString &username)
-{
-    ui->username_label->setText(username);
-    ui->username_label->adjustSize();
-}
-
-void AppBaseWindow::initComboBox()
-{
-    ui->cbx_exactSearch->setView(new QListView());
-    ui->cbx_fans->setView(new QListView());
-    ui->cbx_kind->setView(new QListView());
-    ui->cbx_noteprice->setView(new QListView());
-    ui->cbx_vedioprice->setView(new QListView());
-}
-
-void AppBaseWindow::initTableView()
-{
-
 }
 
 void AppBaseWindow::on_listWidget_currentTextChanged(const QString &currentText)
@@ -253,21 +261,37 @@ void AppBaseWindow::on_table_infoQuery_doubleClicked(const QModelIndex &index)
     dialog->exec();
 }
 
-
-void AppBaseWindow::on_pushButton_clicked()
-{
-
-}
-
-
 void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
 {
     if(index.column() == 0){
-        QString detail = _projects_model->data(index, Qt::DisplayRole).toString();
-        widget_projectManage* sub = new widget_projectManage();
-        sub->setLabelText(detail);
-        Tab->addTab(sub, detail);
-        Tab->show();
+        QString prjName = _projects_model->data(index, Qt::DisplayRole).toString();
+
+        if(_prjManageTabMap.find(prjName) != _prjManageTabMap.end()) {
+            qDebug() << "project has opened!";
+            return;
+        }
+        ProjectManageWidget* subTab = new ProjectManageWidget();
+        subTab->setLabelText(prjName);
+        auto index = _Tab->addTab(subTab, prjName);
+        _prjManageTabMap.insert(prjName, static_cast<ProjectManageWidget*>(_Tab->widget(index)));
+        _Tab->setCurrentIndex(index);
+        if(!_Tab->isVisible()) _Tab->show();
+        //设置焦点
+        _Tab->activateWindow();
+
+        // 获取屏幕的中心点坐标
+        QRect primaryScreenGeometry = qApp->primaryScreen()->geometry();
+        QPoint centerPoint = primaryScreenGeometry.center();
+
+        // 获取窗口的大小
+        QSize windowSize = _Tab->size();
+
+        // 计算窗口左上角的坐标
+        int x = centerPoint.x() - windowSize.width() / 2;
+        int y = centerPoint.y() - windowSize.height() / 2;
+
+        // 将窗口移动到计算出的坐标位置
+        _Tab->move(x, y);
     }
 }
 

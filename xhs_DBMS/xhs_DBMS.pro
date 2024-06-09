@@ -25,8 +25,8 @@ SOURCES += \
     global.cpp \
     main.cpp \
     mainwindow.cpp \
-    sqlmgr.cpp \
-    widget_projectManage.cpp
+    projectmanagewidget.cpp \
+    sqlmgr.cpp
 
 HEADERS += \
     appbasewindow.h \
@@ -41,9 +41,9 @@ HEADERS += \
     dialog/registerdialog.h \
     global.h \
     mainwindow.h \
+    projectmanagewidget.h \
     singleton.h \
-    sqlmgr.h \
-    widget_projectManage.h
+    sqlmgr.h
 
 FORMS += \
     appbasewindow.ui \
@@ -53,7 +53,7 @@ FORMS += \
     dialog/prjinfodialog.ui \
     dialog/registerdialog.ui \
     mainwindow.ui \
-    widget_projectManage.ui
+    projectmanagewidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
