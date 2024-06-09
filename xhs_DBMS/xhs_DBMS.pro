@@ -14,6 +14,9 @@ DESTDIR = ./bin
 SOURCES += \
     appbasewindow.cpp \
     configmgr.cpp \
+    custom/linkdelegate.cpp \
+    custom/mysqlquerymodel.cpp \
+    dialog/bloggerrevisedialog.cpp \
     dialog/datareviewdialog.cpp \
     dialog/inputbasedialog.cpp \
     dialog/logindialog.cpp \
@@ -28,6 +31,9 @@ SOURCES += \
 HEADERS += \
     appbasewindow.h \
     configmgr.h \
+    custom/linkdelegate.h \
+    custom/mysqlquerymodel.h \
+    dialog/bloggerrevisedialog.h \
     dialog/datareviewdialog.h \
     dialog/inputbasedialog.h \
     dialog/logindialog.h \
@@ -41,6 +47,7 @@ HEADERS += \
 
 FORMS += \
     appbasewindow.ui \
+    dialog/bloggerrevisedialog.ui \
     dialog/datareviewdialog.ui \
     dialog/logindialog.ui \
     dialog/prjinfodialog.ui \

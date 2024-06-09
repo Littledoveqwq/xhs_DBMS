@@ -2,29 +2,7 @@
 #define APPBASEWINDOW_H
 
 #include <QWidget>
-#include <QSqlQueryModel>
-#include <QSqlQuery>
-#include <QTabWidget>
-
-class CustomSqlQueryModel : public QSqlQueryModel
-{
-public:
-    CustomSqlQueryModel(QObject *parent = nullptr)
-        : QSqlQueryModel(parent) {}
-
-    QVariant data(const QModelIndex &index, int role) const override
-    {
-        if (role == Qt::TextAlignmentRole) {
-            return Qt::AlignCenter;
-        } else {
-            return QSqlQueryModel::data(index, role);
-        }
-    }
-
-    void refresh() {
-        setQuery(query().executedQuery());
-    }
-};
+#include "global.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -75,7 +53,7 @@ private slots:
 
     void on_btn_upload_clicked();
 
-    void on_pushButton_clicked();
+    void on_table_infoQuery_doubleClicked(const QModelIndex &index);
 
     void on_table_recent_doubleClicked(const QModelIndex &index);
 
@@ -90,11 +68,11 @@ private:
      * @brief _bloggers_model
      * 博主数据模型
      */
-    CustomSqlQueryModel* _bloggers_model;
+    MySqlQueryModel* _bloggers_model;
     /**
      * @brief _projects_model
      * 项目数据模型
      */
-    CustomSqlQueryModel* _projects_model;
+    MySqlQueryModel* _projects_model;
 };
 #endif // APPBASEWINDOW_H

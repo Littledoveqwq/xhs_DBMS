@@ -1,6 +1,7 @@
 #include "appbasewindow.h"
 #include "ui_appbasewindow.h"
 #include "dialog/prjinfodialog.h"
+#include "dialog/bloggerrevisedialog.h"
 #include <QDebug>
 #include "sqlmgr.h"
 #include <QDialogButtonBox>
@@ -23,12 +24,14 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
     initTableView();
 
     //博主模型
-    _bloggers_model = new CustomSqlQueryModel;
+    _bloggers_model = new MySqlQueryModel;
     //项目模型
-    _projects_model = new CustomSqlQueryModel;
+    _projects_model = new MySqlQueryModel;
 
     // 执行查询并将结果加载到 TableView 中
-    _bloggers_model->setQuery("SELECT * FROM bloggers_info");
+    _bloggers_model->setQuery("SELECT blogger_nickname, blogger_id, blogger_type, "
+                              "blogger_homelink, blogger_fans, blogger_likes, "
+                              "blogger_noteprice, blogger_videoprice, blogger_wechat FROM bloggers_info");
     if (_bloggers_model->lastError().isValid()) {
         qDebug() << "Failed to execute query:" << _bloggers_model->lastError().text();
     }
@@ -55,6 +58,10 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
     // 设置自定义模型到表格视图中
     ui->table_infoQuery->setModel(_bloggers_model);
     ui->table_recent->setModel(_projects_model);
+
+    //设置自定义委托
+    ui->table_infoQuery->setItemDelegate(new LinkDelegate(_bloggers_model, this));
+    ui->table_infoQuery->setMouseTracking(true);
 
     // 取消自动换行
     ui->table_infoQuery->setWordWrap(false);
@@ -225,6 +232,26 @@ void AppBaseWindow::on_btn_upload_clicked()
     }
 }
 
+void AppBaseWindow::on_table_infoQuery_doubleClicked(const QModelIndex &index)
+{
+    //获取行数据
+    QStringList info;
+    //双击的行
+    int row = index.row();
+    // 获取整行的内容
+    QStringList rowData;
+    for (int col = 0; col < _bloggers_model->columnCount(); ++col) {
+        QModelIndex cellIndex = _bloggers_model->index(row, col);
+        info.append(cellIndex.data().toString());
+    }
+
+    BloggerInfo bloggerInfo{info[0],info[1],info[2],info[3],info[4].toInt(),
+                            info[5].toInt(),info[6].toInt(),info[7].toInt(),info[8]};
+    //双击行出现弹窗进行修改信息
+    BloggerReviseDialog* dialog = new BloggerReviseDialog();
+    dialog->setInfo(bloggerInfo);
+    dialog->exec();
+}
 
 
 void AppBaseWindow::on_pushButton_clicked()
