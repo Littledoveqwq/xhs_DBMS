@@ -9,7 +9,7 @@ QMap<QString, QString> columnMapping = {
     {"blogger_id", "编号"},
     {"blogger_nickname", "姓名"},
     {"blogger_type", "类型"},
-    {"blogger_link", "链接"},
+    {"blogger_homelink", "主页链接"},
     {"blogger_fans", "粉丝数"},
     {"blogger_likes", "点赞数"},
     {"blogger_noteprice", "笔记价格"},

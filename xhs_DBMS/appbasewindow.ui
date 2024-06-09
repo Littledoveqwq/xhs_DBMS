@@ -781,6 +781,28 @@ QTabBar::tab:selected {
                   </property>
                  </spacer>
                 </item>
+                <item>
+                 <widget class="QPushButton" name="btn_reviselock">
+                  <property name="text">
+                   <string>修改</string>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>11</width>
+                    <height>15</height>
+                   </size>
+                  </property>
+                  <property name="checkable">
+                   <bool>false</bool>
+                  </property>
+                  <property name="autoRepeat">
+                   <bool>false</bool>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
               <item>
@@ -1845,8 +1867,8 @@ QPushButton {
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>904</width>
-                <height>482</height>
+                <width>910</width>
+                <height>493</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_4">

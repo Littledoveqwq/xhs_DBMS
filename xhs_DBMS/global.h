@@ -12,6 +12,9 @@
 #include <QByteArray>
 #include <QDateTime>
 
+#include "custom/mysqlquerymodel.h"
+#include "custom/linkdelegate.h"
+
 namespace MySQLState
 {
 /**
