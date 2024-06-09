@@ -312,7 +312,7 @@ QListWidget::item {
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_projectManage">
       <property name="styleSheet">
@@ -501,6 +501,19 @@ QTabBar::tab:selected {
          </property>
          <property name="text">
           <string>收藏项目</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton">
+         <property name="geometry">
+          <rect>
+           <x>730</x>
+           <y>30</y>
+           <width>93</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>PushButton</string>
          </property>
         </widget>
        </widget>

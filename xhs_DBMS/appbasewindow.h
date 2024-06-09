@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
+#include <QTabWidget>
 
 class CustomSqlQueryModel : public QSqlQueryModel
 {
@@ -54,6 +55,7 @@ private:
      */
     void initTableView();
 
+    QTabWidget *Tab;
 private slots:
     void on_listWidget_currentTextChanged(const QString &currentText);
 
@@ -72,6 +74,10 @@ private slots:
     void slot_handle_insert_blogger();
 
     void on_btn_upload_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_table_recent_doubleClicked(const QModelIndex &index);
 
 signals:
     void sig_insert_blogger();
