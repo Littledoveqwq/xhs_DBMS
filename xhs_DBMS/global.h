@@ -16,6 +16,7 @@
 
 #include "custom/mysqlquerymodel.h"
 #include "custom/linkdelegate.h"
+#include "custom/mytabwidget.h"
 
 namespace MySQLState
 {
@@ -91,6 +92,10 @@ typedef enum {
  * 用于刷新控件
  */
 extern std::function<void(QWidget*)> repolish;
+
+extern std::function<void(QWidget*)> moveToCenter;
+
+extern std::function<void(MySqlQueryModel*)> updateHeadertoChinese;
 
 extern QMap<QString, QString> columnMapping;
 

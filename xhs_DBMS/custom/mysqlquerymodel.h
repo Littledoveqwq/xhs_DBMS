@@ -3,6 +3,7 @@
 
 #include <QSqlQueryModel>
 #include <QSqlQuery>
+#include <QSqlError>
 
 class MySqlQueryModel : public QSqlQueryModel
 {

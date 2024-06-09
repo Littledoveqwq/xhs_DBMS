@@ -5,6 +5,30 @@ std::function<void(QWidget*)> repolish = [](QWidget* w){
     w->style()->polish(w);
 };
 
+std::function<void(QWidget*)> moveToCenter = [](QWidget* w){
+    // 获取屏幕的中心点坐标
+    QRect primaryScreenGeometry = qApp->primaryScreen()->geometry();
+    QPoint centerPoint = primaryScreenGeometry.center();
+
+    // 获取窗口的大小
+    QSize windowSize = w->size();
+
+    // 计算窗口左上角的坐标
+    int x = centerPoint.x() - windowSize.width() / 2;
+    int y = centerPoint.y() - windowSize.height() / 2;
+
+    // 将窗口移动到计算出的坐标位置
+    w->move(x, y);
+};
+
+std::function<void(MySqlQueryModel*)> updateHeadertoChinese = [](MySqlQueryModel* model){
+    for (int col = 0; col < model->columnCount(); ++col) {
+        QString englishHeader = model->headerData(col, Qt::Horizontal).toString();
+        QString chineseHeader = columnMapping.value(englishHeader, englishHeader);
+        model->setHeaderData(col, Qt::Horizontal, chineseHeader);
+    }
+};
+
 QMap<QString, QString> columnMapping = {
     {"blogger_id", "编号"},
     {"blogger_nickname", "姓名"},

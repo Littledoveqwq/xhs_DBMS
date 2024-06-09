@@ -77,10 +77,5 @@ void MainWindow::slot_switch_basewindow(User user)
     _login_dlg->hide();
     _app_basewindow->show();
 
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenRect = screen->geometry();
-
-    int x = (screenRect.width() - this->width()) / 2;
-    int y = (screenRect.height() - this->height()) / 2;
-    this->move(x, y);
+    moveToCenter(this);
 }

@@ -16,6 +16,7 @@ SOURCES += \
     configmgr.cpp \
     custom/linkdelegate.cpp \
     custom/mysqlquerymodel.cpp \
+    custom/mytabwidget.cpp \
     dialog/bloggerrevisedialog.cpp \
     dialog/datareviewdialog.cpp \
     dialog/inputbasedialog.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     configmgr.h \
     custom/linkdelegate.h \
     custom/mysqlquerymodel.h \
+    custom/mytabwidget.h \
     dialog/bloggerrevisedialog.h \
     dialog/datareviewdialog.h \
     dialog/inputbasedialog.h \

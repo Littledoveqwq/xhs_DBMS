@@ -63,6 +63,9 @@ private slots:
 
     void on_table_recent_doubleClicked(const QModelIndex &index);
 
+    void slot_handle_tabWidget_close();
+
+
 signals:
     void sig_insert_blogger();
 
@@ -81,7 +84,7 @@ private:
      */
     MySqlQueryModel* _projects_model;
 
-    QTabWidget* _Tab;
+    MyTabWidget* _Tab;
 
     QMap<QString, ProjectManageWidget*> _prjManageTabMap;
 };

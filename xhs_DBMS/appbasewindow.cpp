@@ -17,7 +17,10 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
     , ui(new Ui::AppBaseWindow)
 {
     ui->setupUi(this);
-
+    ui->stackedWidget->setCurrentWidget(ui->page_projectManage);
+    ui->tabWidget_resourceManage->setCurrentWidget(ui->tab_infoQuery);
+    ui->stkWidget_search->setCurrentWidget(ui->page_exactSearch);
+    ui->rbtn_exactSearch->setChecked(true);
     // 初始化 ComboBox 使其样式生效
     initComboBox();
     //初始化 tableView
@@ -69,17 +72,9 @@ void AppBaseWindow::initTableView()
     }
 
     // 更新表头显示为中文
-    for (int col = 0; col < _bloggers_model->columnCount(); ++col) {
-        QString englishHeader = _bloggers_model->headerData(col, Qt::Horizontal).toString();
-        QString chineseHeader = columnMapping.value(englishHeader, englishHeader);
-        _bloggers_model->setHeaderData(col, Qt::Horizontal, chineseHeader);
-    }
 
-    for (int col = 0; col < _projects_model->columnCount(); ++col) {
-        QString englishHeader = _projects_model->headerData(col, Qt::Horizontal).toString();
-        QString chineseHeader = columnMapping.value(englishHeader, englishHeader);
-        _projects_model->setHeaderData(col, Qt::Horizontal, chineseHeader);
-    }
+    updateHeadertoChinese(_bloggers_model);
+    updateHeadertoChinese(_projects_model);
 
     // 设置自定义模型到表格视图中
     ui->table_infoQuery->setModel(_bloggers_model);
@@ -99,7 +94,7 @@ void AppBaseWindow::initTableView()
 
 void AppBaseWindow::initTabWidget()
 {
-    _Tab = new QTabWidget(); // 将 Tab 定义为类的成员变量
+    _Tab = new MyTabWidget(this); // 将 Tab 定义为类的成员变量
     _Tab->setWindowFlags(Qt::Window);
     _Tab->resize(this->size());
     _Tab->setTabsClosable(true); // 设置标签页上的标签为可关闭
@@ -113,6 +108,8 @@ void AppBaseWindow::initTabWidget()
             _Tab->hide();
         }
     });
+
+    connect(_Tab, &MyTabWidget::sig_tabWidget_close,this,&AppBaseWindow::slot_handle_tabWidget_close);
 }
 
 void AppBaseWindow::on_listWidget_currentTextChanged(const QString &currentText)
@@ -268,6 +265,10 @@ void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
 
         if(_prjManageTabMap.find(prjName) != _prjManageTabMap.end()) {
             qDebug() << "project has opened!";
+            if (_Tab->windowState() & Qt::WindowMinimized) {
+                _Tab->setWindowState(_Tab->windowState() & ~Qt::WindowMinimized);
+            }
+            _Tab->activateWindow();
             return;
         }
         ProjectManageWidget* subTab = new ProjectManageWidget();
@@ -277,22 +278,19 @@ void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
         _Tab->setCurrentIndex(index);
         if(!_Tab->isVisible()) _Tab->show();
         //设置焦点
+        if (_Tab->windowState() & Qt::WindowMinimized) {
+            _Tab->setWindowState(_Tab->windowState() & ~Qt::WindowMinimized);
+        }
         _Tab->activateWindow();
 
-        // 获取屏幕的中心点坐标
-        QRect primaryScreenGeometry = qApp->primaryScreen()->geometry();
-        QPoint centerPoint = primaryScreenGeometry.center();
-
-        // 获取窗口的大小
-        QSize windowSize = _Tab->size();
-
-        // 计算窗口左上角的坐标
-        int x = centerPoint.x() - windowSize.width() / 2;
-        int y = centerPoint.y() - windowSize.height() / 2;
-
-        // 将窗口移动到计算出的坐标位置
-        _Tab->move(x, y);
+        moveToCenter(_Tab);
     }
+}
+
+void AppBaseWindow::slot_handle_tabWidget_close()
+{
+    _prjManageTabMap.clear();
+    _Tab->removeAllTabs();
 }
 
 

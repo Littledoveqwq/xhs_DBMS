@@ -2,6 +2,7 @@
 #define PROJECTMANAGEWIDGET_H
 #include <QTabWidget>
 #include <QWidget>
+#include "global.h"
 
 namespace Ui {
 class ProjectManageWidget;
@@ -19,7 +20,7 @@ public:
 
 private:
     Ui::ProjectManageWidget *ui;
-    QTabWidget *tabWidget;
+    MySqlQueryModel* _model;
 };
 
 #endif // PROJECTMANAGEWIDGET_H
