@@ -6,6 +6,9 @@
 #include "sqlmgr.h"
 #include <QDialogButtonBox>
 
+#include "widget_projectManage.h"
+
+
 // TODO 将CustomSqlQueryModel 这个委托类封装好
 // TODO 完成上面两步以后来整理widget的构造函数
 
@@ -69,8 +72,16 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
 
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
 
-}
 
+    Tab = new QTabWidget(); // 将 Tab 定义为类的成员变量
+    Tab->setWindowFlags(Qt::Window);
+    Tab->resize(this->size());
+    Tab->setTabsClosable(true); // 设置标签页上的标签为可关闭
+    Tab->hide(); // 隐藏 QTabWidget
+    connect(Tab, &QTabWidget::tabCloseRequested, this, [this](int index) {
+        Tab->removeTab(index); // 移除指定索引的标签页
+    });
+}
 AppBaseWindow::~AppBaseWindow()
 {
     delete ui;
@@ -241,4 +252,23 @@ void AppBaseWindow::on_table_infoQuery_doubleClicked(const QModelIndex &index)
     dialog->setInfo(bloggerInfo);
     dialog->exec();
 }
+
+
+void AppBaseWindow::on_pushButton_clicked()
+{
+
+}
+
+
+void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
+{
+    if(index.column() == 0){
+        QString detail = _projects_model->data(index, Qt::DisplayRole).toString();
+        widget_projectManage* sub = new widget_projectManage();
+        sub->setLabelText(detail);
+        Tab->addTab(sub, detail);
+        Tab->show();
+    }
+}
+
 

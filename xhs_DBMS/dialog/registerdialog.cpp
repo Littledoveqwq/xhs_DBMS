@@ -100,7 +100,7 @@ void RegisterDialog::showTip(QString text, bool b_ok)
     } else {
         ui->err_tip->setProperty("state", "err");
     }
-
+    qDebug() << ui->err_tip->property("state").toString();
     repolish(ui->err_tip);
 }
 
