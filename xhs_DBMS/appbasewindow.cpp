@@ -5,7 +5,7 @@
 #include <QDebug>
 #include "sqlmgr.h"
 #include <QDialogButtonBox>
-
+#include "sqlmgr.h"
 #include "projectmanagewidget.h"
 
 AppBaseWindow::AppBaseWindow(QWidget *parent)
@@ -17,10 +17,10 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
     ui->tabWidget_resourceManage->setCurrentWidget(ui->tab_infoQuery);
     ui->stkWidget_search->setCurrentWidget(ui->page_exactSearch);
     ui->rbtn_exactSearch->setChecked(true);
+
     // 初始化 ComboBox 使其样式生效
     initComboBox();
-    //初始化 tableView
-    initTableView();
+
     //初始化tabwidget
     initTabWidget();
 
@@ -35,8 +35,14 @@ AppBaseWindow::~AppBaseWindow()
 
 void AppBaseWindow::setUserName(const QString &username)
 {
-    ui->username_label->setText(username);
+    _current_user = username;
+    ui->username_label->setText(_current_user);
     ui->username_label->adjustSize();
+
+    if(!_current_user.trimmed().isEmpty()) {
+        //初始化 tableView
+        initTableView();
+    }
 }
 
 void AppBaseWindow::initComboBox()
@@ -64,8 +70,13 @@ void AppBaseWindow::initTableView()
         qDebug() << "Failed to execute query:" << _bloggers_model->lastError().text();
     }
 
-    _projects_model->setQuery("SELECT project_name,project_manager,project_remark,"
-                              "project_update_time FROM project_info ORDER BY project_update_time DESC");
+
+    QString query_projectInfo = "SELECT project_name,project_manager,project_remark,"
+                    "project_update_time FROM project_info WHERE project_manager = '%1' "
+                    "ORDER BY project_update_time DESC";
+    query_projectInfo = query_projectInfo.arg(_current_user);
+    qDebug() << query_projectInfo;
+    _projects_model->setQuery(query_projectInfo);
     if (_projects_model->lastError().isValid()){
         qDebug() << "Failed to execute query:" << _projects_model->lastError().text();
     }
@@ -309,6 +320,7 @@ void AppBaseWindow::on_table_infoQuery_doubleClicked(const QModelIndex &index)
 
 void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
 {
+
     if(index.column() == 0){
         QString prjName = _projects_model->data(index, Qt::DisplayRole).toString();
 
@@ -321,7 +333,27 @@ void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
             return;
         }
         ProjectManageWidget* subTab = new ProjectManageWidget();
+
+        QSqlQuery query_prjId;
+        query_prjId.prepare("SELECT project_id FROM project_info WHERE project_name = :project_name");
+        query_prjId.bindValue(":project_name", prjName);
+
+        int projectId = -1;
+        if (query_prjId.exec()) {
+            if (query_prjId.next()) {
+                projectId = query_prjId.value(0).toInt();
+            } else {
+                qDebug() << "No project found with the given name.";
+                return;
+            }
+        } else {
+            qDebug() << "Failed to execute query:" << query_prjId.lastError().text();
+            return;
+        }
+
         subTab->setLabelText(prjName);
+
+
         auto index = _Tab->addTab(subTab, prjName);
         _prjManageTabMap.insert(prjName, static_cast<ProjectManageWidget*>(_Tab->widget(index)));
         _Tab->setCurrentIndex(index);

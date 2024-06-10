@@ -97,8 +97,9 @@ private:
     MyTabWidget* _Tab;
 
     QMap<QString, ProjectManageWidget*> _prjManageTabMap;
+    
+    QString _current_user;
 
-    // QWidget interface
 protected:
     void closeEvent(QCloseEvent *event) override;
 };

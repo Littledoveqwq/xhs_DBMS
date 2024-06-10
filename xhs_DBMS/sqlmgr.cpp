@@ -256,3 +256,5 @@ InsertData::InsertResult SQLMgr::insertBloggersinfo(BloggerInfo bloggerInfo)
 
     return InsertData::InsertResult::SUCCESS;
 }
+
+

@@ -41,6 +41,8 @@ public:
 
     InsertData::InsertResult insertBloggersinfo(BloggerInfo bloggerInfo);
 
+
+
 private:
     /**
      * 为了能让基类 Singleton<SQLMgr> 访问构造函数
