@@ -21,7 +21,7 @@ std::function<void(QWidget*)> moveToCenter = [](QWidget* w){
     w->move(x, y);
 };
 
-std::function<void(MySqlQueryModel*)> updateHeadertoChinese = [](MySqlQueryModel* model){
+std::function<void(MySqlQueryModel*)> updateHeaderToChinese = [](MySqlQueryModel* model){
     for (int col = 0; col < model->columnCount(); ++col) {
         QString englishHeader = model->headerData(col, Qt::Horizontal).toString();
         QString chineseHeader = columnMapping.value(englishHeader, englishHeader);

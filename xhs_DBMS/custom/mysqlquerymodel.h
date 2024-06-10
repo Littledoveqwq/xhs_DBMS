@@ -14,7 +14,6 @@ public:
     // QAbstractItemModel interface
 public:
     QVariant data(const QModelIndex &index, int role) const override;
-
 };
 
 #endif // MYSQLQUERYMODEL_H

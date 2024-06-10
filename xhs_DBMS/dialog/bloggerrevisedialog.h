@@ -18,8 +18,15 @@ public:
 
     void setInfo(BloggerInfo bloggerInfo);
 
+private slots:
+    void on_btn_submit_clicked();
+
+    void on_btn_delete_clicked();
+
 private:
     Ui::BloggerReviseDialog *ui;
+
+    BloggerInfo* _blogger;
 };
 
 #endif // BLOGGERREVISEDIALOG_H
