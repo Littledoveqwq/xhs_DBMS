@@ -29,9 +29,15 @@ public slots:
     void slot_switch_basewindow(User user);
 private:
     Ui::MainWindow *ui;
-    LoginDialog* _login_dlg;
-    RegisterDialog* _reg_dlg;
-    AppBaseWindow* _app_basewindow;
+    LoginDialog* _login_dlg{nullptr};
+    RegisterDialog* _reg_dlg{nullptr};
+    AppBaseWindow* _app_basewindow{nullptr};
     User* _user;
+
+
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 #endif // MAINWINDOW_H

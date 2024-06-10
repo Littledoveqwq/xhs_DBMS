@@ -35,19 +35,24 @@ bool LinkDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
     if (isLinkColumn(index.column())) {
         if (event->type() == QEvent::MouseButtonRelease) {
             QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
-            if (option.rect.contains(mouseEvent->pos()) && (mouseEvent->button() == Qt::LeftButton) && (mouseEvent->modifiers() & Qt::ControlModifier)) {
+            if (option.rect.contains(mouseEvent->pos()) && (mouseEvent->button() == Qt::LeftButton)
+                && (mouseEvent->modifiers() & Qt::ControlModifier)) {
                 QString url = index.data().toString();
                 QDesktopServices::openUrl(QUrl(url));
                 return true;
             }
         } else if (event->type() == QEvent::MouseMove || event->type() == QEvent::HoverEnter) {
-            if (option.rect.contains(static_cast<QMouseEvent*>(event)->pos()) && (static_cast<QMouseEvent*>(event)->modifiers() & Qt::ControlModifier)) {
+            if (option.rect.contains(static_cast<QMouseEvent*>(event)->pos())
+                && (static_cast<QMouseEvent*>(event)->modifiers() & Qt::ControlModifier)) {
                 QApplication::setOverrideCursor(QCursor(Qt::PointingHandCursor));
+                event->accept();
             } else {
                 QApplication::restoreOverrideCursor();
+                event->ignore();
             }
         } else if (event->type() == QEvent::HoverLeave) {
             QApplication::restoreOverrideCursor();
+            event->accept();
         } else if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonDblClick || event->type() == QEvent::MouseButtonRelease) {
             return false; // Pass the event to the base class
         }

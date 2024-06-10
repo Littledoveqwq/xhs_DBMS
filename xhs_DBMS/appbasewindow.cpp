@@ -8,10 +8,6 @@
 
 #include "projectmanagewidget.h"
 
-
-// TODO 将CustomSqlQueryModel 这个委托类封装好
-// TODO 完成上面两步以后来整理widget的构造函数
-
 AppBaseWindow::AppBaseWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::AppBaseWindow)
@@ -27,6 +23,8 @@ AppBaseWindow::AppBaseWindow(QWidget *parent)
     initTableView();
     //初始化tabwidget
     initTabWidget();
+
+    initReviseTable();
 
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
 }
@@ -58,7 +56,8 @@ void AppBaseWindow::initTableView()
     _projects_model = new MySqlQueryModel;
 
     // 执行查询并将结果加载到 TableView 中
-    _bloggers_model->setQuery("SELECT blogger_nickname, blogger_id, blogger_type, "
+    _bloggers_model->setQuery("SELECT "
+                              "blogger_nickname, blogger_id, blogger_type, "
                               "blogger_homelink, blogger_fans, blogger_likes, "
                               "blogger_noteprice, blogger_videoprice, blogger_wechat FROM bloggers_info");
     if (_bloggers_model->lastError().isValid()) {
@@ -72,9 +71,8 @@ void AppBaseWindow::initTableView()
     }
 
     // 更新表头显示为中文
-
-    updateHeadertoChinese(_bloggers_model);
-    updateHeadertoChinese(_projects_model);
+    updateHeaderToChinese(_bloggers_model);
+    updateHeaderToChinese(_projects_model);
 
     // 设置自定义模型到表格视图中
     ui->table_infoQuery->setModel(_bloggers_model);
@@ -83,6 +81,8 @@ void AppBaseWindow::initTableView()
     //设置自定义委托
     ui->table_infoQuery->setItemDelegate(new LinkDelegate(_bloggers_model, this));
     ui->table_infoQuery->setMouseTracking(true);
+
+
 
     // 取消自动换行
     ui->table_infoQuery->setWordWrap(false);
@@ -94,8 +94,8 @@ void AppBaseWindow::initTableView()
 
 void AppBaseWindow::initTabWidget()
 {
-    _Tab = new MyTabWidget(this); // 将 Tab 定义为类的成员变量
-    _Tab->setWindowFlags(Qt::Window);
+    _Tab = new MyTabWidget(); // 将 Tab 定义为类的成员变量
+    _Tab->setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint);
     _Tab->resize(this->size());
     _Tab->setTabsClosable(true); // 设置标签页上的标签为可关闭
     _Tab->hide(); // 隐藏 QTabWidget
@@ -110,6 +110,51 @@ void AppBaseWindow::initTabWidget()
     });
 
     connect(_Tab, &MyTabWidget::sig_tabWidget_close,this,&AppBaseWindow::slot_handle_tabWidget_close);
+}
+
+void AppBaseWindow::initReviseTable()
+{
+    _revise_model = new QStandardItemModel;
+
+    // 从数据库中读取 JSON 数据
+    QSqlQuery query;
+    query.exec("SELECT revise_json FROM bloggers_info WHERE to_review = 'true'");
+    QString jsonData;
+    QStringList jsonList;
+    while (query.next()) {
+        jsonData = query.value(0).toString();
+        jsonList.append(jsonData);
+    }
+
+    QStringList header = tr("姓名,编号,类型,主页链接,粉丝数,点赞数,"
+                                         "笔记价格,视频价格,微信").simplified().split(",");
+
+    _revise_model->setHorizontalHeaderLabels(header);
+    for(auto& json : jsonList) {
+        BloggerInfo blginfo;
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(json.toUtf8());
+        if(jsonDoc.isObject()) {
+            blginfo.fromJson(jsonDoc.object());
+        }
+
+        QList<QStandardItem *> row;
+        row.append(new QStandardItem(blginfo.blogger_nickname));
+        row.append(new QStandardItem(blginfo.blogger_id));
+        row.append(new QStandardItem(blginfo.blogger_type));
+        row.append(new QStandardItem(blginfo.blogger_homelink));
+        row.append(new QStandardItem(QString::number(blginfo.blogger_fans)));
+        row.append(new QStandardItem(QString::number(blginfo.blogger_likes)));
+        row.append(new QStandardItem(QString::number(blginfo.blogger_noteprice)));
+        row.append(new QStandardItem(QString::number(blginfo.blogger_videoprice)));
+        row.append(new QStandardItem(blginfo.blogger_wechat));
+
+        _revise_model->appendRow(row);
+    }
+
+    ui->table_infoReview->setModel(_revise_model);
+    ui->table_infoReview->setItemDelegate(new LinkDelegate(_revise_model, this));
+    ui->table_infoReview->setMouseTracking(true);
+    ui->table_infoReview->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void AppBaseWindow::on_listWidget_currentTextChanged(const QString &currentText)
@@ -178,8 +223,6 @@ void AppBaseWindow::slot_handle_insert_blogger()
 }
 void AppBaseWindow::on_btn_upload_clicked()
 {
-
-
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Upload Confirmation", "Do you want to upload the information?",
                                   QMessageBox::Yes | QMessageBox::No);
@@ -224,7 +267,8 @@ void AppBaseWindow::on_btn_upload_clicked()
         // 在这里添加你的上传操作代码
         QMessageBox::information(this, "Upload Successful", "信息上传成功。");
 
-        BloggerInfo bloggerInfo{nickname,id,type,homelink,int_fans,int_likes,int_noteprice,int_videoprice,contact};
+        BloggerInfo bloggerInfo{nickname,id,type,homelink,int_fans,int_likes,
+                                int_noteprice,int_videoprice,contact};
 
         InsertData::InsertResult res = SQLMgr::getInstance()->insertBloggersinfo(bloggerInfo);
         if(res == InsertData::InsertResult::SUCCESS)
@@ -239,23 +283,28 @@ void AppBaseWindow::on_btn_upload_clicked()
 
 void AppBaseWindow::on_table_infoQuery_doubleClicked(const QModelIndex &index)
 {
-    //获取行数据
+    // 获取行数据
     QStringList info;
-    //双击的行
     int row = index.row();
-    // 获取整行的内容
     QStringList rowData;
     for (int col = 0; col < _bloggers_model->columnCount(); ++col) {
         QModelIndex cellIndex = _bloggers_model->index(row, col);
         info.append(cellIndex.data().toString());
     }
 
+    // 构造 BloggerInfo 对象
     BloggerInfo bloggerInfo{info[0],info[1],info[2],info[3],info[4].toInt(),
                             info[5].toInt(),info[6].toInt(),info[7].toInt(),info[8]};
-    //双击行出现弹窗进行修改信息
+
+    // 创建 BloggerReviseDialog 对话框并设置数据
     BloggerReviseDialog* dialog = new BloggerReviseDialog();
     dialog->setInfo(bloggerInfo);
-    dialog->exec();
+
+    // 如果对话框被接受，重新初始化修订表
+    if(dialog->exec() == QDialog::Accepted) {
+        initReviseTable();
+        _bloggers_model->refresh();
+    }
 }
 
 void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
@@ -293,4 +342,55 @@ void AppBaseWindow::slot_handle_tabWidget_close()
     _Tab->removeAllTabs();
 }
 
+void AppBaseWindow::closeEvent(QCloseEvent *event)
+{
+    if (_Tab) {
+        _Tab->close();
+    }
+    QWidget::closeEvent(event);
+}
+
+
+
+void AppBaseWindow::on_btn_reviewPass_clicked()
+{
+
+    for(int row = _revise_model->rowCount() - 1; row >= 0; row--) {
+        QStringList info;
+        for (int col = 0; col < _revise_model->columnCount(); col++) {
+            QModelIndex cellIndex = _revise_model->index(row, col);
+            info.append(cellIndex.data().toString());
+        }
+        BloggerInfo blginfo{info[0],info[1],info[2],info[3],info[4].toInt(),
+                            info[5].toInt(),info[6].toInt(),info[7].toInt(),info[8],""};
+
+        QSqlQuery query;
+        QString queryStr = "UPDATE bloggers_info SET blogger_nickname = :nickname, "
+                           "blogger_type = :type, blogger_homelink = :homelink, "
+                           "blogger_fans = :fans, blogger_likes = :likes, "
+                           "blogger_noteprice = :noteprice, blogger_videoprice = :videoprice, "
+                           "blogger_wechat = :wechat, revise_json = NULL, "
+                           "to_review = 'false' WHERE blogger_id = :bloggerId";
+
+        query.prepare(queryStr);
+        query.bindValue(":nickname", blginfo.blogger_nickname);
+        query.bindValue(":type", blginfo.blogger_type);
+        query.bindValue(":homelink", blginfo.blogger_homelink);
+        query.bindValue(":fans", blginfo.blogger_fans);
+        query.bindValue(":likes", blginfo.blogger_likes);
+        query.bindValue(":noteprice", blginfo.blogger_noteprice);
+        query.bindValue(":videoprice", blginfo.blogger_videoprice);
+        query.bindValue(":wechat", blginfo.blogger_wechat);
+        query.bindValue(":bloggerId", blginfo.blogger_id);
+
+        if(!query.exec()) {
+            qDebug() << "Failed to update, userid is" + blginfo.blogger_id + ":" << query.lastError().text();
+            continue;
+        } else {
+            qDebug() << "update success";
+        }
+        _revise_model->removeRow(row);
+    }
+    _bloggers_model->refresh();
+}
 

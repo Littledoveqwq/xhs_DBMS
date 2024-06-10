@@ -13,10 +13,15 @@
 #include <QDateTime>
 #include <QApplication>
 #include <QScreen>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QStandardItemModel>
+#include <QMessageBox>
 
 #include "custom/mysqlquerymodel.h"
 #include "custom/linkdelegate.h"
 #include "custom/mytabwidget.h"
+#include "custom/checkboxdelegate.h"
 
 namespace MySQLState
 {
@@ -95,7 +100,7 @@ extern std::function<void(QWidget*)> repolish;
 
 extern std::function<void(QWidget*)> moveToCenter;
 
-extern std::function<void(MySqlQueryModel*)> updateHeadertoChinese;
+extern std::function<void(MySqlQueryModel*)> updateHeaderToChinese;
 
 extern QMap<QString, QString> columnMapping;
 
@@ -135,6 +140,44 @@ typedef struct _BloggerInfo{
     int blogger_noteprice;
     int blogger_videoprice;
     QString blogger_wechat;
+    QString revise_json{""};
+
+    // 将 BloggerInfo 转换为 QJsonObject
+    QJsonObject toJson() const {
+        QJsonObject json;
+        json["blogger_nickname"] = blogger_nickname;
+        json["blogger_id"] = blogger_id;
+        json["blogger_type"] = blogger_type;
+        json["blogger_homelink"] = blogger_homelink;
+        json["blogger_fans"] = blogger_fans;
+        json["blogger_likes"] = blogger_likes;
+        json["blogger_noteprice"] = blogger_noteprice;
+        json["blogger_videoprice"] = blogger_videoprice;
+        json["blogger_wechat"] = blogger_wechat;
+        return json;
+    }
+
+    QString toJsonStr() {
+        QJsonObject json = toJson();
+        QJsonDocument doc(json);
+        return QString(doc.toJson(QJsonDocument::Compact));
+    }
+
+    // 从 QJsonObject 初始化 BloggerInfo
+    void fromJson(const QJsonObject &json) {
+        blogger_nickname = json["blogger_nickname"].toString();
+        blogger_id = json["blogger_id"].toString();
+        blogger_type = json["blogger_type"].toString();
+        blogger_homelink = json["blogger_homelink"].toString();
+        blogger_fans = json["blogger_fans"].toInt();
+        blogger_likes = json["blogger_likes"].toInt();
+        blogger_noteprice = json["blogger_noteprice"].toInt();
+        blogger_videoprice = json["blogger_videoprice"].toInt();
+        blogger_wechat = json["blogger_wechat"].toString();
+    }
 }BloggerInfo;
+
+
+
 #endif // GLOBAL_H
 

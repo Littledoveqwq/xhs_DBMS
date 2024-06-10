@@ -79,3 +79,11 @@ void MainWindow::slot_switch_basewindow(User user)
 
     moveToCenter(this);
 }
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (_app_basewindow) {
+        _app_basewindow->close();
+    }
+    QMainWindow::closeEvent(event);
+}

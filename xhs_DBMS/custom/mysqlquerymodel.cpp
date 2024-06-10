@@ -16,7 +16,8 @@ QVariant MySqlQueryModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::TextAlignmentRole) {
         return Qt::AlignCenter;
-    } else {
+    }
+    else {
         return QSqlQueryModel::data(index, role);
     }
 }

@@ -40,6 +40,12 @@ private:
     */
     void initTabWidget();
 
+    /**
+     * @brief initReviseTable
+     * 初始化修改表格
+     */
+    void initReviseTable();
+
 private slots:
     void on_listWidget_currentTextChanged(const QString &currentText);
 
@@ -66,6 +72,8 @@ private slots:
     void slot_handle_tabWidget_close();
 
 
+    void on_btn_reviewPass_clicked();
+
 signals:
     void sig_insert_blogger();
 
@@ -84,8 +92,14 @@ private:
      */
     MySqlQueryModel* _projects_model;
 
+    QStandardItemModel* _revise_model;
+
     MyTabWidget* _Tab;
 
     QMap<QString, ProjectManageWidget*> _prjManageTabMap;
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 #endif // APPBASEWINDOW_H
