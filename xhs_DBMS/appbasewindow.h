@@ -87,5 +87,8 @@ private:
     MyTabWidget* _Tab;
 
     QMap<QString, ProjectManageWidget*> _prjManageTabMap;
+
+    QString _current_user;
+
 };
 #endif // APPBASEWINDOW_H

@@ -18,9 +18,14 @@ public:
     void setLabelText(const QString &text);
 
 
+
+private slots:
+
+
 private:
     Ui::ProjectManageWidget *ui;
     MySqlQueryModel* _model;
+    int project_id; // 添加 project_id 属性
 };
 
 #endif // PROJECTMANAGEWIDGET_H

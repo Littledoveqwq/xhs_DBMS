@@ -312,7 +312,7 @@ QListWidget::item {
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_projectManage">
       <property name="styleSheet">
@@ -1867,8 +1867,8 @@ QPushButton {
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>906</width>
-                <height>484</height>
+                <width>107</width>
+                <height>107</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_4">
