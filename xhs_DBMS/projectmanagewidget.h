@@ -17,8 +17,7 @@ public:
     explicit ProjectManageWidget(QWidget *parent = nullptr);
     ~ProjectManageWidget();
     void setLabelText(const QString &text);
-
-
+    void getProjectId(const QString &text);
 
 private slots:
 

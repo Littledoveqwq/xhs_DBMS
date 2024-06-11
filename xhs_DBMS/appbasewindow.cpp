@@ -351,7 +351,10 @@ void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
             return;
         }
 
+
+        subTab->getProjectId(prjName);
         subTab->setLabelText(prjName);
+
 
 
         auto index = _Tab->addTab(subTab, prjName);

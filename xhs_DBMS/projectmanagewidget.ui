@@ -222,24 +222,6 @@
        <string>赞藏评采集</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_color_2">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>50</y>
-        <width>100</width>
-        <height>40</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>幼圆</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>新增博主</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="btn_projectTeamer">
       <property name="geometry">
        <rect>
@@ -256,6 +238,24 @@
       </property>
       <property name="text">
        <string>项目协作</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_addblogger">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>50</y>
+        <width>100</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>幼圆</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>新增博主</string>
       </property>
      </widget>
     </widget>

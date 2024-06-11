@@ -31,7 +31,7 @@ std::function<void(MySqlQueryModel*)> updateHeaderToChinese = [](MySqlQueryModel
 
 QMap<QString, QString> columnMapping = {
     {"blogger_id", "编号"},
-    {"blogger_nickname", "姓名"},
+    {"blogger_nickname", "昵称"},
     {"blogger_type", "类型"},
     {"blogger_homelink", "主页链接"},
     {"blogger_fans", "粉丝数"},
@@ -43,5 +43,11 @@ QMap<QString, QString> columnMapping = {
     {"project_name","项目名称"},
     {"project_manager","项目管理人"},
     {"project_remark", "项目备注"},
-    {"project_update_time","最近更新时间"}
+    {"project_update_time","最近更新时间"},
+    {"note_link","笔记链接"},
+    {"note_likes","笔记点赞"},
+    {"note_collection","笔记收藏"},
+    {"note_remark","笔记评论"},
+    {"repay","返款"},
+    {"note_title","笔记标题"}
 };

@@ -8,22 +8,7 @@ ProjectManageWidget::ProjectManageWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QSqlQuery querystr;
-    QString queryStr = "SELECT pni.blogger_id, pni.note_link, pni.note_likes,"
-                       " pni.note_collection, pni.note_remarks, pni.repay, pni.note_title,"
-                       " bi.blogger_nickname, bi.blogger_id, bi.blogger_type, bi.blogger_homelink,"
-                       " bi.blogger_fans, bi.blogger_likes, bi.blogger_noteprice, bi.blogger_videoprice,"
-                       " bi.blogger_wechat FROM project_note_info pni JOIN bloggers_info bi ON pni.blogger_id = bi.blogger_id "
-                       "WHERE pni.project_id = :project_id;";
 
-    _model = new MySqlQueryModel;
-    querystr.prepare(queryStr);
-    querystr.bindValue(":project_id",project_id);
-    _model->setQuery(queryStr);
-    if (_model->lastError().isValid()) {
-        qDebug() << "Failed to execute query:" << _model->lastError().text();
-    }
-    ui->table_projectManage->setModel(_model);
 
     m_menu = new QMenu();
 }
@@ -32,7 +17,12 @@ void ProjectManageWidget::setLabelText(const QString &text)
 {
     ui->lbl_projectName->setText(text);
     ui->lbl_projectName->adjustSize();
+}
 
+
+///两个查询待封装
+void ProjectManageWidget::getProjectId(const QString &text)
+{
     QSqlQuery query;
     QString queryString = "SELECT project_id FROM project_info WHERE project_name = :project_name";
     query.prepare(queryString);
@@ -76,6 +66,40 @@ void ProjectManageWidget::setLabelText(const QString &text)
             m_menu->addAction(userNickname);
         }
     }
+
+    QSqlQuery querystr;
+    QString queryStr = "SELECT pni.blogger_id, pni.note_link, pni.note_likes,"
+                       " pni.note_collection, pni.note_remarks, pni.repay, pni.note_title,"
+                       " bi.blogger_nickname, bi.blogger_id, bi.blogger_type, bi.blogger_homelink,"
+                       " bi.blogger_fans, bi.blogger_likes, bi.blogger_noteprice, bi.blogger_videoprice,"
+                       " bi.blogger_wechat FROM project_note_info pni JOIN bloggers_info bi ON pni.blogger_id = bi.blogger_id "
+                       "WHERE pni.project_id = %1";
+
+    queryStr = queryStr.arg(project_id);
+
+    // 准备查询并绑定参数
+    querystr.prepare(queryStr);
+    querystr.bindValue(":project_id", project_id);
+
+
+    if (!querystr.exec()) {
+        qDebug() << "Failed to execute query:" << querystr.lastError().text();
+        return;
+    }
+
+    // 创建并设置模型
+    _model = new MySqlQueryModel;
+    _model->setQuery(querystr);
+    updateHeaderToChinese(_model);
+
+    // 检查是否有错误
+    if (_model->lastError().isValid()) {
+        qDebug() << "Failed to set query model:" << _model->lastError().text();
+    }
+
+    // 设置模型到表视图
+    ui->table_projectManage->setModel(_model);
+
 }
 
 
@@ -85,10 +109,11 @@ ProjectManageWidget::~ProjectManageWidget()
     delete ui;
 }
 
-
-
 void ProjectManageWidget:: on_btn_projectTeamer_clicked()
 {
     m_menu->exec(ui->btn_projectTeamer->mapToGlobal(QPoint(0, ui->btn_projectTeamer->height())));
 }
+
+
+
 
