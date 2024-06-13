@@ -312,7 +312,7 @@ QListWidget::item {
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_projectManage">
       <property name="styleSheet">
@@ -370,14 +370,14 @@ QTabBar::tab:selected {
          <widget class="QLineEdit" name="edt_Projectsearch">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>70</x>
             <y>20</y>
-            <width>271</width>
+            <width>221</width>
             <height>41</height>
            </rect>
           </property>
          </widget>
-         <widget class="QTableView" name="table_resultList">
+         <widget class="QTableView" name="table_projectSearch">
           <property name="geometry">
            <rect>
             <x>20</x>
@@ -385,6 +385,28 @@ QTabBar::tab:selected {
             <width>270</width>
             <height>450</height>
            </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_5">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>54</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Microsoft YaHei</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>搜索</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </widget>

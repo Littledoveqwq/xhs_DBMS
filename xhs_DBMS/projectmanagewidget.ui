@@ -237,7 +237,7 @@
        </font>
       </property>
       <property name="text">
-       <string>项目协作</string>
+       <string>项目协作者</string>
       </property>
      </widget>
      <widget class="QPushButton" name="btn_addblogger">

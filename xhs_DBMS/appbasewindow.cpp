@@ -320,7 +320,6 @@ void AppBaseWindow::on_table_infoQuery_doubleClicked(const QModelIndex &index)
 
 void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
 {
-
     if(index.column() == 1){
         QString prjName = _projects_model->data(index, Qt::DisplayRole).toString();
 
@@ -343,11 +342,8 @@ void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
             return;
         }
 
-
         subTab->getProjectId(prjName);
         subTab->setLabelText(prjName);
-
-
 
         auto index = _Tab->addTab(subTab, prjName);
         _prjManageTabMap.insert(prjName, static_cast<ProjectManageWidget*>(_Tab->widget(index)));
@@ -419,5 +415,72 @@ void AppBaseWindow::on_btn_reviewPass_clicked()
         _revise_model->removeRow(row);
     }
     _bloggers_model->refresh();
+}
+
+
+void AppBaseWindow::on_edt_Projectsearch_textChanged(const QString &arg1)
+{
+    QString query_projectInfo = QString("SELECT project_name, project_manager "
+                                        " FROM project_info "
+                                        "WHERE project_manager = '%1' AND project_name LIKE '%%2%' "
+                                        "ORDER BY project_update_time DESC")
+                                    .arg(_current_user) // managerName 是你的 project_manager 值
+                                    .arg(arg1);
+
+    _projects_serch_model = new MySqlQueryModel("project_info");
+    _projects_serch_model->setQuery(query_projectInfo);
+
+    if (_projects_serch_model->lastError().isValid()){
+        qDebug() << "Failed to execute query:" << _projects_model->lastError().text();
+    }
+
+    setHeader(_projects_serch_model, {"", "project_name", "project_manager"});
+
+    ui->table_projectSearch->setModel(_projects_serch_model);
+
+    // 设置复选框列的宽度为50
+    ui->table_projectSearch->setColumnWidth(CHECK_BOX_COLUMN, 10);
+}
+
+
+void AppBaseWindow::on_table_projectSearch_doubleClicked(const QModelIndex &index)
+{
+    if(index.column() == 1){
+        QString prjName = _projects_serch_model->data(index, Qt::DisplayRole).toString();
+
+        if(_prjManageTabMap.find(prjName) != _prjManageTabMap.end()) {
+            qDebug() << "project has opened!";
+            if (_Tab->windowState() & Qt::WindowMinimized) {
+                _Tab->setWindowState(_Tab->windowState() & ~Qt::WindowMinimized);
+            }
+            _Tab->activateWindow();
+            return;
+        }
+        ProjectManageWidget* subTab = new ProjectManageWidget();
+
+        QSqlQuery query_prjId;
+        query_prjId.prepare("SELECT project_id FROM project_info WHERE project_name = :project_name");
+        query_prjId.bindValue(":project_name", prjName);
+
+        if (!query_prjId.exec()) {
+            qDebug() << "Failed to execute query:" << query_prjId.lastError().text();
+            return;
+        }
+
+        subTab->getProjectId(prjName);
+        subTab->setLabelText(prjName);
+
+        auto index = _Tab->addTab(subTab, prjName);
+        _prjManageTabMap.insert(prjName, static_cast<ProjectManageWidget*>(_Tab->widget(index)));
+        _Tab->setCurrentIndex(index);
+        if(!_Tab->isVisible()) _Tab->show();
+        //设置焦点
+        if (_Tab->windowState() & Qt::WindowMinimized) {
+            _Tab->setWindowState(_Tab->windowState() & ~Qt::WindowMinimized);
+        }
+        _Tab->activateWindow();
+
+        moveToCenter(_Tab);
+    }
 }
 

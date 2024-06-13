@@ -74,6 +74,10 @@ private slots:
 
     void on_btn_reviewPass_clicked();
 
+    void on_edt_Projectsearch_textChanged(const QString &arg1);
+
+    void on_table_projectSearch_doubleClicked(const QModelIndex &index);
+
 signals:
     void sig_insert_blogger();
 
@@ -91,6 +95,8 @@ private:
      * 项目数据模型
      */
     MySqlQueryModel* _projects_model;
+
+    MySqlQueryModel* _projects_serch_model;
 
     QStandardItemModel* _revise_model;
 

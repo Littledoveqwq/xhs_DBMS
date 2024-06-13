@@ -100,7 +100,7 @@ extern std::function<void(QWidget*)> repolish;
 
 extern std::function<void(QWidget*)> moveToCenter;
 
-extern std::function<void(MySqlQueryModel*)> updateHeaderToChinese;
+extern std::function<void(QSqlQueryModel*)> updateHeaderToChinese;
 
 extern QMap<QString, QString> columnMapping;
 
