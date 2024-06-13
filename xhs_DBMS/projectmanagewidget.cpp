@@ -8,13 +8,19 @@ ProjectManageWidget::ProjectManageWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_menu = new QMenu();
 }
 
 void ProjectManageWidget::setLabelText(const QString &text)
 {
     ui->lbl_projectName->setText(text);
     ui->lbl_projectName->adjustSize();
+}
 
+
+///两个查询待封装
+void ProjectManageWidget::getProjectId(const QString &text)
+{
     QSqlQuery query;
     QString queryString = "SELECT project_id FROM project_info WHERE project_name = :project_name";
     query.prepare(queryString);
@@ -38,9 +44,9 @@ void ProjectManageWidget::setLabelText(const QString &text)
 
     QSqlQuery queryTeamer;
     QString queryTeamerString =  "SELECT ui.user_nickname "
-                          "FROM project_teamer pt "
-                          "JOIN user_info ui ON pt.user_id = ui.user_id "
-                          "WHERE pt.project_id = :project_id;";
+                                "FROM project_teamer pt "
+                                "JOIN user_info ui ON pt.user_id = ui.user_id "
+                                "WHERE pt.project_id = :project_id;";
     queryTeamer.prepare(queryTeamerString);
     queryTeamer.bindValue(":project_id",_project_id);
 
@@ -49,13 +55,14 @@ void ProjectManageWidget::setLabelText(const QString &text)
         return; // 处理查询失败情况
     }
 
-    ui->cbx_teamWorkers->clear();
-
-    // 将查询结果添加到下拉列表中
+    connect(ui->btn_projectTeamer, &QPushButton::clicked, this, &ProjectManageWidget::on_btn_projectTeamer_clicked);
     while (queryTeamer.next()) {
         QString userNickname = queryTeamer.value(0).toString();
-        if(ui->cbx_teamWorkers->findText(userNickname) == -1)
-            ui->cbx_teamWorkers->addItem(userNickname);
+        if (m_menu->actions().isEmpty()
+            || std::none_of(m_menu->actions().begin(), m_menu->actions().end(),
+                            [&userNickname](QAction *action){ return action->text() == userNickname; })) {
+            m_menu->addAction(userNickname);
+        }
     }
 
     QString queryStr = "SELECT pni.note_link, pni.note_likes,"
@@ -85,7 +92,15 @@ void ProjectManageWidget::setLabelText(const QString &text)
 
 ProjectManageWidget::~ProjectManageWidget()
 {
+    delete m_menu;
     delete ui;
 }
+
+void ProjectManageWidget:: on_btn_projectTeamer_clicked()
+{
+    m_menu->exec(ui->btn_projectTeamer->mapToGlobal(QPoint(0, ui->btn_projectTeamer->height())));
+}
+
+
 
 

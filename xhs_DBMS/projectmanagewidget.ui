@@ -222,12 +222,12 @@
        <string>赞藏评采集</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="cbx_teamWorkers">
+     <widget class="QPushButton" name="btn_projectTeamer">
       <property name="geometry">
        <rect>
-        <x>801</x>
+        <x>809</x>
         <y>0</y>
-        <width>200</width>
+        <width>191</width>
         <height>40</height>
        </rect>
       </property>
@@ -236,14 +236,14 @@
         <family>幼圆</family>
        </font>
       </property>
-      <property name="placeholderText">
-       <string>协作者</string>
+      <property name="text">
+       <string>项目协作</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_color_2">
+     <widget class="QPushButton" name="btn_addblogger">
       <property name="geometry">
        <rect>
-        <x>261</x>
+        <x>260</x>
         <y>50</y>
         <width>100</width>
         <height>40</height>
@@ -264,8 +264,6 @@
     <widget class="QTableView" name="table_projectManage"/>
    </item>
   </layout>
-  <zorder>widget</zorder>
-  <zorder>table_projectManage</zorder>
  </widget>
  <resources/>
  <connections/>
