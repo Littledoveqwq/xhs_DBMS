@@ -79,14 +79,14 @@ void ProjectManageWidget::getProjectId(const QString &text)
 
     queryStr = queryStr.arg(_project_id);
 
-    _model = new MySqlQueryModel("project_note_info");
+    _model = new MySqlQueryModel();
 
     _model->setQuery(queryStr);
     if (_model->lastError().isValid()) {
         qDebug() << "Failed to execute query:" << _model->lastError().text();
     }
 
-    setHeader(_model, {"", "note_link", "note_likes", "note_collection",
+    setTableHeader(_model, {"note_link", "note_likes", "note_collection",
                       "note_remarks", "repay", "note_title", "blogger_nickname",
                       "blogger_id", "blogger_type", "blogger_homelink", "blogger_fans",
                       "blogger_likes", "blogger_noteprice", "blogger_videoprice",

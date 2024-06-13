@@ -46,6 +46,14 @@ private:
      */
     void initReviseTable();
 
+    /**
+     * @brief AppBaseWindow::parseNumRange
+     * 分割 num-num 为最大最小值
+     * @param priceRange
+     * @return 返回pair
+     */
+    std::pair<int, int> parseNumRange(const QString& priceRange);
+
 private slots:
     void on_listWidget_currentTextChanged(const QString &currentText);
 
@@ -77,6 +85,10 @@ private slots:
     void on_edt_Projectsearch_textChanged(const QString &arg1);
 
     void on_table_projectSearch_doubleClicked(const QModelIndex &index);
+
+    void on_btn_search_clicked();
+
+    void on_btn_clearSearch_clicked();
 
 signals:
     void sig_insert_blogger();

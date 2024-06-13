@@ -7,6 +7,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QMap>
 
 class SQLMgr : public QObject, public Singleton<SQLMgr>
 {
@@ -27,7 +28,7 @@ public:
      * @param user
      * @return
      */
-    Register::RegisterResult addUser(User user);
+    DBOperation::DBOperationResult addUser(User user);
 
     /**
      * @brief varifyLoginInfo
@@ -35,12 +36,16 @@ public:
      * @param user
      * @return
      */
-    Login::LoginResult varifyLoginInfo(User* user);
+    DBOperation::DBOperationResult varifyLoginInfo(User* user);
 
-    InsertData::InsertResult createProject(ProjectInfo prjInfo);
+    DBOperation::DBOperationResult createProject(ProjectInfo prjInfo);
 
-    InsertData::InsertResult insertBloggersinfo(BloggerInfo bloggerInfo);
+    DBOperation::DBOperationResult insertBloggersinfo(BloggerInfo bloggerInfo);
 
+    QString getQueryStr(const QString& table);
+    QStringList getTableHeader(const QString& table);
+
+    QStringList getAllBloggerTypes();
 private:
     /**
      * 为了能让基类 Singleton<SQLMgr> 访问构造函数
@@ -66,13 +71,19 @@ private:
      * SQL_CONN_SUCCESS
      * SQL_CONN_FAILURE
      */
-    MySQLState::SQLDisconnState disconnectFromDB();
+    MySQLState::SQLConnState disconnectFromDB();
+
+    void registerQueryMap();
+    void registerTableHeaderMap();
 
 private:
     /**
      * @brief 数据库连接对象
      */
     QSqlDatabase _db;
+    QSqlQuery _query;
+    QMap<QString, QString> _queryStr;
+    QMap<QString, QStringList> _tableHeader;
 };
 
 #endif // SQLMGR_H

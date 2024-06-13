@@ -51,19 +51,19 @@ void LoginDialog::on_login_btn_clicked()
     user->passwd = pass;
     user->account = account;
 
-    Login::LoginResult res = SQLMgr::getInstance()->varifyLoginInfo(user);
-    if(res == Login::ACCOUNT_NOTEXIST) {
+    DBOperation::DBOperationResult res = SQLMgr::getInstance()->varifyLoginInfo(user);
+    if(res == DBOperation::DBOperationResult::ACCOUNT_NOT_EXIST) {
         showTip("用户名不存在", false);
         return;
-    } else if (res == Login::INVALID_PASSWORD) {
+    } else if (res == DBOperation::DBOperationResult::INVALID_PASSWORD) {
         showTip("密码错误", false);
         return;
-    } else if (res == Login::DB_NOT_OPEN || res == Login::QUERY_ERR) {
+    } else if (res == DBOperation::DBOperationResult::DB_NOT_OPEN || res == DBOperation::DBOperationResult::QUERY_ERR) {
         showTip("登录失败", false);
         return;
     }
 
-    if(res == Login::SUCCESS) {
+    if(res == DBOperation::DBOperationResult::SUCCESS) {
         showTip("登录成功", true);
         emit sig_login_success(*user);
         return;

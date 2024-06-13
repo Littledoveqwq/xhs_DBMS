@@ -13,8 +13,9 @@
 
 class MySqlQueryModel : public QSqlQueryModel
 {
+    Q_OBJECT
 public:
-    explicit MySqlQueryModel(QString table_name, QObject *parent = nullptr);
+    explicit MySqlQueryModel(QObject *parent = nullptr);
     void refresh();
 
     // QAbstractItemModel interface
@@ -23,18 +24,11 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role) override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
-
-    QStringList getHeader();
-
-private:
-    void headerDataFromDB() const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
 private:
     QSet<int> checkedRows;  // 用于存储选中的行
-    QString _queryStr; // Store the query string
-    QString _table_name;
-    mutable QStringList _columns; // 保存列名的数组
-    void getColumns(const QString &newTable_name);
+
 };
 
 #endif // MYSQLQUERYMODEL_H

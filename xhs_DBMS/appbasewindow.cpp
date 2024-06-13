@@ -47,60 +47,41 @@ void AppBaseWindow::setUserName(const QString &username)
 
 void AppBaseWindow::initComboBox()
 {
-    ui->cbx_exactSearch->setView(new QListView());
-    ui->cbx_fans->setView(new QListView());
-    ui->cbx_kind->setView(new QListView());
-    ui->cbx_noteprice->setView(new QListView());
-    ui->cbx_vedioprice->setView(new QListView());
+    ui->cbx_searchMode->setView(new QListView());
+
+    std::function<void(QComboBox*, const QString&)> initCbx = [](QComboBox* cbx, const QString& text) {
+        cbx->setView(new QListView());
+        cbx->lineEdit()->setPlaceholderText(text);
+        cbx->lineEdit()->setReadOnly(true);
+        cbx->setCurrentIndex(-1);
+    };
+
+    QStringList types = SQLMgr::getInstance()->getAllBloggerTypes();
+    for(auto& type : types)
+        ui->cbx_type->addItem(type);
+
+    initCbx(ui->cbx_fans, "粉丝量");
+    initCbx(ui->cbx_type, "类型");
+    initCbx(ui->cbx_noteprice, "图文价格");
+    initCbx(ui->cbx_videoprice, "视频价格");
 }
 
 void AppBaseWindow::initTableView()
 {
-    //博主模型
-    _bloggers_model = new MySqlQueryModel("bloggers_info");
-    //项目模型
-    _projects_model = new MySqlQueryModel("project_info");
-
-    // 执行查询并将结果加载到 TableView 中
-    _bloggers_model->setQuery("SELECT "
-                              "blogger_nickname, blogger_id, blogger_type, "
-                              "blogger_homelink, blogger_fans, blogger_likes, "
-                              "blogger_noteprice, blogger_videoprice, blogger_wechat FROM bloggers_info");
-    if (_bloggers_model->lastError().isValid()) {
-        qDebug() << "Failed to execute query:" << _bloggers_model->lastError().text();
-    }
-
-
-    QString query_projectInfo = "SELECT project_name,project_manager,project_remark,"
-                    "project_update_time FROM project_info WHERE project_manager = '%1' "
-                    "ORDER BY project_update_time DESC";
-    query_projectInfo = query_projectInfo.arg(_current_user);
-    qDebug() << query_projectInfo;
-    _projects_model->setQuery(query_projectInfo);
-    if (_projects_model->lastError().isValid()){
-        qDebug() << "Failed to execute query:" << _projects_model->lastError().text();
-    }
-
-    // 更新表头显示为中文
-    setHeader(_bloggers_model);
-    setHeader(_projects_model, {"", "项目名称", "项目管理人", "备注", "更新时间"});
-
-    // 设置自定义模型到表格视图中
-    ui->table_infoQuery->setModel(_bloggers_model);
-    ui->table_recent->setModel(_projects_model);
-
+    QString queryStr;
+    QStringList headers;
+    //初始化博主资源表
+    queryStr = SQLMgr::getInstance()->getQueryStr("bloggers_resource");
+    headers = SQLMgr::getInstance()->getTableHeader("bloggers_resource");
+    _bloggers_model = initSingleTable(queryStr, headers, ui->table_infoQuery);
     //设置自定义委托
-    ui->table_infoQuery->setItemDelegate(new LinkDelegate(_bloggers_model, this));
+    ui->table_infoQuery->setItemDelegate(new LinkDelegate(_bloggers_model, ui->table_infoQuery));
     ui->table_infoQuery->setMouseTracking(true);
 
-
-
-    // 取消自动换行
-    ui->table_infoQuery->setWordWrap(false);
-    ui->table_recent->setWordWrap(false);
-    // 超出文本不显示省略号
-    ui->table_infoQuery->setTextElideMode(Qt::ElideNone);
-    ui->table_recent->setTextElideMode(Qt::ElideNone);
+    //初始化项目表
+    queryStr = SQLMgr::getInstance()->getQueryStr("all_projectList").arg(_current_user);
+    headers = SQLMgr::getInstance()->getTableHeader("all_projectList");
+    _projects_model = initSingleTable(queryStr, headers, ui->table_recent);
 }
 
 void AppBaseWindow::initTabWidget()
@@ -281,8 +262,8 @@ void AppBaseWindow::on_btn_upload_clicked()
         BloggerInfo bloggerInfo{nickname,id,type,homelink,int_fans,int_likes,
                                 int_noteprice,int_videoprice,contact};
 
-        InsertData::InsertResult res = SQLMgr::getInstance()->insertBloggersinfo(bloggerInfo);
-        if(res == InsertData::InsertResult::SUCCESS)
+        DBOperation::DBOperationResult res = SQLMgr::getInstance()->insertBloggersinfo(bloggerInfo);
+        if(res == DBOperation::DBOperationResult::SUCCESS)
         {
             emit sig_insert_blogger();
         }
@@ -427,14 +408,14 @@ void AppBaseWindow::on_edt_Projectsearch_textChanged(const QString &arg1)
                                     .arg(_current_user) // managerName 是你的 project_manager 值
                                     .arg(arg1);
 
-    _projects_serch_model = new MySqlQueryModel("project_info");
+    _projects_serch_model = new MySqlQueryModel();
     _projects_serch_model->setQuery(query_projectInfo);
 
     if (_projects_serch_model->lastError().isValid()){
         qDebug() << "Failed to execute query:" << _projects_model->lastError().text();
     }
 
-    setHeader(_projects_serch_model, {"", "project_name", "project_manager"});
+    setTableHeader(_projects_serch_model, {"project_name", "project_manager"});
 
     ui->table_projectSearch->setModel(_projects_serch_model);
 
@@ -482,5 +463,156 @@ void AppBaseWindow::on_table_projectSearch_doubleClicked(const QModelIndex &inde
 
         moveToCenter(_Tab);
     }
+}
+
+
+void AppBaseWindow::on_btn_search_clicked()
+{
+    QStringList header = SQLMgr::getInstance()->getTableHeader("bloggers_resource");
+    QString search_text = ui->edt_exactSearch->text();
+    QString queryStr;
+    if(ui->rbtn_exactSearch->isChecked()){
+        if(ui->cbx_searchMode->currentText() == "博主昵称") {
+            queryStr =
+                SQLMgr::getInstance()->getQueryStr("bloggers_resource_by_nickname").arg(search_text);
+        }
+        else if (ui->cbx_searchMode->currentText() == "ID") {
+            queryStr =
+                SQLMgr::getInstance()->getQueryStr("bloggers_resource_by_ID").arg(search_text);
+        }
+        else if (ui->cbx_searchMode->currentText() == "微信") {
+            queryStr =
+                SQLMgr::getInstance()->getQueryStr("bloggers_resource_by_wechat").arg(search_text);
+        }
+    }
+    else if (ui->rbtn_fuzzySearch->isChecked()) {
+        queryStr =
+            SQLMgr::getInstance()->getQueryStr("bloggers_resource");
+
+        if(ui->cbx_fans->currentIndex() == -1
+            && ui->cbx_noteprice->currentIndex() == -1
+            && ui->cbx_type->currentIndex() == -1
+            && ui->cbx_videoprice->currentIndex() == -1) {
+            on_btn_clearSearch_clicked();
+            return;
+        }
+
+        // 开始构建条件
+        QStringList conditions;
+
+        // 图文价格范围
+        QString notePriceCondition;
+        if (ui->cbx_noteprice->currentIndex() != -1) {
+            QString notePrice = ui->cbx_noteprice->currentText();
+
+            if(!notePrice.contains("-")) {
+                notePriceCondition = QString("blogger_noteprice > %1").arg(50000);
+            } else {
+                int minNotePrice = parseNumRange(notePrice).first;
+                int maxNotePrice = parseNumRange(notePrice).second;
+                notePriceCondition = QString("blogger_noteprice BETWEEN %1 AND %2")
+                                         .arg(minNotePrice)
+                                         .arg(maxNotePrice);
+            }
+        }
+        if (!notePriceCondition.isEmpty()) {
+            conditions.append(notePriceCondition);
+        }
+
+        // 视频价格范围
+        QString videoPriceCondition;
+        if (ui->cbx_videoprice->currentIndex() != -1) {
+            QString videoPrice = ui->cbx_videoprice->currentText();
+
+            if(!videoPrice.contains("-")) {
+                videoPriceCondition = QString("blogger_videoprice > %1").arg(50000);
+            } else {
+                int minVideoPrice = parseNumRange(videoPrice).first;
+                int maxVideoPrice = parseNumRange(videoPrice).second;
+                videoPriceCondition = QString("blogger_videoprice BETWEEN %1 AND %2")
+                                         .arg(minVideoPrice)
+                                         .arg(maxVideoPrice);
+            }
+        }
+        if (!videoPriceCondition.isEmpty()) {
+            conditions.append(videoPriceCondition);
+        }
+
+        // 粉丝量范围
+        QString fansCondition;
+        if (ui->cbx_fans->currentIndex() != -1) {
+            QString fans = ui->cbx_fans->currentText();
+
+            if(!fans.contains("-")) {
+                fansCondition = QString("blogger_fans > %1").arg(1000000);
+            } else {
+                int minFans = parseNumRange(fans).first;
+                int maxFans = parseNumRange(fans).second;
+                fansCondition = QString("blogger_fans BETWEEN %1 AND %2")
+                                          .arg(minFans)
+                                          .arg(maxFans);
+            }
+        }
+        if (!fansCondition.isEmpty()) {
+            conditions.append(fansCondition);
+        }
+
+        // 类型筛选（如果有选择的话）
+        if (ui->cbx_type->currentIndex() != -1) {
+            QString selectedType = ui->cbx_type->currentText();
+            QString typeCondition = QString("blogger_type LIKE '%%1%'").arg(selectedType);
+            conditions.append(typeCondition);
+        }
+
+        // 拼接所有条件
+        if (!conditions.isEmpty()) {
+            queryStr += " WHERE " + conditions.join(" AND ");
+        }
+    }
+    _bloggers_model = initSingleTable(queryStr, header, ui->table_infoQuery);
+    //设置自定义委托
+    ui->table_infoQuery->setItemDelegate(new LinkDelegate(_bloggers_model, ui->table_infoQuery));
+    ui->table_infoQuery->setMouseTracking(true);
+
+}
+
+std::pair<int, int> AppBaseWindow::parseNumRange(const QString& priceRange) {
+    QStringList parts = priceRange.split('-');
+    if (parts.size() != 2) {
+        qWarning() << "Invalid price range format:" << priceRange;
+        return {0, 0}; // 返回默认值或者其他错误处理
+    }
+
+    bool conversionSuccess = false;
+    int minPrice = parts[0].toInt(&conversionSuccess);
+    if (!conversionSuccess) {
+        qWarning() << "Failed to convert min price:" << parts[0];
+        return {0, 0}; // 返回默认值或者其他错误处理
+    }
+
+    int maxPrice = parts[1].toInt(&conversionSuccess);
+    if (!conversionSuccess) {
+        qWarning() << "Failed to convert max price:" << parts[1];
+        return {0, 0}; // 返回默认值或者其他错误处理
+    }
+
+    return {minPrice, maxPrice};
+}
+
+void AppBaseWindow::on_btn_clearSearch_clicked()
+{
+    ui->edt_exactSearch->clear();
+
+    initComboBox();
+
+    QString queryStr;
+    QStringList headers;
+    //初始化博主资源表
+    queryStr = SQLMgr::getInstance()->getQueryStr("bloggers_resource");
+    headers = SQLMgr::getInstance()->getTableHeader("bloggers_resource");
+    _bloggers_model = initSingleTable(queryStr, headers, ui->table_infoQuery);
+    //设置自定义委托
+    ui->table_infoQuery->setItemDelegate(new LinkDelegate(_bloggers_model, ui->table_infoQuery));
+    ui->table_infoQuery->setMouseTracking(true);
 }
 
