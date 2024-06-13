@@ -26,6 +26,8 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
+    QList<int> getCheckedRows() const;
+
 private:
     QSet<int> checkedRows;  // 用于存储选中的行
 
