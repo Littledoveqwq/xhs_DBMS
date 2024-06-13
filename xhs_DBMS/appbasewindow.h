@@ -92,9 +92,13 @@ private slots:
 
     void on_btn_importProject_clicked();
 
+    void on_table_platform_doubleClicked(const QModelIndex &index);
+
+    void on_btn_exit_clicked();
+
 signals:
     void sig_insert_blogger();
-
+    void sig_switch_login();
 
 private:
     Ui::AppBaseWindow *ui;
@@ -111,6 +115,10 @@ private:
     MySqlQueryModel* _projects_model;
 
     MySqlQueryModel* _projects_serch_model;
+
+    MySqlQueryModel* _platform_model;
+
+    MySqlQueryModel* _platform_account_model;
 
     QStandardItemModel* _revise_model;
 

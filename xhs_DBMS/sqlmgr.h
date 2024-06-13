@@ -50,6 +50,12 @@ public:
     QStringList getAllProjectName();
 
     DBOperation::DBOperationResult insertBloggersToProject(const QString& project_name, const QString& blogger_id);
+
+    DBOperation::DBOperationResult saveAttachmentToDatabase(const int &project_id, const QString &fileName, QByteArray &fileData);
+
+    QStringList getProjectAttachmentList(const int &project_id);
+
+    QByteArray getAttachmentData(int project_id, const QString& filename);
 private:
     /**
      * 为了能让基类 Singleton<SQLMgr> 访问构造函数

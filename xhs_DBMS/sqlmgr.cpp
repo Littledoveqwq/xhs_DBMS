@@ -84,6 +84,19 @@ void SQLMgr::registerQueryMap()
     _queryStr["insert_blogger_to_project"] = QString("INSERT INTO project_note_info (project_id, blogger_id) "
                                                      "SELECT project_id, '%1' FROM project_info "
                                                      "WHERE project_name = '%2';");
+
+    _queryStr["platform_info"] = QString("SELECT platform_name, platform_link FROM platform_info;");
+
+    _queryStr["platform_account_info"] = QString("SELECT pa.platform_account, pa.platform_password "
+                                                 "FROM platform_info pi "
+                                                 "JOIN platform_account_info pa ON pi.platform_id = pa.platform_id "
+                                                 "WHERE pi.platform_name = '%1' AND pa.platform_user = '%2'");
+
+    _queryStr["attachment_upload"] = QString("INSERT INTO attachment (project_id, attachment_file_name, attachment_data) "
+                                                 "VALUES (:project_id, :file_name, :file_data);");
+
+    _queryStr["attachment_filename"] = QString("SELECT attachment_file_name FROM attachment "
+                                               "WHERE project_id = %1");
 }
 
 void SQLMgr::registerTableHeaderMap()
@@ -92,6 +105,10 @@ void SQLMgr::registerTableHeaderMap()
                                          "blogger_fans", "blogger_likes", "blogger_noteprice",
                                          "blogger_videoprice", "blogger_wechat"};
     _tableHeader["all_projectList"] = QStringList{"项目名称", "项目管理人", "备注", "更新时间"};
+
+    _tableHeader["platform_info"] = QStringList{"平台名称", "平台链接"};
+
+    _tableHeader["platform_account_info"] = QStringList{"账号", "密码"};
 }
 
 QString SQLMgr::getQueryStr(const QString& text)
@@ -177,6 +194,88 @@ DBOperation::DBOperationResult SQLMgr::insertBloggersToProject(const QString &pr
     }
 
     return DBOperation::SUCCESS;
+}
+
+DBOperation::DBOperationResult SQLMgr::saveAttachmentToDatabase(const int &project_id, const QString &fileName, QByteArray &fileData)
+{
+    if (!_db.isOpen()) {
+        qDebug() << "Database is not open";
+        return DBOperation::DB_NOT_OPEN;
+    }
+
+    _query.clear();
+
+    QString queryStr = getQueryStr("attachment_upload");
+    _query.prepare(queryStr);
+
+    // 绑定参数
+    _query.bindValue(":project_id", project_id);
+    _query.bindValue(":file_name", fileName);
+    _query.bindValue(":file_data", fileData);
+
+    if (!_query.exec()) {
+        QSqlError error = _query.lastError();
+        if (error.nativeErrorCode() == "1062") {
+            qDebug() << "Blogger ID already exists (1062 error code)";
+            return DBOperation::DATA_EXIST;
+        } else {
+            qDebug() << "Failed to add blogger:" << error.text();
+            return DBOperation::QUERY_ERR;
+        }
+    }
+
+    return DBOperation::SUCCESS;
+}
+
+QStringList SQLMgr::getProjectAttachmentList(const int &project_id)
+{
+    if (!_db.isOpen()) {
+        qDebug() << "Database is not open";
+        return QStringList();
+    }
+
+    QStringList attachmentList;
+    QString queryStr = getQueryStr("attachment_filename").arg(project_id);
+    _query.clear();
+    _query.prepare(queryStr);
+
+
+    // 执行查询
+    if (!_query.exec()) {
+        qDebug() << "Failed to execute query:" << _query.lastError().text();
+        return attachmentList;
+    }
+
+    // 从查询结果中获取文件名并添加到 QStringList 中
+    while (_query.next()) {
+        QString fileName = _query.value(0).toString(); // 假设文件名在第一列
+        attachmentList.append(fileName);
+    }
+
+    return attachmentList;
+}
+
+QByteArray SQLMgr::getAttachmentData(int project_id, const QString &filename)
+{
+    QByteArray attachmentData;
+
+    // 构造查询语句
+    QString queryStr = "SELECT attachment_data FROM attachment WHERE project_id = :project_id AND attachment_file_name = :filename";
+
+    // 准备查询
+    QSqlQuery query(_db);
+    query.prepare(queryStr);
+    query.bindValue(":project_id", project_id);
+    query.bindValue(":filename", filename);
+
+    // 执行查询
+    if (query.exec() && query.next()) {
+        attachmentData = query.value("attachment_data").toByteArray();
+    } else {
+        qDebug() << "Failed to retrieve attachment data:" << query.lastError().text();
+    }
+
+    return attachmentData;
 }
 
 QSqlQueryModel* SQLMgr::queryBloggersInfo() {

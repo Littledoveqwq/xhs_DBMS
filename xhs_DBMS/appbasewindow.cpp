@@ -11,6 +11,7 @@
 AppBaseWindow::AppBaseWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::AppBaseWindow)
+    , _platform_account_model(new MySqlQueryModel())
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->page_projectManage);
@@ -82,6 +83,14 @@ void AppBaseWindow::initTableView()
     queryStr = SQLMgr::getInstance()->getQueryStr("all_projectList").arg(_current_user);
     headers = SQLMgr::getInstance()->getTableHeader("all_projectList");
     _projects_model = initSingleTable(queryStr, headers, ui->table_recent);
+
+    //初始化平台表
+    queryStr = SQLMgr::getInstance()->getQueryStr("platform_info");
+    headers = SQLMgr::getInstance()->getTableHeader("platform_info");
+    _platform_model = initSingleTable(queryStr, headers, ui->table_platform);
+    //设置自定义委托
+    ui->table_platform->setItemDelegate(new LinkDelegate(_platform_model, ui->table_infoQuery));
+    ui->table_platform->setMouseTracking(true);
 }
 
 void AppBaseWindow::initTabWidget()
@@ -692,7 +701,9 @@ void AppBaseWindow::on_btn_importProject_clicked()
                 warningMessage += bloggerId + "\n";
             }
             warningMessage += "已经存在\n其余博主成功添加到项目中";
-        } else{
+        } else if (!isInsert) {
+            warningMessage = "没有任何博主添加到项目中";
+        } else {
             warningMessage = "所有博主成功添加到项目中";
         }
 
@@ -709,5 +720,30 @@ void AppBaseWindow::on_btn_importProject_clicked()
     window->setFixedSize(200, 150); // 设置窗口大小为300x150像素
 
     window->exec(); // 使用exec()方法展示对话框
+}
+
+
+void AppBaseWindow::on_table_platform_doubleClicked(const QModelIndex &index)
+{
+    if(!(index.column() == 1))
+        return;
+
+    QTableView* table = new QTableView(this);
+
+    QString queryStr = SQLMgr::getInstance()->getQueryStr("platform_account_info")
+                           .arg(index.data().toString())
+                           .arg(_current_user);
+    QStringList headers = SQLMgr::getInstance()->getTableHeader("platform_account_info");
+    _platform_account_model = initSingleTable(queryStr, headers, table);
+    table->setWindowFlag(Qt::Window);
+    table->setWindowTitle(QString(index.data().toString() + "账号"));
+    table->resize(ui->table_platform->size());
+    table->show();
+}
+
+
+void AppBaseWindow::on_btn_exit_clicked()
+{
+    emit sig_switch_login();
 }
 
