@@ -57,9 +57,9 @@ void AppBaseWindow::initComboBox()
 void AppBaseWindow::initTableView()
 {
     //博主模型
-    _bloggers_model = new MySqlQueryModel;
+    _bloggers_model = new MySqlQueryModel("bloggers_info");
     //项目模型
-    _projects_model = new MySqlQueryModel;
+    _projects_model = new MySqlQueryModel("project_info");
 
     // 执行查询并将结果加载到 TableView 中
     _bloggers_model->setQuery("SELECT "
@@ -82,8 +82,8 @@ void AppBaseWindow::initTableView()
     }
 
     // 更新表头显示为中文
-    updateHeaderToChinese(_bloggers_model);
-    updateHeaderToChinese(_projects_model);
+    setHeader(_bloggers_model);
+    setHeader(_projects_model, {"", "项目名称", "项目管理人", "备注", "更新时间"});
 
     // 设置自定义模型到表格视图中
     ui->table_infoQuery->setModel(_bloggers_model);
@@ -298,7 +298,7 @@ void AppBaseWindow::on_table_infoQuery_doubleClicked(const QModelIndex &index)
     QStringList info;
     int row = index.row();
     QStringList rowData;
-    for (int col = 0; col < _bloggers_model->columnCount(); ++col) {
+    for (int col = 1; col < _bloggers_model->columnCount(); ++col) {
         QModelIndex cellIndex = _bloggers_model->index(row, col);
         info.append(cellIndex.data().toString());
     }
@@ -321,7 +321,7 @@ void AppBaseWindow::on_table_infoQuery_doubleClicked(const QModelIndex &index)
 void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
 {
 
-    if(index.column() == 0){
+    if(index.column() == 1){
         QString prjName = _projects_model->data(index, Qt::DisplayRole).toString();
 
         if(_prjManageTabMap.find(prjName) != _prjManageTabMap.end()) {
@@ -338,15 +338,7 @@ void AppBaseWindow::on_table_recent_doubleClicked(const QModelIndex &index)
         query_prjId.prepare("SELECT project_id FROM project_info WHERE project_name = :project_name");
         query_prjId.bindValue(":project_name", prjName);
 
-        int projectId = -1;
-        if (query_prjId.exec()) {
-            if (query_prjId.next()) {
-                projectId = query_prjId.value(0).toInt();
-            } else {
-                qDebug() << "No project found with the given name.";
-                return;
-            }
-        } else {
+        if (!query_prjId.exec()) {
             qDebug() << "Failed to execute query:" << query_prjId.lastError().text();
             return;
         }

@@ -29,6 +29,15 @@ std::function<void(MySqlQueryModel*)> updateHeaderToChinese = [](MySqlQueryModel
     }
 };
 
+// 全局函数，用于设置表头数据
+void setHeader(MySqlQueryModel* model, const QStringList& headers) {
+    QStringList col = headers.isEmpty() ? model->getHeader() : headers;
+    for (int i = 0; i < col.size(); i++) {
+        model->setHeaderData(i, Qt::Horizontal, col[i]);
+    }
+    updateHeaderToChinese(model);
+}
+
 QMap<QString, QString> columnMapping = {
     {"blogger_id", "编号"},
     {"blogger_nickname", "昵称"},

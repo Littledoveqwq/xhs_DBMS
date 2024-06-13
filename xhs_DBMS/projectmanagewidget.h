@@ -27,7 +27,7 @@ private slots:
 private:
     Ui::ProjectManageWidget *ui;
     MySqlQueryModel* _model;
-    int project_id; // 添加 project_id 属性
+    int _project_id; // 添加 project_id 属性
     QMenu *m_menu;
 };
 

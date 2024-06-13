@@ -8,8 +8,6 @@ ProjectManageWidget::ProjectManageWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-
-
     m_menu = new QMenu();
 }
 
@@ -37,7 +35,7 @@ void ProjectManageWidget::getProjectId(const QString &text)
         int projectId = query.value(0).toInt();
         qDebug() << "Project ID:" << projectId;
         // 将 projectId 设置给 project_id 属性
-        project_id = projectId;
+        _project_id = projectId;
     } else {
         qDebug() << "No project found with name:" << text;
         // 处理未找到项目的情况
@@ -50,7 +48,7 @@ void ProjectManageWidget::getProjectId(const QString &text)
                                 "JOIN user_info ui ON pt.user_id = ui.user_id "
                                 "WHERE pt.project_id = :project_id;";
     queryTeamer.prepare(queryTeamerString);
-    queryTeamer.bindValue(":project_id",project_id);
+    queryTeamer.bindValue(":project_id",_project_id);
 
     if (!queryTeamer.exec()) {
         qDebug() << "Failed to execute query:" << queryTeamer.lastError().text();
@@ -67,39 +65,28 @@ void ProjectManageWidget::getProjectId(const QString &text)
         }
     }
 
-    QSqlQuery querystr;
-    QString queryStr = "SELECT pni.blogger_id, pni.note_link, pni.note_likes,"
+    QString queryStr = "SELECT pni.note_link, pni.note_likes,"
                        " pni.note_collection, pni.note_remarks, pni.repay, pni.note_title,"
                        " bi.blogger_nickname, bi.blogger_id, bi.blogger_type, bi.blogger_homelink,"
                        " bi.blogger_fans, bi.blogger_likes, bi.blogger_noteprice, bi.blogger_videoprice,"
                        " bi.blogger_wechat FROM project_note_info pni JOIN bloggers_info bi ON pni.blogger_id = bi.blogger_id "
                        "WHERE pni.project_id = %1";
 
-    queryStr = queryStr.arg(project_id);
+    queryStr = queryStr.arg(_project_id);
 
-    // 准备查询并绑定参数
-    querystr.prepare(queryStr);
-    querystr.bindValue(":project_id", project_id);
+    _model = new MySqlQueryModel("project_note_info");
 
-
-    if (!querystr.exec()) {
-        qDebug() << "Failed to execute query:" << querystr.lastError().text();
-        return;
-    }
-
-    // 创建并设置模型
-    _model = new MySqlQueryModel;
-    _model->setQuery(querystr);
-    updateHeaderToChinese(_model);
-
-    // 检查是否有错误
+    _model->setQuery(queryStr);
     if (_model->lastError().isValid()) {
-        qDebug() << "Failed to set query model:" << _model->lastError().text();
+        qDebug() << "Failed to execute query:" << _model->lastError().text();
     }
 
-    // 设置模型到表视图
+    setHeader(_model, {"", "note_link", "note_likes", "note_collection",
+                      "note_remarks", "repay", "note_title", "blogger_nickname",
+                      "blogger_id", "blogger_type", "blogger_homelink", "blogger_fans",
+                      "blogger_likes", "blogger_noteprice", "blogger_videoprice",
+                      "blogger_wechat"});
     ui->table_projectManage->setModel(_model);
-
 }
 
 
