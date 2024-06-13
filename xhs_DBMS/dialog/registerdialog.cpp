@@ -80,11 +80,11 @@ void RegisterDialog::on_confirm_btn_clicked()
 
     User user{name, account, pass, "user"};
 
-    Register::RegisterResult res = SQLMgr::getInstance()->addUser(user);
+    DBOperation::DBOperationResult res = SQLMgr::getInstance()->addUser(user);
 
-    if(res == Register::SUCCESS) {
+    if(res == DBOperation::DBOperationResult::SUCCESS) {
         showTip(tr("注册成功"), true);
-    } else if(res == Register::ACCOUNT_EXIST){
+    } else if(res == DBOperation::DBOperationResult::ACCOUNT_EXIST){
         showTip(tr("该用户名已被注册"), false);
     } else {
         showTip(tr("注册失败"), false);

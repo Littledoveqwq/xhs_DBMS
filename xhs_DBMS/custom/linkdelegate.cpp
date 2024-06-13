@@ -1,5 +1,6 @@
 #include "linkdelegate.h"
 #include <QApplication>
+#include "mysqlquerymodel.h"
 
 LinkDelegate::LinkDelegate(QAbstractItemModel *model, QObject *parent)
     : QStyledItemDelegate(parent), model(model) {}
@@ -61,7 +62,6 @@ bool LinkDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const Q
 }
 
 bool LinkDelegate::isLinkColumn(int column) const {
-    // 检查列名是否包含“链接”
     QString headerText = model->headerData(column, Qt::Horizontal).toString();
     return headerText.contains("链接");
 }

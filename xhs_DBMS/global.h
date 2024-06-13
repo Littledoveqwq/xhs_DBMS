@@ -17,6 +17,7 @@
 #include <QJsonDocument>
 #include <QStandardItemModel>
 #include <QMessageBox>
+#include <QTableView>
 
 #include "custom/mysqlquerymodel.h"
 #include "custom/linkdelegate.h"
@@ -26,70 +27,31 @@
 namespace MySQLState
 {
 /**
-* @brief SQLConnState
-* 表示数据库是否连接成功
-*/
+    * @brief SQLConnState
+    * 表示数据库连接或断开的状态
+    */
 typedef enum {
-    SQL_CONN_SUCCESS = 0,
-    SQL_CONN_FAILURE = 1
+    SUCCESS = 0,
+    FAILURE = 1
 } SQLConnState;
-
-/**
-* @brief SQLDisconnState
-* 表示数据库是否断开成功
-*/
-typedef enum {
-    SQL_DISCONN_SUCCESS = 0,
-    SQL_DISCONN_FAILURE = 1
-} SQLDisconnState;
-
-/**
-* @brief SQLQueryResult
-* 表示数据库是否查询成功
-*/
-typedef enum {
-    SQL_QUERY_SUCCESS = 0,
-    SQL_QUERY_FAILURE = 1
-}SQLQueryResult;
 }
 
-namespace Register
+namespace DBOperation
 {
 /**
-* @brief RegisterResult
-* 注册结果
-*/
+    * @brief DBOperationResult
+    * 表示数据库操作的结果
+    */
 typedef enum {
     SUCCESS = 0,
     ACCOUNT_EXIST = 1,
-    QUERY_ERR = 2,
-    DB_NOT_OPEN = 3,
-}RegisterResult;
-}
-
-namespace Login
-{
-/**
-* @brief LoginResult
-* 登录结果
-*/
-typedef enum {
-    SUCCESS = 0,
-    ACCOUNT_NOTEXIST = 1,
-    INVALID_PASSWORD = 2,   //密码不匹配
-    QUERY_ERR = 3,
-    DB_NOT_OPEN = 4,
-}LoginResult;
-}
-
-namespace InsertData {
-typedef enum {
-    SUCCESS = 0,
-    DB_NOT_OPEN = 1,
-    QUERY_ERR = 2,
-    DATA_EXIST = 3,
-    MANAGER_NOT_EXIST = 4,
-}InsertResult;
+    ACCOUNT_NOT_EXIST = 2,
+    INVALID_PASSWORD = 3,
+    QUERY_ERR = 4,
+    DB_NOT_OPEN = 5,
+    DATA_EXIST = 6,
+    MANAGER_NOT_EXIST = 7
+} DBOperationResult;
 }
 
 /**
@@ -100,12 +62,13 @@ extern std::function<void(QWidget*)> repolish;
 
 extern std::function<void(QWidget*)> moveToCenter;
 
-extern std::function<void(MySqlQueryModel*)> updateHeaderToChinese;
+extern std::function<void(QSqlQueryModel*)> updateHeaderToChinese;
 
 extern QMap<QString, QString> columnMapping;
 
-extern void setHeader(MySqlQueryModel* model, const QStringList& headers = QStringList());
+extern std::function<void(MySqlQueryModel*, const QStringList&)> setTableHeader;
 
+extern MySqlQueryModel* initSingleTable(const QString& queryStr, const QStringList& headers, QTableView* table);
 /**
  * @brief MySQLInfo
  * 用于从配置文件中读取信息

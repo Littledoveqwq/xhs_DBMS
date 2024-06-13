@@ -21,7 +21,7 @@ std::function<void(QWidget*)> moveToCenter = [](QWidget* w){
     w->move(x, y);
 };
 
-std::function<void(MySqlQueryModel*)> updateHeaderToChinese = [](MySqlQueryModel* model){
+std::function<void(QSqlQueryModel*)> updateHeaderToChinese = [](QSqlQueryModel* model){
     for (int col = 0; col < model->columnCount(); ++col) {
         QString englishHeader = model->headerData(col, Qt::Horizontal).toString();
         QString chineseHeader = columnMapping.value(englishHeader, englishHeader);
@@ -30,13 +30,14 @@ std::function<void(MySqlQueryModel*)> updateHeaderToChinese = [](MySqlQueryModel
 };
 
 // 全局函数，用于设置表头数据
-void setHeader(MySqlQueryModel* model, const QStringList& headers) {
-    QStringList col = headers.isEmpty() ? model->getHeader() : headers;
+std::function<void(MySqlQueryModel*, const QStringList&)> setTableHeader = [](MySqlQueryModel* model, const QStringList& headers) {
+    QStringList col = headers;
+    col.push_front("");
     for (int i = 0; i < col.size(); i++) {
         model->setHeaderData(i, Qt::Horizontal, col[i]);
     }
     updateHeaderToChinese(model);
-}
+};
 
 QMap<QString, QString> columnMapping = {
     {"blogger_id", "编号"},
@@ -56,7 +57,37 @@ QMap<QString, QString> columnMapping = {
     {"note_link","笔记链接"},
     {"note_likes","笔记点赞"},
     {"note_collection","笔记收藏"},
-    {"note_remark","笔记评论"},
+    {"note_remarks","笔记评论"},
     {"repay","返款"},
     {"note_title","笔记标题"}
 };
+
+MySqlQueryModel* initSingleTable(const QString &queryStr, const QStringList &headers, QTableView *table)
+{
+    MySqlQueryModel *model = new MySqlQueryModel;
+
+    // 执行查询并将结果加载到 TableView 中
+    model->setQuery(queryStr);
+    if (model->lastError().isValid()) {
+        qDebug() << "Failed to execute query:" << model->lastError().text();
+        delete model;
+        return nullptr;
+    }
+
+    // 更新表头显示为中文
+    setTableHeader(model, headers);
+
+    // 设置自定义模型到表格视图中
+    table->setModel(model);
+
+    // 取消自动换行
+    table->setWordWrap(false);
+
+    // 超出文本不显示省略号
+    table->setTextElideMode(Qt::ElideNone);
+
+    // 设置复选框列的宽度为50
+    table->setColumnWidth(CHECK_BOX_COLUMN, 10);
+
+    return model;
+}

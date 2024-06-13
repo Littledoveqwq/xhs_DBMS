@@ -38,12 +38,12 @@ void PrjInfoDialog::on_buttonBox_accepted()
     QString str_update_time = update_time.toString("yyyy-MM-dd hh:mm:ss");
     ProjectInfo prjInfo{craftproject_name, manager, remark, str_update_time};
 
-    InsertData::InsertResult res = SQLMgr::getInstance()->createProject(prjInfo);
-    if(res == InsertData::InsertResult::SUCCESS)
+    DBOperation::DBOperationResult res = SQLMgr::getInstance()->createProject(prjInfo);
+    if(res == DBOperation::DBOperationResult::SUCCESS)
     {
         emit sig_create_prj();
     }
-    else if(res == InsertData::InsertResult::MANAGER_NOT_EXIST) {
+    else if(res == DBOperation::DBOperationResult::MANAGER_NOT_EXIST) {
         QMessageBox::critical(this, "错误", "项目所有者不存在");
     }
 }

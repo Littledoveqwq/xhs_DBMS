@@ -21,8 +21,7 @@ public:
 
 private slots:
 
-
-    void on_btn_projectTeamer_clicked();
+    void on_btn_projectTeamer_released();
 
 private:
     Ui::ProjectManageWidget *ui;

@@ -43,24 +43,29 @@ void ProjectManageWidget::getProjectId(const QString &text)
     }
 
     QSqlQuery queryTeamer;
-    QString queryTeamerString =  "SELECT ui.user_nickname "
+    QString queryTeamerString = "SELECT ui.user_nickname "
                                 "FROM project_teamer pt "
                                 "JOIN user_info ui ON pt.user_id = ui.user_id "
                                 "WHERE pt.project_id = :project_id;";
     queryTeamer.prepare(queryTeamerString);
-    queryTeamer.bindValue(":project_id",_project_id);
+    queryTeamer.bindValue(":project_id", _project_id);
 
     if (!queryTeamer.exec()) {
         qDebug() << "Failed to execute query:" << queryTeamer.lastError().text();
         return; // 处理查询失败情况
     }
 
-    connect(ui->btn_projectTeamer, &QPushButton::clicked, this, &ProjectManageWidget::on_btn_projectTeamer_clicked);
+    // 清空菜单项，确保不重复添加
+    m_menu->clear();
+
+
+    // 添加查询到的菜单项
     while (queryTeamer.next()) {
         QString userNickname = queryTeamer.value(0).toString();
-        if (m_menu->actions().isEmpty()
-            || std::none_of(m_menu->actions().begin(), m_menu->actions().end(),
-                            [&userNickname](QAction *action){ return action->text() == userNickname; })) {
+        // 获取菜单项列表
+        auto menuActions = m_menu->actions();
+        if (std::none_of(menuActions.begin(), menuActions.end(),
+                         [&userNickname](QAction *action) { return action->text() == userNickname; })) {
             m_menu->addAction(userNickname);
         }
     }
@@ -74,14 +79,14 @@ void ProjectManageWidget::getProjectId(const QString &text)
 
     queryStr = queryStr.arg(_project_id);
 
-    _model = new MySqlQueryModel("project_note_info");
+    _model = new MySqlQueryModel();
 
     _model->setQuery(queryStr);
     if (_model->lastError().isValid()) {
         qDebug() << "Failed to execute query:" << _model->lastError().text();
     }
 
-    setHeader(_model, {"", "note_link", "note_likes", "note_collection",
+    setTableHeader(_model, {"note_link", "note_likes", "note_collection",
                       "note_remarks", "repay", "note_title", "blogger_nickname",
                       "blogger_id", "blogger_type", "blogger_homelink", "blogger_fans",
                       "blogger_likes", "blogger_noteprice", "blogger_videoprice",
@@ -96,11 +101,9 @@ ProjectManageWidget::~ProjectManageWidget()
     delete ui;
 }
 
-void ProjectManageWidget:: on_btn_projectTeamer_clicked()
+
+void ProjectManageWidget::on_btn_projectTeamer_released()
 {
     m_menu->exec(ui->btn_projectTeamer->mapToGlobal(QPoint(0, ui->btn_projectTeamer->height())));
 }
-
-
-
 

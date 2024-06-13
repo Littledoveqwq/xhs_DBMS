@@ -1,10 +1,8 @@
 #include "mysqlquerymodel.h"
 
-MySqlQueryModel::MySqlQueryModel(QString table_name, QObject *parent)
+MySqlQueryModel::MySqlQueryModel(QObject *parent)
     : QSqlQueryModel{parent}
 {
-    getColumns(table_name);
-    _columns.push_front("");
 }
 
 void MySqlQueryModel::refresh()
@@ -76,32 +74,7 @@ Qt::ItemFlags MySqlQueryModel::flags(const QModelIndex &index) const
     return QSqlQueryModel::flags(index);
 }
 
-void MySqlQueryModel::headerDataFromDB() const {
-    // 构建查询字符串并执行查询
-    QString queryString = QString("SELECT column_name FROM information_schema.columns WHERE table_name = '%1'")
-                              .arg(_table_name);
-    QSqlQuery query(queryString);
-
-    if (query.exec()) {
-        _columns.clear(); // 清空已有的列名
-
-        while (query.next()) {
-            QString columnName = query.value("column_name").toString();
-            _columns.append(columnName);
-        }
-    } else {
-        qDebug() << "Error executing query:" << query.lastError().text();
-        // 可以添加适当的错误处理逻辑
-    }
-}
-
-void MySqlQueryModel::getColumns(const QString &newTable_name)
+QVariant MySqlQueryModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    _table_name = newTable_name;
-    headerDataFromDB();
-}
-
-QStringList MySqlQueryModel::getHeader()
-{
-    return _columns;
+    return QSqlQueryModel::headerData(section, orientation, role);
 }
