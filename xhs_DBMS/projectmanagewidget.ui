@@ -168,7 +168,7 @@
        <string>BF上传</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_bfView">
+     <widget class="QPushButton" name="btn_bfDownload">
       <property name="geometry">
        <rect>
         <x>931</x>
@@ -183,7 +183,7 @@
        </font>
       </property>
       <property name="text">
-       <string>BF预览</string>
+       <string>BF下载</string>
       </property>
      </widget>
      <widget class="QPushButton" name="btn_deleteRow">
