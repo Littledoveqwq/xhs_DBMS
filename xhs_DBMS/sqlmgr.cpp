@@ -81,6 +81,9 @@ void SQLMgr::registerQueryMap()
                                                    "blogger_homelink, blogger_fans, blogger_likes, "
                                                    "blogger_noteprice, blogger_videoprice, blogger_wechat FROM bloggers_info "
                                                    "WHERE blogger_wechat = '%1'");
+    _queryStr["insert_blogger_to_project"] = QString("INSERT INTO project_note_info (project_id, blogger_id) "
+                                                     "SELECT project_id, '%1' FROM project_info "
+                                                     "WHERE project_name = '%2';");
 }
 
 void SQLMgr::registerTableHeaderMap()
@@ -125,6 +128,55 @@ QStringList SQLMgr::getAllBloggerTypes()
     }
 
     return bloggerTypes;
+}
+
+QStringList SQLMgr::getAllProjectName()
+{
+    QStringList projectNames;
+
+    // 假设这里有一个连接到数据库的QSqlDatabase对象，例如_db
+    if (_db.isOpen()) {
+        _query.clear();
+        _query.prepare("SELECT project_name FROM project_info");
+
+        if (_query.exec()) {
+            while (_query.next()) {
+                QString projectName = _query.value(0).toString();
+                projectNames.append(projectName);
+            }
+        } else {
+            qDebug() << "Error executing SQL query:" << _query.lastError().text();
+        }
+    } else {
+        qDebug() << "Database is not open.";
+    }
+
+    return projectNames;
+}
+
+DBOperation::DBOperationResult SQLMgr::insertBloggersToProject(const QString &project_name, const QString &blogger_id)
+{
+    if (!_db.isOpen()) {
+        qDebug() << "Database is not open";
+        return DBOperation::DB_NOT_OPEN;
+    }
+
+    _query.clear();
+    _query.prepare(getQueryStr("insert_blogger_to_project")
+                       .arg(blogger_id).arg(project_name));
+
+    if (!_query.exec()) {
+        QSqlError error = _query.lastError();
+        if (error.nativeErrorCode() == "1062") {
+            qDebug() << "Blogger ID already exists (1062 error code)";
+            return DBOperation::DATA_EXIST;
+        } else {
+            qDebug() << "Failed to add blogger:" << error.text();
+            return DBOperation::QUERY_ERR;
+        }
+    }
+
+    return DBOperation::SUCCESS;
 }
 
 QSqlQueryModel* SQLMgr::queryBloggersInfo() {

@@ -46,6 +46,10 @@ public:
     QStringList getTableHeader(const QString& table);
 
     QStringList getAllBloggerTypes();
+
+    QStringList getAllProjectName();
+
+    DBOperation::DBOperationResult insertBloggersToProject(const QString& project_name, const QString& blogger_id);
 private:
     /**
      * 为了能让基类 Singleton<SQLMgr> 访问构造函数

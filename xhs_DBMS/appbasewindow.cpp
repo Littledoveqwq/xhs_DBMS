@@ -616,3 +616,98 @@ void AppBaseWindow::on_btn_clearSearch_clicked()
     ui->table_infoQuery->setMouseTracking(true);
 }
 
+
+void AppBaseWindow::on_btn_importProject_clicked()
+{
+    // 创建主窗口
+    QDialog *window = new QDialog(); // 创建动态分配的QDialog对象
+    QFont font("黑体", 10);
+    window->setFont(font);
+    window->setWindowTitle("项目选择");
+
+    // 创建垂直布局管理器
+    QVBoxLayout *layout = new QVBoxLayout(window);
+
+    // 创建项目名Label并添加到布局中
+    QLabel *labelProjectName = new QLabel("项目名:", window);
+    layout->addWidget(labelProjectName);
+
+    // 创建ComboBox并添加项目
+    QComboBox *comboBoxProjects = new QComboBox(window);
+    comboBoxProjects->setStyleSheet("QComboBox QAbstractItemView {"
+                                    "   min-height: 20px;"
+                                    "   padding: 2px;"
+                                    "   background-color: white;" // 设置背景颜色
+                                    "   border: 1px solid gray;"   // 设置边框
+                                    "}");
+    comboBoxProjects->setView(new QListView());
+    QStringList prjNames = SQLMgr::getInstance()->getAllProjectName();
+    for(auto& prjName : prjNames)
+        comboBoxProjects->addItem(prjName);
+    layout->addWidget(comboBoxProjects);
+
+    // 创建确认按钮并添加到布局中
+    QPushButton *btnConfirm = new QPushButton("确认", window);
+    layout->addWidget(btnConfirm);
+
+    // 设置控件的固定大小
+    labelProjectName->setFixedSize(50, 20);  // 设置Label大小为100x30像素
+    comboBoxProjects->setMinimumSize(50, 30); // 设置ComboBox大小为200x30像素
+    btnConfirm->setMinimumSize(50, 30);         // 设置按钮大小为80x30像素
+
+    // 连接按钮点击事件的槽函数
+    QObject::connect(btnConfirm, &QPushButton::clicked, this, [=]() {
+        QString selectedProject = comboBoxProjects->currentText();
+
+        qDebug() << "Selected project: " << selectedProject;
+
+        // 在某个地方获取选中的行索引列表
+        QList<int> selectedRows = _bloggers_model->getCheckedRows();
+        QStringList existList;
+        int id_col = 2;
+        bool isInsert = false;
+        for(auto& row : selectedRows){
+            QString blogger_id = _bloggers_model->index(row, id_col).data().toString();
+            DBOperation::DBOperationResult res =
+                SQLMgr::getInstance()->insertBloggersToProject(selectedProject, blogger_id);
+
+            if(res == DBOperation::DATA_EXIST) {
+                existList.append(blogger_id);
+            } else {
+                isInsert = true;
+            }
+        }
+
+        // 在你的方法或函数中使用以下代码
+        QString warningMessage;
+        if (!existList.isEmpty() && !isInsert) {
+            warningMessage = "以下博主已经存在于项目中:\n";
+            for (const QString& bloggerId : existList) {
+                warningMessage += bloggerId + "\n";
+            }
+            warningMessage += "已经存在\n没有任何博主添加到项目中";
+        } else if (!existList.isEmpty() && isInsert) {
+            warningMessage = "以下博主已经存在于项目中:\n";
+            for (const QString& bloggerId : existList) {
+                warningMessage += bloggerId + "\n";
+            }
+            warningMessage += "已经存在\n其余博主成功添加到项目中";
+        } else{
+            warningMessage = "所有博主成功添加到项目中";
+        }
+
+        QMessageBox::warning(this, "警告", warningMessage);
+
+        // 确认按钮点击后关闭窗口
+        window->accept();
+    });
+
+    // 设置主窗口的布局
+    window->setLayout(layout);
+
+    // 设置主窗口的固定大小
+    window->setFixedSize(200, 150); // 设置窗口大小为300x150像素
+
+    window->exec(); // 使用exec()方法展示对话框
+}
+

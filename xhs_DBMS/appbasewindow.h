@@ -90,6 +90,8 @@ private slots:
 
     void on_btn_clearSearch_clicked();
 
+    void on_btn_importProject_clicked();
+
 signals:
     void sig_insert_blogger();
 

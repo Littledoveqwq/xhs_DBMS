@@ -71,7 +71,7 @@ void ProjectManageWidget::getProjectId(const QString &text)
     }
 
     QString queryStr = "SELECT pni.note_link, pni.note_likes,"
-                       " pni.note_collection, pni.note_remarks, pni.repay, pni.note_title,"
+                       " pni.note_collection, pni.note_remarks, pni.repay, pni.public_time,"
                        " bi.blogger_nickname, bi.blogger_id, bi.blogger_type, bi.blogger_homelink,"
                        " bi.blogger_fans, bi.blogger_likes, bi.blogger_noteprice, bi.blogger_videoprice,"
                        " bi.blogger_wechat FROM project_note_info pni JOIN bloggers_info bi ON pni.blogger_id = bi.blogger_id "

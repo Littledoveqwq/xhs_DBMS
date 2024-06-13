@@ -950,7 +950,7 @@ border:1px solid black;
                       <item>
                        <widget class="QStackedWidget" name="stkWidget_search">
                         <property name="currentIndex">
-                         <number>1</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="page_exactSearch">
                          <property name="styleSheet">

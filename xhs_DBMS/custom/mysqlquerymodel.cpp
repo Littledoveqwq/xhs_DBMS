@@ -78,3 +78,8 @@ QVariant MySqlQueryModel::headerData(int section, Qt::Orientation orientation, i
 {
     return QSqlQueryModel::headerData(section, orientation, role);
 }
+
+QList<int> MySqlQueryModel::getCheckedRows() const
+{
+    return checkedRows.values(); // 返回选中行的索引列表
+}
