@@ -7,23 +7,6 @@ ProjectManageWidget::ProjectManageWidget(QWidget *parent)
     , ui(new Ui::ProjectManageWidget)
 {
     ui->setupUi(this);
-    QSqlQuery querystr;
-    QString queryStr = "SELECT pni.blogger_id, pni.note_link, pni.note_likes,"
-                       " pni.note_collection, pni.note_remarks, pni.repay, pni.note_title,"
-                       " bi.blogger_nickname, bi.blogger_id, bi.blogger_type, bi.blogger_homelink,"
-                       " bi.blogger_fans, bi.blogger_likes, bi.blogger_noteprice, bi.blogger_videoprice,"
-                       " bi.blogger_wechat FROM project_note_info pni JOIN bloggers_info bi ON pni.blogger_id = bi.blogger_id "
-                       "WHERE pni.project_id = :project_id;";
-
-    _model = new MySqlQueryModel;
-    querystr.prepare(queryStr);
-    querystr.bindValue(":project_id",project_id);
-    _model->setQuery(queryStr);
-    if (_model->lastError().isValid()) {
-        qDebug() << "Failed to execute query:" << _model->lastError().text();
-    }
-    ui->table_projectManage->setModel(_model);
-
 
 }
 
@@ -46,7 +29,7 @@ void ProjectManageWidget::setLabelText(const QString &text)
         int projectId = query.value(0).toInt();
         qDebug() << "Project ID:" << projectId;
         // 将 projectId 设置给 project_id 属性
-        project_id = projectId;
+        _project_id = projectId;
     } else {
         qDebug() << "No project found with name:" << text;
         // 处理未找到项目的情况
@@ -59,7 +42,7 @@ void ProjectManageWidget::setLabelText(const QString &text)
                           "JOIN user_info ui ON pt.user_id = ui.user_id "
                           "WHERE pt.project_id = :project_id;";
     queryTeamer.prepare(queryTeamerString);
-    queryTeamer.bindValue(":project_id",project_id);
+    queryTeamer.bindValue(":project_id",_project_id);
 
     if (!queryTeamer.exec()) {
         qDebug() << "Failed to execute query:" << queryTeamer.lastError().text();
@@ -74,6 +57,29 @@ void ProjectManageWidget::setLabelText(const QString &text)
         if(ui->cbx_teamWorkers->findText(userNickname) == -1)
             ui->cbx_teamWorkers->addItem(userNickname);
     }
+
+    QString queryStr = "SELECT pni.note_link, pni.note_likes,"
+                       " pni.note_collection, pni.note_remarks, pni.repay, pni.note_title,"
+                       " bi.blogger_nickname, bi.blogger_id, bi.blogger_type, bi.blogger_homelink,"
+                       " bi.blogger_fans, bi.blogger_likes, bi.blogger_noteprice, bi.blogger_videoprice,"
+                       " bi.blogger_wechat FROM project_note_info pni JOIN bloggers_info bi ON pni.blogger_id = bi.blogger_id "
+                       "WHERE pni.project_id = %1";
+
+    queryStr = queryStr.arg(_project_id);
+
+    _model = new MySqlQueryModel("project_note_info");
+
+    _model->setQuery(queryStr);
+    if (_model->lastError().isValid()) {
+        qDebug() << "Failed to execute query:" << _model->lastError().text();
+    }
+
+    setHeader(_model, {"", "note_link", "note_likes", "note_collection",
+                      "note_remarks", "repay", "note_title", "blogger_nickname",
+                      "blogger_id", "blogger_type", "blogger_homelink", "blogger_fans",
+                      "blogger_likes", "blogger_noteprice", "blogger_videoprice",
+                      "blogger_wechat"});
+    ui->table_projectManage->setModel(_model);
 }
 
 

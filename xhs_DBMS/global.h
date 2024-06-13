@@ -104,6 +104,8 @@ extern std::function<void(MySqlQueryModel*)> updateHeaderToChinese;
 
 extern QMap<QString, QString> columnMapping;
 
+extern void setHeader(MySqlQueryModel* model, const QStringList& headers = QStringList());
+
 /**
  * @brief MySQLInfo
  * 用于从配置文件中读取信息
